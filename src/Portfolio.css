@@ -1,0 +1,42 @@
+.portfolio {
+  padding: 20px;
+  text-align: left; /* Aligning text to the left */
+}
+
+.wallet-info {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: center; /* Center aligning the wallet info */
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.portfolio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligning items to the left */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.item-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.item-details {
+  text-align: left;
+}
+
+.bold {
+  font-weight: bold;
+}
