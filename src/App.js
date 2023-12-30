@@ -164,6 +164,9 @@ function App() {
         <img src="/shitfolio.png" className="App-logo" alt="logo" />
         <p>Ever wondered how you did with your shitcoin gambles? <br></br></p>
         <p style={{fontSize: "1vw"}} >The Statistics data is based on your last 100 transactions. <br></br> SOL Change is calculated with buys and sells, if you interacted with them differently it might be incorrect.</p>
+        <a style={{fontSize: "1vw", color: "white", paddingBottom: "1vw"}}  href='https://shitfolio-tracker.vercel.app/'> A project by @YesilNFT </a>
+        <p style={{fontSize: "1vw", color:"yellow"}} >If you like and want to support me, send me any shitcoin you got GHp1YtXxwwPEcijzYod8RkZ1o3HgFaLtETWu6RUvKUmG</p>
+        
         <div className="input-group">
           <input
             type="text"
