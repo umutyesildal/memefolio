@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Wallet from './Wallet'; 
-import LoadingAnimation from './LoadingAnimation'; 
+import LoadingModal from './LoadingModal';
 
 function App() {
   const [portfolioData, setPortfolioData] = useState(null);
@@ -79,7 +79,6 @@ function App() {
 
     function calculateSOLPerformance(transactions) {
       const solPerformance = {};
-      let totalSOLChange = 0;
     
       transactions.forEach(tx => {
         let solChange = 0;
@@ -96,14 +95,13 @@ function App() {
           }
         });
     
-        if (tokenData.symbol) {
+        if (tokenData.symbol && !tokenData.symbol.startsWith("USD") && !tokenData.symbol.startsWith("WSOL")) {
           const tokenName = tokenData.symbol;
     
           if (!solPerformance[tokenName]) {
             solPerformance[tokenName] = { buys: 0, sells: 0, net: 0, logoURI: tokenData.logoURI };
           }
     
-          // Convert SOL change to actual value (truncate to 3 decimal places)
           const convertedSolChange = Math.floor(solChange / Math.pow(10, 9 - 3)) / 1000;
     
           if (solChange < 0) {
@@ -113,15 +111,34 @@ function App() {
           }
     
           solPerformance[tokenName].net += convertedSolChange;
-          totalSOLChange += convertedSolChange;
         }
       });
-
-      console.log({ performance: solPerformance, totalSOLChange })
     
-      return { performance: solPerformance, totalSOLChange };
+      // Filter out tokens with only buys and no sells
+      Object.keys(solPerformance).forEach(token => {
+        if (solPerformance[token].sells === 0 && solPerformance[token].buys > 0) {
+          delete solPerformance[token];
+        }
+      });
+      
+      const sortedTokens = Object.entries(solPerformance)
+      .sort((a, b) => b[1].net - a[1].net);
+  
+    // Tag the best and worst plays (assuming there are at least two tokens)
+    if (sortedTokens.length > 1) {
+      const bestPlay = sortedTokens[0][0]; // The token with the highest net
+      const worstPlay = sortedTokens[sortedTokens.length - 1][0]; // The token with the lowest net
+      solPerformance[bestPlay].tag = 'Best Play';
+      solPerformance[worstPlay].tag = 'Worst Play';
     }
     
+      // Calculate total SOL change from the filtered solPerformance data
+      let totalSOLChange = Object.values(solPerformance).reduce((acc, token) => acc + token.net, 0);
+    
+      console.log({ performance: solPerformance, totalSOLChange });
+
+      return { performance: solPerformance, totalSOLChange };
+    }
     
 
   useEffect(() => {
@@ -141,9 +158,12 @@ function App() {
 
   return (
     <div className="App">
+      {isLoading && <LoadingModal />}
       <header className="App-header">
+        <h1>SHITFOLIO</h1>
         <img src="/shitfolio.png" className="App-logo" alt="logo" />
-        <p>Welcome to my Shitfolio! You can track your gains or losses here.</p>
+        <p>Ever wondered how you did with your shitcoin gambles? <br></br></p>
+        <p style={{fontSize: "1vw"}} >The Statistics data is based on your last 100 transactions. <br></br> SOL Change is calculated with buys and sells, if you interacted with them differently it might be incorrect.</p>
         <div className="input-group">
           <input
             type="text"
@@ -154,17 +174,13 @@ function App() {
           <button onClick={fetchData} disabled={!walletAddress}>Fetch Data</button>
         </div>
       </header>
-      {isLoading ? (
-        <LoadingAnimation /> // Display loading animation while data is being fetched
-      ) : (
+      
         <main ref={walletRef}>
           {portfolioData && transactionData ? (
             <Wallet data={portfolioData} transactionData={transactionData} />
-          ) : (
-            <p>No data loaded</p>
+          ) : ( null
           )}
         </main>
-              )}
 
     </div>
     
