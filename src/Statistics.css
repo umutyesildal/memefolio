@@ -1,4 +1,3 @@
-
 .statistics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -30,4 +29,15 @@
 /* Background color for negative net performance */
 .negative-net {
   background-color: #ffe0e0; /* Light red */
+}
+
+/* Additional styles for best and worst plays */
+.best-play {
+  border-color: #4CAF50; /* Green border for best play */
+  color: #4CAF50; /* Green text for best play */
+}
+
+.worst-play {
+  border-color: #f44336; /* Red border for worst play */
+  color: #f44336; /* Red text for worst play */
 }

@@ -17,7 +17,7 @@ const Portfolio = ({ data }) => {
             <div className="item-details">
               <p>{item.name}</p>
               <p className="bold">{item.symbol}</p>
-              <p>{item.balance}</p>
+              <p>{item.uiAmount}</p>
               <p className="bold">${item.valueUsd ? item.valueUsd.toFixed(2) : '0.00'}</p>
             </div>
           </div>

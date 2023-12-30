@@ -20,6 +20,7 @@
 
 .input-group {
   margin-bottom: 20px;
+  
 }
 
 .input-group input {
@@ -29,19 +30,22 @@
   margin-right: 10px; /* Whitespace between text input and button */
   color: #282c34;
   font-size: 1rem;
+  width: 30vw;
+
 }
 
 .input-group button {
-  background-color: #61dafb;
+  background-color: #0098c3;
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
-  color: white;
+  color: rgb(255, 255, 255);
   font-size: 1rem;
+  font-style: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .input-group button:hover {
-  background-color: #21a1f1; /* Button hover effect */
+  background-color: #3fbdf8; /* Button hover effect */
 }
