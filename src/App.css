@@ -1,51 +1,37 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
+  font-family: 'Arial', sans-serif;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
 }
 
-.input-group {
+.tab-bar {
+  display: flex;
   margin-bottom: 20px;
-  
+  margin-top: 2vh;
 }
 
-.input-group input {
-  border: 2px solid #61dafb;
-  border-radius: 4px;
-  padding: 10px;
-  margin-right: 10px; /* Whitespace between text input and button */
-  color: #282c34;
-  font-size: 1rem;
-  width: 30vw;
-
-}
-
-.input-group button {
-  background-color: #0098c3;
-  border: none;
-  border-radius: 4px;
+.tab-bar button {
+  background-color: #ffffff;
+  border: 1px solid #dcdcdc;
   padding: 10px 20px;
-  color: rgb(255, 255, 255);
-  font-size: 1rem;
-  font-style: bold;
+  margin-right: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
+  outline: none;
+  border-radius: 8px
 }
 
-.input-group button:hover {
-  background-color: #3fbdf8; /* Button hover effect */
+.tab-bar button:last-child {
+  margin-right: 0;
+}
+
+
+.tab-bar .active {
+  background-color: #0098c3;
+  color: #ffffff;
+  border-color: #007bff;
 }

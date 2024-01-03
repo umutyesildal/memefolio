@@ -1,0 +1,101 @@
+.holders{
+  text-align: center;
+}
+
+
+.holders-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.holders .owners-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white;
+
+}
+
+.holders .owners-table th, .owners-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.holders .owners-table th {
+  background-color: white;
+}
+
+
+.holders .owners-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Add more styles as needed */
+
+
+  .holders h1 {
+    color: white;
+
+  }
+
+  .holders p {
+    color: white;
+
+  }
+  
+  .holders .owner-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: white;
+  }
+
+  .holders .owners-list .owners-button{
+    padding: 2vh;
+
+
+  }
+
+  .holders .owner-item span {
+    color: black
+  }
+  
+  .holders button {
+    margin-left: 2vh;
+    background-color: #0098c3;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    font-style: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .holders button:disabled{
+
+    opacity: 0.7
+  }
+  
+  .holders button:hover {
+    background-color: #3fbdf8; /* Button hover effect */
+  }
+
+  .holders .input{
+    padding-top: 16px;
+  }
+
+  .holders .input input{
+    border-radius: 4px;
+    padding: 10px;
+    margin-right: 10px; /* Whitespace between text input and button */
+    color: #282c34;
+    font-size: 1rem;
+    width: 30vw;
+  
+  }
+
+

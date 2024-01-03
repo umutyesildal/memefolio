@@ -1,0 +1,51 @@
+.Shitfolio {
+  text-align: center;
+}
+
+.Shitfolio-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.Shitfolio-header {
+  background-color: #282c34;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  
+}
+
+.input-group input {
+  border: 2px solid #61dafb;
+  border-radius: 4px;
+  padding: 10px;
+  margin-right: 10px; /* Whitespace between text input and button */
+  color: #282c34;
+  font-size: 1rem;
+  width: 30vw;
+
+}
+
+.input-group button {
+  background-color: #0098c3;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  font-style: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.input-group button:hover {
+  background-color: #3fbdf8; /* Button hover effect */
+}
