@@ -79,10 +79,12 @@ function Shitfolio() {
 
     function calculateSOLPerformance(transactions) {
       const solPerformance = {};
+      const solPerformanceByDate = {};
     
       transactions.forEach(tx => {
         let solChange = 0;
         let tokenData = {};
+        const txDate = tx.blockTime.split('T')[0];
     
         tx.balanceChange.forEach(change => {
           if (change.symbol === "SOL") {
@@ -111,9 +113,21 @@ function Shitfolio() {
           }
     
           solPerformance[tokenName].net += convertedSolChange;
+    
+          // Grouping by date
+          if (!solPerformanceByDate[txDate]) {
+            solPerformanceByDate[txDate] = [];
+          }
+          solPerformanceByDate[txDate].push({ tokenName, data: solPerformance[tokenName] });
         }
       });
     
+      // Sort within each date by net
+      Object.keys(solPerformanceByDate).forEach(date => {
+        solPerformanceByDate[date].sort((a, b) => b.data.net - a.data.net);
+      });
+    
+      // Additional existing logic for overall sorting and tagging
       // Filter out tokens with only buys and no sells
       Object.keys(solPerformance).forEach(token => {
         if (solPerformance[token].sells === 0 && solPerformance[token].buys > 0) {
@@ -123,22 +137,21 @@ function Shitfolio() {
       
       const sortedTokens = Object.entries(solPerformance)
       .sort((a, b) => b[1].net - a[1].net);
-  
-    // Tag the best and worst plays (assuming there are at least two tokens)
-    if (sortedTokens.length > 1) {
-      const bestPlay = sortedTokens[0][0]; // The token with the highest net
-      const worstPlay = sortedTokens[sortedTokens.length - 1][0]; // The token with the lowest net
-      solPerformance[bestPlay].tag = 'Best Play';
-      solPerformance[worstPlay].tag = 'Worst Play';
-    }
     
-      // Calculate total SOL change from the filtered solPerformance data
+      if (sortedTokens.length > 1) {
+        const bestPlay = sortedTokens[0][0];
+        const worstPlay = sortedTokens[sortedTokens.length - 1][0];
+        solPerformance[bestPlay].tag = 'Best Play';
+        solPerformance[worstPlay].tag = 'Worst Play';
+      }
+      
       let totalSOLChange = Object.values(solPerformance).reduce((acc, token) => acc + token.net, 0);
     
-      console.log({ performance: solPerformance, totalSOLChange });
-
-      return { performance: solPerformance, totalSOLChange };
+      console.log({ performance: solPerformance, totalSOLChange, solPerformanceByDate });
+    
+      return { performance: solPerformance, totalSOLChange, solPerformanceByDate };
     }
+    
     
 
   useEffect(() => {
@@ -165,7 +178,7 @@ function Shitfolio() {
         <p>Ever wondered how you did with your shitcoin gambles? <br></br></p>
         <p style={{fontSize: "1vw"}} >The Statistics data is based on your last 100 transactions. <br></br> SOL Change is calculated with buys and sells, if you interacted with them differently it might be incorrect.</p>
         <a style={{fontSize: "1vw", color: "white", paddingBottom: "1vw"}}  href='https:/twitter.com/yesilNFT'> A project by @YesilNFT </a>
-        <p style={{fontSize: "1vw", color:"yellow"}} >If you like and want to support me, send me any shitcoin you got GHp1YtXxwwPEcijzYod8RkZ1o3HgFaLtETWu6RUvKUmG</p>
+        <p style={{fontSize: "1vw", color:"yellow"}} >If you like and want to support me, send me any shitcoin you got 5pX257UPd2My1As288AFagAmxMyb5jHsywnoTerABc41</p>
         
         <div className="input-group">
           <input
