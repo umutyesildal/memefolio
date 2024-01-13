@@ -22,7 +22,7 @@ function Shitfolio() {
     const response = await fetch(apiUrl, {
       method: 'GET',
       headers: {
-        'X-API-KEY': '755089198a7140aa9f5bf0dd9ba84c18',
+        'X-API-KEY': 'd6bf1f9fb4334ddfb1504a0c70f41733',
         'x-chain': 'solana'
       }
     });
@@ -151,6 +151,63 @@ function Shitfolio() {
     
       return { performance: solPerformance, totalSOLChange, solPerformanceByDate };
     }
+
+    async function calculateSolDiff() {
+      const url = "https://rest-api.hellomoon.io/v0/solana/txns-by-user";
+      const headers = {
+          'accept': 'application/json',
+          'authorization': 'Bearer b37676d0-bb3b-471d-b0fb-31917a1d6593',
+          'content-type': 'application/json'
+      };
+  
+      const payload = {
+          "blockTime": {
+              "operator": "between",
+              "greaterThan": 0,
+              "lessThan": 100000000000000
+          },
+          "userAccount": "GHp1YtXxwwPEcijzYod8RkZ1o3HgFaLtETWu6RUvKUmG",
+          "type": "TOKEN_SWAP",
+          "limit": 250
+      };
+  
+      try {
+          const response = await fetch(url, {
+              method: 'POST',
+              headers: headers,
+              body: JSON.stringify(payload)
+          });
+  
+          const data = await response.json();
+          const solTokenAddress = "So11111111111111111111111111111111111111112";
+          let solDiffs = {};
+          let totalSolChange = 0;
+  
+          data.data.forEach(tx => {
+              const sourceMint = tx.parsedInfo.sourceMint;
+              const destinationMint = tx.parsedInfo.destinationMint;
+              const sourceAmount = tx.parsedInfo.sourceAmount / Math.pow(10, 9);
+              const destinationAmount = tx.parsedInfo.destinationAmount / Math.pow(10, 9);
+  
+              if (sourceMint !== solTokenAddress) {
+                  solDiffs[sourceMint] = (solDiffs[sourceMint] || 0) + destinationAmount;
+                  totalSolChange += destinationAmount;
+              }
+              if (destinationMint !== solTokenAddress) {
+                  solDiffs[destinationMint] = (solDiffs[destinationMint] || 0) - sourceAmount;
+                  totalSolChange -= sourceAmount;
+              }
+          });
+  
+          solDiffs['totalSolChange'] = totalSolChange;
+          setTransactionData(solDiffs)
+          console.log(solDiffs)
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  }
+  
+  
     
     
 
@@ -162,8 +219,7 @@ function Shitfolio() {
 
   const fetchData = async () => {
     setIsLoading(true);
-    await fetchTransactionData();
-    await fetchPortfolioData();
+    await calculateSolDiff();
     setIsLoading(false);
   };
 
@@ -192,8 +248,8 @@ function Shitfolio() {
       </header>
       
         <main ref={walletRef}>
-          {portfolioData && transactionData ? (
-            <Wallet data={portfolioData} transactionData={transactionData} />
+          {transactionData ? (
+            <Wallet transactionData={transactionData} />
           ) : ( null
           )}
         </main>
