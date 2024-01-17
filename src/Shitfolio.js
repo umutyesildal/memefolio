@@ -168,7 +168,7 @@ function Shitfolio() {
           },
           "userAccount": `${walletAddress}`,
           "type": "TOKEN_SWAP",
-          "limit": 250
+          "limit": 500
       };
   
       try {
