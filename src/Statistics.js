@@ -16,13 +16,14 @@ const Statistics = ({ data }) => {
     <div>
       <div className="total-sol-change">
         <h2>Total SOL Change: {data['totalSolChange']}</h2>
+        <h2>Still holding: {data['holdings']}</h2>
       </div>
       <div className="statistics-grid">
         {Object.entries(data).map(([token, stats]) => (
           token !== 'totalSolChange' && (
             <div 
               key={token} 
-              className={`statistics-item ${stats.net >= 0 ? 'positive-net' : 'negative-net'}`}
+              className={`statistics-item ${stats.tag === "holding" ? "holding-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}
               onClick={() => openModal(token)}
             >
               <div className="item-details">

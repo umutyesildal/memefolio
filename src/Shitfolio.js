@@ -39,6 +39,7 @@ function Shitfolio() {
         const solTokenAddress = "So11111111111111111111111111111111111111112";
         let solDiffs = {};
         let totalSolChange = 0;
+        let holdings = 0;
 
         data.data.forEach(tx => {
             const sourceMint = tx.parsedInfo.sourceMint;
@@ -48,7 +49,7 @@ function Shitfolio() {
             const otherMint = sourceMint === solTokenAddress ? destinationMint : sourceMint;
 
             if (!solDiffs[otherMint]) {
-                solDiffs[otherMint] = { buy: 0, sell: 0, net: 0, txs: [] };
+                solDiffs[otherMint] = { buy: 0, sell: 0, net: 0, txs: [], tag: "" };
             }
 
             let txType;
@@ -59,7 +60,11 @@ function Shitfolio() {
                 solChange = sourceAmount;
                 solDiffs[otherMint].buy += solChange;
                 solDiffs[otherMint].net -= solChange;
-                totalSolChange -= solChange;
+                if (solDiffs[otherMint].sell === 0) {
+                    holdings += solChange;
+                } else {
+                    totalSolChange -= solChange;
+                }
             } else if (destinationMint === solTokenAddress) {
                 txType = 'sell';
                 solChange = destinationAmount;
@@ -80,13 +85,25 @@ function Shitfolio() {
             solDiffs[otherMint].txs.push(transaction);
         });
 
+        // Mark tokens as "holding" if they only have buy transactions
+        for (const [token, { buy, sell }] of Object.entries(solDiffs)) {
+            if (buy > 0 && sell === 0) {
+                solDiffs[token].tag = "holding";
+            } else {
+              solDiffs[token].tag = "sold";
+            }
+        }
+
         solDiffs['totalSolChange'] = totalSolChange;
+        solDiffs['holdings'] = holdings;
+
         setTransactionData(solDiffs);
         console.log(solDiffs);
     } catch (error) {
         console.error('Error:', error);
     }
 }
+
 
 
 

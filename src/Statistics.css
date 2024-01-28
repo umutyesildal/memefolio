@@ -26,6 +26,9 @@ h2 {
   margin-bottom: 5px;
 }
 
+.holding-net {
+  background-color: #d0e186; /* Light green */
+}
 /* Background color for positive net performance */
 .positive-net {
   background-color: #c2fac2; /* Light green */
