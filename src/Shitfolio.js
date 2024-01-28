@@ -39,7 +39,7 @@ function Shitfolio() {
         const solTokenAddress = "So11111111111111111111111111111111111111112";
         const usdcAddress = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
         const usdtAddress = "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB";
-
+        let totalSolChange = 0;
         let solDiffs = {};
 
         data.data.forEach(tx => {
@@ -71,7 +71,12 @@ function Shitfolio() {
                 solDiffs[otherMint].net += destinationAmount; // Add to net as it's a sale
             }
         });
+          // Calculating the total SOL change
+          for (const token in solDiffs) {
+            totalSolChange += solDiffs[token].net;
+        }
 
+        solDiffs['totalSolChange'] = totalSolChange;
         setTransactionData(solDiffs);
         console.log(solDiffs);
     } catch (error) {
