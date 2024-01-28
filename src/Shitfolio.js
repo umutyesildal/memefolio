@@ -177,6 +177,7 @@ function Shitfolio() {
               headers: headers,
               body: JSON.stringify(payload)
           });
+
   
           const data = await response.json();
           const solTokenAddress = "So11111111111111111111111111111111111111112";
