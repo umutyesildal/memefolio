@@ -1,8 +1,13 @@
 .statistics-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   padding: 20px;
+}
+
+h2 {
+  
+  font-weight: bold;
 }
 
 .statistics-item {
@@ -23,12 +28,12 @@
 
 /* Background color for positive net performance */
 .positive-net {
-  background-color: #e0ffe0; /* Light green */
+  background-color: #c2fac2; /* Light green */
 }
 
 /* Background color for negative net performance */
 .negative-net {
-  background-color: #ffe0e0; /* Light red */
+  background-color: #f8b3b3; /* Light red */
 }
 
 /* Additional styles for best and worst plays */

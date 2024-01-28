@@ -5,9 +5,6 @@ import Holders from './Holders'; // Import the new Holders component if you're u
 
 function App() {
   const [activeTab,setActiveTab] = useState('tab1');
-  const logState = state => {
-    console.log('Toggled:', state)
-}
   const renderTabContent = () => {
     switch (activeTab) {
       case 'tab1':
@@ -21,9 +18,6 @@ function App() {
 
   return (
     <div className="App">
-      <nav>
-        <img className='logo' src='heart.png' ></img>
-      </nav>
       {renderTabContent()}
     </div>
   );

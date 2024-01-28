@@ -2,11 +2,12 @@ import React from 'react';
 import './Statistics.css';
 
 const Statistics = ({ data }) => {
-  if (!data || !data.performance) {
+
+  if (!data) {
     return <div>Loading data...</div>;
   }
 
-  const { performance, totalSOLChange } = data;
+  console.log(data)
 
   let bestPlayToken = '';
   let worstPlayToken = '';
@@ -30,13 +31,14 @@ const Statistics = ({ data }) => {
       sortedPerformances.push([token, stats]);
     }
   });
+
   return (
     <div>
         <div className="total-sol-change">
-        <h2>Total SOL Change: {totalSOLChange.toFixed(3)}</h2>
+        <h2 >Total SOL Change: {data['totalSolChange']}</h2>
       </div>
       <div className="statistics-grid">
-        {sortedPerformances.map(([token, stats]) => (
+        {Object.entries(data).map(([token, stats]) => (
           <div 
             key={token} 
             className={`statistics-item ${stats.net >= 0 ? 'positive-net' : 'negative-net'} 
@@ -45,9 +47,9 @@ const Statistics = ({ data }) => {
           >
             <div className="item-details">
               <p className="token-name">{token} {stats.tag ? `(${stats.tag})` : ''}</p>
-              <p>Buys: {stats.buys.toFixed(3)}</p>
-              <p>Sells: {stats.sells.toFixed(3)}</p>
-              <p>Net: {stats.net.toFixed(3)}</p>
+              <p>Buy: {stats.buy}</p>
+              <p>Sell: {stats.sell}</p>
+              <p>Net: {stats.net}</p>
             </div>
           </div>
         ))}
