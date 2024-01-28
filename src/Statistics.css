@@ -46,3 +46,19 @@ h2 {
   border-color: #f44336; /* Red border for worst play */
   color: #f44336; /* Red text for worst play */
 }
+
+
+.transaction-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: start;
+}
+
+.transaction-buy {
+  border-color: #4CAF50; /* Green border for buy transactions */
+}
+
+.transaction-sell {
+  border-color: #f44336; /* Red border for sell transactions */
+}

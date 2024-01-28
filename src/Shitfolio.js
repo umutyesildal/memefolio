@@ -37,44 +37,48 @@ function Shitfolio() {
 
         const data = await response.json();
         const solTokenAddress = "So11111111111111111111111111111111111111112";
-        const usdcAddress = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
-        const usdtAddress = "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB";
-        let totalSolChange = 0;
         let solDiffs = {};
+        let totalSolChange = 0;
 
         data.data.forEach(tx => {
             const sourceMint = tx.parsedInfo.sourceMint;
             const destinationMint = tx.parsedInfo.destinationMint;
-
-            // Filter out USDC and USDT transactions
-            if (sourceMint === usdcAddress || sourceMint === usdtAddress || destinationMint === usdcAddress || destinationMint === usdtAddress) {
-                return;
-            }
-
             const sourceAmount = tx.parsedInfo.sourceAmount / Math.pow(10, 9);
             const destinationAmount = tx.parsedInfo.destinationAmount / Math.pow(10, 9);
             const otherMint = sourceMint === solTokenAddress ? destinationMint : sourceMint;
 
             if (!solDiffs[otherMint]) {
-                solDiffs[otherMint] = { buy: 0, sell: 0, net: 0 };
+                solDiffs[otherMint] = { buy: 0, sell: 0, net: 0, txs: [] };
             }
+
+            let txType;
+            let solChange;
 
             if (sourceMint === solTokenAddress) {
-                // Buy transaction
-                solDiffs[otherMint].buy += sourceAmount;
-                solDiffs[otherMint].net -= sourceAmount; // Subtract from net as it's a purchase
+                txType = 'buy';
+                solChange = sourceAmount;
+                solDiffs[otherMint].buy += solChange;
+                solDiffs[otherMint].net -= solChange;
+                totalSolChange -= solChange;
+            } else if (destinationMint === solTokenAddress) {
+                txType = 'sell';
+                solChange = destinationAmount;
+                solDiffs[otherMint].sell += solChange;
+                solDiffs[otherMint].net += solChange;
+                totalSolChange += solChange;
+            } else {
+                return;
             }
 
-            if (destinationMint === solTokenAddress) {
-                // Sell transaction
-                solDiffs[otherMint].sell += destinationAmount;
-                solDiffs[otherMint].net += destinationAmount; // Add to net as it's a sale
-            }
+            const transaction = {
+                blockTime: new Date(tx.blockTime * 1000).toLocaleString(),
+                transactionId: "https://solscan.io/tx/" + tx.transactionId,
+                type: txType,
+                solChange: solChange
+            };
+
+            solDiffs[otherMint].txs.push(transaction);
         });
-          // Calculating the total SOL change
-          for (const token in solDiffs) {
-            totalSolChange += solDiffs[token].net;
-        }
 
         solDiffs['totalSolChange'] = totalSolChange;
         setTransactionData(solDiffs);
@@ -83,6 +87,7 @@ function Shitfolio() {
         console.error('Error:', error);
     }
 }
+
 
 
 useEffect(() => {

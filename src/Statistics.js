@@ -1,59 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Statistics.css';
+import Modal from './Modal'; // Import the Modal component
 
 const Statistics = ({ data }) => {
+  const [selectedToken, setSelectedToken] = useState(null);
 
-  if (!data) {
-    return <div>Loading data...</div>;
-  }
-
-  console.log(data)
-
-  let bestPlayToken = '';
-  let worstPlayToken = '';
-
-  // Find the best and worst plays
-  Object.entries(performance).forEach(([token, stats]) => {
-    if (stats.tag === 'Best Play' && !bestPlayToken) {
-      bestPlayToken = token;
-    } else if (stats.tag === 'Worst Play' && !worstPlayToken) {
-      worstPlayToken = token;
-    }
-  });
-
-  // Sort performances to put best and worst plays at the top
-  const sortedPerformances = [];
-  if (bestPlayToken) sortedPerformances.push([bestPlayToken, performance[bestPlayToken]]);
-  if (worstPlayToken) sortedPerformances.push([worstPlayToken, performance[worstPlayToken]]);
-
-  Object.entries(performance).forEach(([token, stats]) => {
-    if (token !== bestPlayToken && token !== worstPlayToken) {
-      sortedPerformances.push([token, stats]);
-    }
-  });
+  const openModal = (token) => {
+    console.log("Opening modal for token:", token);
+    setSelectedToken(token);
+    console.log("Selected token state updated to:", token);
+  };
+  
 
   return (
     <div>
-        <div className="total-sol-change">
-        <h2 >Total SOL Change: {data['totalSolChange']}</h2>
+      <div className="total-sol-change">
+        <h2>Total SOL Change: {data['totalSolChange']}</h2>
       </div>
       <div className="statistics-grid">
         {Object.entries(data).map(([token, stats]) => (
-          <div 
-            key={token} 
-            className={`statistics-item ${stats.net >= 0 ? 'positive-net' : 'negative-net'} 
-              ${stats.tag === 'Best Play' ? 'best-play' : ''} 
-              ${stats.tag === 'Worst Play' ? 'worst-play' : ''}`}
-          >
-            <div className="item-details">
-              <p className="token-name">{token} {stats.tag ? `(${stats.tag})` : ''}</p>
-              <p>Buy: {stats.buy}</p>
-              <p>Sell: {stats.sell}</p>
-              <p>Net: {stats.net}</p>
+          token !== 'totalSolChange' && (
+            <div 
+              key={token} 
+              className={`statistics-item ${stats.net >= 0 ? 'positive-net' : 'negative-net'}`}
+              onClick={() => openModal(token)}
+            >
+              <div className="item-details">
+                <p className="token-name">{token}</p>
+                <p>Buy: {stats.buy}</p>
+                <p>Sell: {stats.sell}</p>
+                <p>Net: {stats.net}</p>
+              </div>
             </div>
-          </div>
+          )
         ))}
       </div>
+      {selectedToken && (
+        <Modal isOpen={!!selectedToken} onClose={() => setSelectedToken(null)}>
+          <button className="close-button" onClick={() => setSelectedToken(null)}>X</button>
+          <h3>Transactions for {selectedToken}</h3>
+          <div>
+            {data[selectedToken].txs.map((tx, index) => (
+              <div key={index} className={`transaction-item transaction-${tx.type}`}>
+                <span className="transaction-detail">Time: </span><span>{tx.blockTime}</span>
+                <span className="transaction-detail">Type: </span><span>{tx.type}</span>
+                <span className="transaction-detail">SOL Change: </span><span>{tx.solChange}</span>
+                <a href={tx.transactionId} target="_blank" rel="noopener noreferrer">View Transaction</a>
+              </div>
+            ))}
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
