@@ -22,7 +22,7 @@ function Shitfolio() {
     const response = await fetch(apiUrl, {
       method: 'GET',
       headers: {
-        'X-API-KEY': '755089198a7140aa9f5bf0dd9ba84c18',
+        'X-API-KEY': '8d83e7ef5af24964859b0c8d9261012e',
         'x-chain': 'solana'
       }
     });
@@ -173,22 +173,22 @@ function Shitfolio() {
     <div className="Shitfolio">
       {isLoading && <LoadingModal />}
       <header className="Shitfolio-header">
-        <h1>SHITFOLIO</h1>
-        <img src="/shitfolio.png" className="Shitfolio-logo" alt="logo" />
-        <p>Ever wondered how you did with your shitcoin gambles? <br></br></p>
-        <p style={{fontSize: "1vw"}} >The Statistics data is based on your last 100 transactions. <br></br> SOL Change is calculated with buys and sells, if you interacted with them differently it might be incorrect.</p>
-        <a style={{fontSize: "1vw", color: "white", paddingBottom: "1vw"}}  href='https:/twitter.com/yesilNFT'> A project by @YesilNFT </a>
-        <p style={{fontSize: "1vw", color:"yellow"}} >If you like and want to support me, send me any shitcoin you got 5pX257UPd2My1As288AFagAmxMyb5jHsywnoTerABc41</p>
-        
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="Enter your wallet address"
-            value={walletAddress}
-            onChange={(e) => setWalletAddress(e.target.value)}
-          />
-          <button onClick={fetchData} disabled={!walletAddress}>Fetch Data</button>
+        <div className='Shitfolio-text' > 
+          <h1>Memecoin Tracker: <b>Check your P&L</b> </h1>
+          <p>Check your memecoin P&L easily with just a click.</p>
+          <div className="input-group">
+            <input
+              type="text"
+              placeholder="Enter your wallet address"
+              value={walletAddress}
+              onChange={(e) => setWalletAddress(e.target.value)}
+            />
+            <button onClick={fetchData} disabled={!walletAddress}>Fetch Data</button>
+          </div>
+          <span>- The Statistics data is based on your last 100 transactions. <br></br> - SOL Change is calculated with buys and sells.</span>
         </div>
+        <img src="/cat-hero2.png" className="Shitfolio-logo" alt="logo" />
+
       </header>
       
         <main ref={walletRef}>
@@ -197,9 +197,7 @@ function Shitfolio() {
           ) : ( null
           )}
         </main>
-
     </div>
-    
   );
 }
 

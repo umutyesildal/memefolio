@@ -1,10 +1,26 @@
 .App {
-  font-family: 'Arial', sans-serif;
-  background-color: #282c34;
+  font-family: "Arial", sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #fe696e31;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+
+}
+
+nav img{
+width: 50px;
+margin-left: 20px;
 
 }
 
@@ -12,6 +28,7 @@
   display: flex;
   margin-bottom: 20px;
   margin-top: 2vh;
+  margin-right: 20px;
 }
 
 .tab-bar button {
@@ -22,13 +39,12 @@
   cursor: pointer;
   transition: background-color 0.3s;
   outline: none;
-  border-radius: 8px
+  border-radius: 8px;
 }
 
 .tab-bar button:last-child {
   margin-right: 0;
 }
-
 
 .tab-bar .active {
   background-color: #0098c3;
