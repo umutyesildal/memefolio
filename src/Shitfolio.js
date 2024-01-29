@@ -4,10 +4,13 @@ import Wallet from './Wallet';
 import LoadingModal from './LoadingModal';
 
 function Shitfolio() {
-  const [transactionData, setTransactionData] = useState(null);
+  const [transactionsData, settransactionsData] = useState(null);
+  const [walletData, setWalletData] = useState(null);
   const [walletAddress, setWalletAddress] = useState('');
   const walletRef = useRef(null); // Creating a reference for the wallet section
   const [isLoading, setIsLoading] = useState(false);
+
+
 
   async function calculateSolDiff() {
     const url = "https://rest-api.hellomoon.io/v0/solana/txns-by-user";
@@ -93,23 +96,50 @@ function Shitfolio() {
             }
         }
 
+        await fetchTokensWithNonZeroBalance()
         solDiffs['totalSolChange'] = totalSolChange;
         solDiffs['holdings'] = holdings;
-        setTransactionData(solDiffs);
+        settransactionsData(solDiffs);
         console.log(solDiffs);
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
+async function fetchTokensWithNonZeroBalance() {
+  const apiUrl = 'https://api.shyft.to/sol/v1/wallet/all_tokens?network=mainnet-beta&wallet=GHp1YtXxwwPEcijzYod8RkZ1o3HgFaLtETWu6RUvKUmG';
+  const apiKey = '9g1b0ZAnjGdSagl7';
+  
+  try {
+      const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+              'Accept': 'application/json',
+              'x-api-key': apiKey
+          }
+      });
+      const data = await response.json();
+
+      if (!data.success) {
+          throw new Error('API request failed');
+      }
+
+      const tokens = data.result.filter(token => token.balance > 0);
+      setWalletData(tokens)
+  } catch (error) {
+      console.error('Error fetching tokens:', error);
+      return [];
+  }
+}
+
 
 
 
 useEffect(() => {
-  if (transactionData && walletRef.current) {
+  if (transactionsData && walletRef.current) {
     walletRef.current.scrollIntoView({ behavior: 'smooth' });
   }
-}, [transactionData]);
+}, [transactionsData]);
 
 const fetchData = async () => {
   setIsLoading(true);
@@ -140,8 +170,8 @@ const fetchData = async () => {
         <img src="/cat-hero2.png" className="Shitfolio-logo" alt="logo" />
       </header>
         <div ref={walletRef}>
-          {transactionData ? (
-            <Wallet transactionData={transactionData} />
+          {transactionsData ? (
+            <Wallet walletData={walletData} transactionsData={transactionsData} />
           ) : ( null
           )}
         </div>

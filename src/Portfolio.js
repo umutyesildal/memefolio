@@ -1,25 +1,21 @@
 import React from 'react';
 import './Portfolio.css';
 
-const Portfolio = ({ data }) => {
-  if (!data || !data.items) return <div>Loading...</div>; // or handle the absence of data appropriately
+const Portfolio = ({ walletData }) => {
+  if (!walletData) return <div>Loading...</div>; // or handle the absence of walletData appropriately
 
   return (
     <div className="portfolio">
-      <div className="wallet-info">
-        <h2>{data.wallet}</h2>
-        <h3>${data.totalUsd ? data.totalUsd.toFixed(2) : '0.00'}</h3>
-      </div>
+        <h2>Holdings</h2>
       <div className="portfolio-grid">
-        {data.items.map((item, index) => (
+        {walletData.map((item, index) => (
           <div key={index} className="portfolio-item">
-            <img src={item.logoURI} alt={item.name} className="item-logo" />
-            <div className="item-details">
-              <p>{item.name}</p>
-              <p className="bold">{item.symbol}</p>
-              <p>{item.uiAmount}</p>
-              <p className="bold">${item.valueUsd ? item.valueUsd.toFixed(2) : '0.00'}</p>
-            </div>
+            <img src={item.info.image} alt={item.info.name} className="item-logo" />
+              <div className="item-details">
+                <p style={{margin: 0}} >{item.info.name}</p>
+                <p style={{margin: 0}} className="bold">{item.info.symbol}</p>
+                <p style={{margin: 0}} >{item.balance}</p>
+              </div>
           </div>
         ))}
       </div>

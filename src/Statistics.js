@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './Statistics.css';
 import Modal from './Modal'; // Import the Modal component
+import Portfolio from './Portfolio';
 
-const Statistics = ({ data }) => {
+const Statistics = ({ walletData,transactionsData }) => {
   const [selectedToken, setSelectedToken] = useState(null);
 
   const openModal = (token) => {
@@ -10,17 +11,19 @@ const Statistics = ({ data }) => {
     setSelectedToken(token);
     console.log("Selected token state updated to:", token);
   };
-  
 
+  console.log(walletData)
+  
   return (
     <div className='all-statistics' >
+      <Portfolio walletData={walletData} />
       <div className="highlights">
-        <div className='highlights-item'><h2>Total SOL Change <br/> {data['totalSolChange'].toFixed(4)} SOL</h2></div>
-        <div className='highlights-item'><h2>Holding <br/> {data['holdings']} SOL</h2></div>
-        <div className='highlights-item'><h2>Rugged <br/> {data['holdings']} SOL</h2></div>
+        <div className='highlights-item'><h2>Total SOL Change <br/> {transactionsData['totalSolChange'].toFixed(4)} SOL</h2></div>
+        <div className='highlights-item'><h2>Holding <br/> {transactionsData['holdings']} SOL</h2></div>
+        <div className='highlights-item'><h2>Rugged <br/> {transactionsData['holdings']} SOL</h2></div>
       </div>
       <div className="statistics-grid">
-        {Object.entries(data).map(([token, stats]) => (
+        {Object.entries(transactionsData).map(([token, stats]) => (
           token !== 'totalSolChange' && (
             <div 
               key={token} 
@@ -41,7 +44,7 @@ const Statistics = ({ data }) => {
           <button className="close-button" onClick={() => setSelectedToken(null)}>X</button>
           <h3>Transactions for {selectedToken}</h3>
           <div>
-            {data[selectedToken].txs.map((tx, index) => (
+            {transactionsData[selectedToken].txs.map((tx, index) => (
               <div key={index} className={`transaction-item transaction-${tx.type}`}>
                 <span className="transaction-detail">Time: </span><span>{tx.blockTime}</span>
                 <span className="transaction-detail">Type: </span><span>{tx.type}</span>
@@ -57,3 +60,8 @@ const Statistics = ({ data }) => {
 };
 
 export default Statistics;
+
+
+/*
+
+*/
