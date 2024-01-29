@@ -5,7 +5,6 @@ import LoadingModal from './LoadingModal';
 
 function Shitfolio() {
   const [transactionsData, settransactionsData] = useState(null);
-  const [walletData, setWalletData] = useState(null);
   const [walletAddress, setWalletAddress] = useState('');
   const walletRef = useRef(null); // Creating a reference for the wallet section
   const [isLoading, setIsLoading] = useState(false);
@@ -39,6 +38,7 @@ function Shitfolio() {
         });
 
         const data = await response.json();
+        console.log(data)
         const solTokenAddress = "So11111111111111111111111111111111111111112";
         let solDiffs = {};
         let totalSolChange = 0;
@@ -96,7 +96,6 @@ function Shitfolio() {
             }
         }
 
-        await fetchTokensWithNonZeroBalance()
         solDiffs['totalSolChange'] = totalSolChange;
         solDiffs['holdings'] = holdings;
         settransactionsData(solDiffs);
@@ -105,35 +104,6 @@ function Shitfolio() {
         console.error('Error:', error);
     }
 }
-
-async function fetchTokensWithNonZeroBalance() {
-  const apiUrl = 'https://api.shyft.to/sol/v1/wallet/all_tokens?network=mainnet-beta&wallet=GHp1YtXxwwPEcijzYod8RkZ1o3HgFaLtETWu6RUvKUmG';
-  const apiKey = '9g1b0ZAnjGdSagl7';
-  
-  try {
-      const response = await fetch(apiUrl, {
-          method: 'GET',
-          headers: {
-              'Accept': 'application/json',
-              'x-api-key': apiKey
-          }
-      });
-      const data = await response.json();
-
-      if (!data.success) {
-          throw new Error('API request failed');
-      }
-
-      const tokens = data.result.filter(token => token.balance > 0);
-      setWalletData(tokens)
-  } catch (error) {
-      console.error('Error fetching tokens:', error);
-      return [];
-  }
-}
-
-
-
 
 useEffect(() => {
   if (transactionsData && walletRef.current) {
@@ -171,7 +141,7 @@ const fetchData = async () => {
       </header>
         <div ref={walletRef}>
           {transactionsData ? (
-            <Wallet walletData={walletData} transactionsData={transactionsData} />
+            <Wallet  transactionsData={transactionsData} />
           ) : ( null
           )}
         </div>
