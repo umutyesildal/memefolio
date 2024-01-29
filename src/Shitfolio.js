@@ -85,7 +85,6 @@ function Shitfolio() {
             solDiffs[otherMint].txs.push(transaction);
         });
 
-        // Mark tokens as "holding" if they only have buy transactions
         for (const [token, { buy, sell }] of Object.entries(solDiffs)) {
             if (buy > 0 && sell === 0) {
                 solDiffs[token].tag = "holding";
@@ -96,7 +95,6 @@ function Shitfolio() {
 
         solDiffs['totalSolChange'] = totalSolChange;
         solDiffs['holdings'] = holdings;
-
         setTransactionData(solDiffs);
         console.log(solDiffs);
     } catch (error) {
@@ -141,12 +139,12 @@ const fetchData = async () => {
         </div>
         <img src="/cat-hero2.png" className="Shitfolio-logo" alt="logo" />
       </header>
-        <main ref={walletRef}>
+        <div ref={walletRef}>
           {transactionData ? (
             <Wallet transactionData={transactionData} />
           ) : ( null
           )}
-        </main>
+        </div>
     </div>
   );
 }

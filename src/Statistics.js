@@ -13,10 +13,11 @@ const Statistics = ({ data }) => {
   
 
   return (
-    <div>
-      <div className="total-sol-change">
-        <h2>Total SOL Change: {data['totalSolChange']}</h2>
-        <h2>Still holding: {data['holdings']}</h2>
+    <div className='all-statistics' >
+      <div className="highlights">
+        <div className='highlights-item'><h2>Total SOL Change <br/> {data['totalSolChange'].toFixed(4)} SOL</h2></div>
+        <div className='highlights-item'><h2>Holding <br/> {data['holdings']} SOL</h2></div>
+        <div className='highlights-item'><h2>Rugged <br/> {data['holdings']} SOL</h2></div>
       </div>
       <div className="statistics-grid">
         {Object.entries(data).map(([token, stats]) => (
@@ -24,8 +25,7 @@ const Statistics = ({ data }) => {
             <div 
               key={token} 
               className={`statistics-item ${stats.tag === "holding" ? "holding-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}
-              onClick={() => openModal(token)}
-            >
+              onClick={() => openModal(token)}>
               <div className="item-details">
                 <p className="token-name">{token}</p>
                 <p>Buy: {stats.buy}</p>

@@ -33,7 +33,7 @@
 }
 
 .Shitfolio-text h1 {
-  font-style: normal;
+  font-family: "SpaceMonoBold";
   font-weight: 300;
   line-height: 125%;
   color: #fe696f;
@@ -43,6 +43,7 @@
 }
 
 .Shitfolio-text p{
+  font-family: "SpaceMono";
   font-style: normal;
   font-size: 1.5vw;
   font-weight: 500;
@@ -50,15 +51,19 @@
   z-index: 1;
   text-align: left;
   width: 75%;
+  color: #254512;
 }
 
 .Shitfolio-text span{
+  font-family: "SpaceMono";
   font-style: normal;
   font-size: 1vw;
   font-weight: 300;
   line-height: 125%;
   z-index: 1;
   text-align: left;
+  color: #2545126f;
+
 }
 
 .input-group {
@@ -69,7 +74,7 @@
 }
 
 .input-group input {
-
+  font-family: "SpaceMono";
   border: 2px solid #938EFF;
   border-radius: 4px;
   padding: 10px;
@@ -80,6 +85,7 @@
 }
 
 .input-group button {
+  font-family: "SpaceMono";
   background-color: #938EFF;
   border: none;
   border-radius: 4px;

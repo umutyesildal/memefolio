@@ -1,7 +1,3 @@
-.wallet {
-    margin-top: 20px;
-  }
-  
   .wallet-tabs {
     display: flex;
     justify-content: center;
@@ -24,10 +20,6 @@
   .tab.active {
     background-color: #61dafb;
     color: white;
-  }
-  
-  .wallet-content {
-    padding: 20px;
   }
   
   .statistics {

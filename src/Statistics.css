@@ -1,12 +1,31 @@
+.all-statistics {
+  padding: 2vw;
+}
+
 .statistics-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  padding: 20px;
+  font-family: "SpaceMono";
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding-top: 5vw;
+  padding-bottom: 5vw;
+  gap: 20px;
+}
+
+.highlights .highlights-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
 }
 
 h2 {
-  
+  font-family: "SpaceMono";
   font-weight: bold;
 }
 
@@ -31,25 +50,24 @@ h2 {
 }
 /* Background color for positive net performance */
 .positive-net {
-  background-color: #c2fac2; /* Light green */
+  background-color: #c2fac28f; /* Light green */
 }
 
 /* Background color for negative net performance */
 .negative-net {
-  background-color: #f8b3b3; /* Light red */
+  background-color: #f8b3b37c; /* Light red */
 }
 
 /* Additional styles for best and worst plays */
 .best-play {
-  border-color: #4CAF50; /* Green border for best play */
-  color: #4CAF50; /* Green text for best play */
+  border-color: #4caf50; /* Green border for best play */
+  color: #4caf50; /* Green text for best play */
 }
 
 .worst-play {
   border-color: #f44336; /* Red border for worst play */
   color: #f44336; /* Red text for worst play */
 }
-
 
 .transaction-item {
   border: 1px solid #ddd;
@@ -59,7 +77,7 @@ h2 {
 }
 
 .transaction-buy {
-  border-color: #4CAF50; /* Green border for buy transactions */
+  border-color: #4caf50; /* Green border for buy transactions */
 }
 
 .transaction-sell {

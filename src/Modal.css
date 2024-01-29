@@ -22,6 +22,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1001;
   position: relative;
+  font-family: "SpaceMono";
 }
 
 .close-button {
@@ -51,11 +52,11 @@
 }
 
 .transaction-buy {
-  border-color: #4CAF50; /* Green border for buy transactions */
+  border-color: #c2fac28f; /* Green border for buy transactions */
+  background-color: #c2fac28f;
 }
 
 .transaction-sell {
-  border-color: #f44336; /* Red border for sell transactions */
+  border-color: #f8b3b37c; /* Red border for sell transactions */
+  background-color: #f8b3b37c;
 }
-
-
