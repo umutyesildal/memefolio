@@ -112,7 +112,7 @@ async function fetchTokensWithNonZeroBalance() {
     "authorization": "Bearer b37676d0-bb3b-471d-b0fb-31917a1d6593"
 };
 
-  const payload = { "ownerAccount": "GHp1YtXxwwPEcijzYod8RkZ1o3HgFaLtETWu6RUvKUmG" };  
+  const payload = { "ownerAccount": `${walletAddress}`};  
   try {
     const response = await fetch(url, {
       method: 'POST',
