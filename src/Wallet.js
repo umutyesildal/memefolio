@@ -2,12 +2,12 @@ import React from 'react';
 import './Wallet.css';
 import Statistics from './Statistics'; // Import the Statistics component
 
-const Wallet = ({transactionsData }) => {
+const Wallet = ({walletData,transactionsData }) => {
 
   return (
     <div className="wallet">
       <div className="wallet-content">
-         <Statistics transactionsData={transactionsData} />
+         <Statistics walletData={walletData} transactionsData={transactionsData} />
       </div>
     </div>
   );

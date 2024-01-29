@@ -3,7 +3,7 @@ import './Statistics.css';
 import Modal from './Modal'; // Import the Modal component
 import Portfolio from './Portfolio';
 
-const Statistics = ({transactionsData }) => {
+const Statistics = ({ walletData,transactionsData }) => {
   const [selectedToken, setSelectedToken] = useState(null);
 
   const openModal = (token) => {
@@ -12,9 +12,11 @@ const Statistics = ({transactionsData }) => {
     console.log("Selected token state updated to:", token);
   };
 
+  console.log(walletData)
   
   return (
     <div className='all-statistics' >
+      <Portfolio walletData={walletData} />
       <div className="highlights">
         <div className='highlights-item'><h2>Total SOL Change <br/> {transactionsData['totalSolChange'].toFixed(4)} SOL</h2></div>
         <div className='highlights-item'><h2>Holding <br/> {transactionsData['holdings']} SOL</h2></div>

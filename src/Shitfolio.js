@@ -5,6 +5,7 @@ import LoadingModal from './LoadingModal';
 
 function Shitfolio() {
   const [transactionsData, settransactionsData] = useState(null);
+  const [walletData, setWalletData] = useState(null);
   const [walletAddress, setWalletAddress] = useState('');
   const walletRef = useRef(null); // Creating a reference for the wallet section
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +39,6 @@ function Shitfolio() {
         });
 
         const data = await response.json();
-        console.log(data)
         const solTokenAddress = "So11111111111111111111111111111111111111112";
         let solDiffs = {};
         let totalSolChange = 0;
@@ -99,11 +99,38 @@ function Shitfolio() {
         solDiffs['totalSolChange'] = totalSolChange;
         solDiffs['holdings'] = holdings;
         settransactionsData(solDiffs);
-        console.log(solDiffs);
     } catch (error) {
         console.error('Error:', error);
     }
 }
+
+async function fetchTokensWithNonZeroBalance() {
+  const url = "https://rest-api.hellomoon.io/v0/rebase/my-token-balance";
+  const headers = {
+    "accept": "application/json",
+    "content-type": "application/json",
+    "authorization": "Bearer b37676d0-bb3b-471d-b0fb-31917a1d6593"
+};
+
+  const payload = { "ownerAccount": "GHp1YtXxwwPEcijzYod8RkZ1o3HgFaLtETWu6RUvKUmG" };  
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(payload)
+  });
+      const data = await response.json();
+
+      const tokens = data.filter(token => token.amount !== "0");
+      setWalletData(tokens)
+  } catch (error) {
+      console.error('Error fetching tokens:', error);
+      return [];
+  }
+}
+
+
+
 
 useEffect(() => {
   if (transactionsData && walletRef.current) {
@@ -114,6 +141,7 @@ useEffect(() => {
 const fetchData = async () => {
   setIsLoading(true);
   await calculateSolDiff();
+  await fetchTokensWithNonZeroBalance();
   setIsLoading(false);
 };
 
@@ -140,8 +168,8 @@ const fetchData = async () => {
         <img src="/cat-hero2.png" className="Shitfolio-logo" alt="logo" />
       </header>
         <div ref={walletRef}>
-          {transactionsData ? (
-            <Wallet  transactionsData={transactionsData} />
+          {transactionsData && walletData ? (
+            <Wallet walletData={walletData} transactionsData={transactionsData} />
           ) : ( null
           )}
         </div>
