@@ -59,7 +59,7 @@ async function fetchTokenData(tokenId) {
       <Portfolio walletData={walletData} />
       <div className="highlights">
         <div style={{  backgroundColor: "#c2fac28f"}} className='highlights-item'><h2>Total SOL Change <br/> {transactionsData['totalSolChange'].toFixed(4)} SOL</h2></div>
-        <div style={{  backgroundColor: "#f8b3b37c"}} className='highlights-item'><h2>Holding <br/> {transactionsData['holdingsAmount']} SOL</h2></div>
+        <div style={{  backgroundColor: "#ffaff7ca"}} className='highlights-item'><h2>Holding <br/> {transactionsData['holdingsAmount']} SOL</h2></div>
         <div style={{  backgroundColor: "#d0e186"}} className='highlights-item'><h2>Rugged <br/> {transactionsData['ruggedAmount']} SOL</h2></div>
         <div style={{  backgroundColor: "#c5d1ff"}} className='highlights-item'><h2>Airdrop <br/> {transactionsData['airdropsAmount']} SOL</h2></div>
       </div>
