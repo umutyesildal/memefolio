@@ -12,7 +12,7 @@ const Statistics = ({ walletData,transactionsData }) => {
     console.log("Selected token state updated to:", token);
   };
 
-  console.log(walletData)
+  console.log(transactionsData)
   
   return (
     <div className='all-statistics' >
