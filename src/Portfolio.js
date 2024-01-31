@@ -43,7 +43,7 @@ const Portfolio = ({ walletData }) => {
                 src={"copy.png"}
                 alt="Copy"
                 onClick={() => handleCopyClick(item.mint)}
-                style={{ cursor: 'pointer', width: '20px', height: '20px' }}
+                style={{ cursor: 'pointer', width: '30px', height: '30px' }}
               />
           </div>
         ))}

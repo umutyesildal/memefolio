@@ -23,6 +23,7 @@
   z-index: 1001;
   position: relative;
   font-family: "SpaceMono";
+  text-align: start;
 }
 
 .close-button {

@@ -40,6 +40,24 @@ h2 {
   text-align: left;
 }
 
+.item-details .update{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item-details .update .update-button{
+  border: transparent;
+  background-color: #948eff68;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+.item-details .update .update-button:hover{
+background-color: #fe696e67;
+}
+
 .token-name {
   font-weight: bold;
   margin-bottom: 5px;

@@ -5,14 +5,54 @@ import Portfolio from './Portfolio';
 
 const Statistics = ({ walletData,transactionsData }) => {
   const [selectedToken, setSelectedToken] = useState(null);
+  const [tokenData, setTokenData] = useState(null);
+  const [isloading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  const openModal = (token) => {
+
+  const openModal = async (token) => {
     console.log("Opening modal for token:", token);
+    setIsLoading(true)
     setSelectedToken(token);
+    await fetchTokenData(token)
     console.log("Selected token state updated to:", token);
   };
 
-  console.log(transactionsData)
+async function fetchTokenData(tokenId) {
+    const url = `https://price.jup.ag/v4/price?ids=${tokenId}&vsToken=So11111111111111111111111111111111111111112`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+                // Check if the data for the token is empty
+                if (!data.data[tokenId] || Object.keys(data.data[tokenId]).length === 0) {
+                  setTokenData( {
+                      mintSymbol: "Rugged Token",
+                      price: "Rugged Token",
+                      birdeyeLink: "Rugged Token"
+                  })
+              } else {
+                const tokenData = data.data[tokenId];
+      
+                setTokenData({
+                    mintSymbol: tokenData.mintSymbol,
+                    price: tokenData.price,
+                    birdeyeLink: `https://birdeye.so/token/${tokenId}`
+                })
+              }
+              console.log(tokenData)
+              setIsLoading(false)
+              setIsError(false)
+    } catch (error) {
+        console.error("Error fetching token data:", error);
+        setIsError(true)
+        throw error;
+    }
+}
+
   
   return (
     <div className='all-statistics' >
@@ -28,9 +68,19 @@ const Statistics = ({ walletData,transactionsData }) => {
             <div 
               key={token} 
               className={`statistics-item ${stats.tag === "holding" ? "holding-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}
-              onClick={() => openModal(token)}>
+              >
               <div className="item-details">
-                <p className="token-name">{token}</p>
+                <div className='update' >
+                  <p className="token-name">{token}</p>
+                  <button className='update-button'
+                  onClick={() => openModal(token)}>
+                  <img
+                src={"search.png"}
+                alt="Refresh"
+                style={{width: '20px', height: '20px' }}
+              />
+              </button>
+                </div>
                 <p>Buy: {stats.buy}</p>
                 <p>Sell: {stats.sell}</p>
                 <p>Net: {stats.net}</p>
@@ -39,10 +89,12 @@ const Statistics = ({ walletData,transactionsData }) => {
           )
         ))}
       </div>
-      {selectedToken && (
+      {selectedToken && !isloading && tokenData && !isError && (
         <Modal isOpen={!!selectedToken} onClose={() => setSelectedToken(null)}>
           <button className="close-button" onClick={() => setSelectedToken(null)}>X</button>
-          <h3>Transactions for {selectedToken}</h3>
+          <h3>Transactions for {tokenData.mintSymbol}</h3>
+          <p>Current price: {tokenData.price}</p>
+          <a href={tokenData.birdeyeLink} >Check {tokenData.mintSymbol} Birdeye</a>
           <div>
             {transactionsData[selectedToken].txs.map((tx, index) => (
               <div key={index} className={`transaction-item transaction-${tx.type}`}>
