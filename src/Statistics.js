@@ -58,16 +58,17 @@ async function fetchTokenData(tokenId) {
     <div className='all-statistics' >
       <Portfolio walletData={walletData} />
       <div className="highlights">
-        <div className='highlights-item'><h2>Total SOL Change <br/> {transactionsData['totalSolChange'].toFixed(4)} SOL</h2></div>
-        <div className='highlights-item'><h2>Holding <br/> {transactionsData['holdings']} SOL</h2></div>
-        <div className='highlights-item'><h2>Rugged <br/> {transactionsData['holdings']} SOL</h2></div>
+        <div style={{  backgroundColor: "#c2fac28f"}} className='highlights-item'><h2>Total SOL Change <br/> {transactionsData['totalSolChange'].toFixed(4)} SOL</h2></div>
+        <div style={{  backgroundColor: "#f8b3b37c"}} className='highlights-item'><h2>Holding <br/> {transactionsData['holdingsAmount']} SOL</h2></div>
+        <div style={{  backgroundColor: "#d0e186"}} className='highlights-item'><h2>Rugged <br/> {transactionsData['ruggedAmount']} SOL</h2></div>
+        <div style={{  backgroundColor: "#c5d1ff"}} className='highlights-item'><h2>Airdrop <br/> {transactionsData['airdropsAmount']} SOL</h2></div>
       </div>
       <div className="statistics-grid">
         {Object.entries(transactionsData).map(([token, stats]) => (
           token !== 'totalSolChange' && (
             <div 
               key={token} 
-              className={`statistics-item ${stats.tag === "holding" ? "holding-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}
+              className={`statistics-item ${stats.tag === "holding" ? "holding-net" : stats.tag === "Airdrop" ? "airdrop-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}
               >
               <div className="item-details">
                 <div className='update' >

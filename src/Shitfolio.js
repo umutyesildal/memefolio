@@ -42,7 +42,9 @@ function Shitfolio() {
         const solTokenAddress = "So11111111111111111111111111111111111111112";
         let solDiffs = {};
         let totalSolChange = 0;
-        let holdings = 0;
+        let airdropsAmount = 0;
+        let holdingsAmount = 0;
+        let ruggedAmount = 0;
 
         data.data.forEach(tx => {
             const sourceMint = tx.parsedInfo.sourceMint;
@@ -63,11 +65,7 @@ function Shitfolio() {
                 solChange = sourceAmount;
                 solDiffs[otherMint].buy += solChange;
                 solDiffs[otherMint].net -= solChange;
-                if (solDiffs[otherMint].sell === 0) {
-                    holdings += solChange;
-                } else {
-                    totalSolChange -= solChange;
-                }
+                totalSolChange -= solChange;
             } else if (destinationMint === solTokenAddress) {
                 txType = 'sell';
                 solChange = destinationAmount;
@@ -88,20 +86,53 @@ function Shitfolio() {
             solDiffs[otherMint].txs.push(transaction);
         });
 
-        for (const [token, { buy, sell }] of Object.entries(solDiffs)) {
-            if (buy > 0 && sell === 0) {
-                solDiffs[token].tag = "holding";
-            } else {
+        for (const [token, details] of Object.entries(solDiffs)) {
+          if (details.buy > 0 && details.sell === 0) {
+              let isRugged = await rugCheck(token);
+              if (isRugged) {
+                  solDiffs[token].tag = "rugged";
+                  ruggedAmount += details.net;  // Sum up the amount for rugged tokens
+              } else {
+                  solDiffs[token].tag = "holding";
+                  holdingsAmount += details.net;  // Sum up the amount for holdings
+              }
+          } else if (details.buy === 0 && details.sell > 0) {
+              solDiffs[token].tag = "Airdrop";
+              airdropsAmount += details.net;  // Sum up the amount for airdrops
+          } else {
               solDiffs[token].tag = "sold";
-            }
-        }
-
-        solDiffs['totalSolChange'] = totalSolChange;
-        solDiffs['holdings'] = holdings;
+          }
+      }
+  
+      solDiffs['totalSolChange'] = totalSolChange;
+      solDiffs['airdropsAmount'] = airdropsAmount;
+      solDiffs['holdingsAmount'] = holdingsAmount;
+      solDiffs['ruggedAmount'] = ruggedAmount;
         settransactionsData(solDiffs);
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+async function rugCheck(tokenId) {
+  const url = `https://price.jup.ag/v4/price?ids=${tokenId}&vsToken=So11111111111111111111111111111111111111112`;
+  try {
+      const response = await fetch(url);
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+
+              // Check if the data for the token is empty
+              if (!data.data[tokenId] || Object.keys(data.data[tokenId]).length === 0) {
+                return true
+            } else {
+              return false
+            }
+  } catch (error) {
+      console.error("Error fetching token data:", error);
+      throw error;
+  }
 }
 
 
