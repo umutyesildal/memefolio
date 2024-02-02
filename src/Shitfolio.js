@@ -195,7 +195,7 @@ const fetchData = async () => {
             />
             <button onClick={fetchData} disabled={!walletAddress}>Fetch Data</button>
           </div>
-          <span>- The Statistics data is based on your last 100 transactions. <br></br> - SOL Change is calculated with buys and sells.</span>
+          <span>- SOL Change is calculated with buys and sells. <br></br> - Rugged is tokens with no routes. <br></br> - Airdrops are tokens that are not swapped as buys. <br></br> - There might be errors since this is early alpha.</span>
         </div>
         <img src="/cat-hero2.png" className="Shitfolio-logo" alt="logo" />
       </header>
