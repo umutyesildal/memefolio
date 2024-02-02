@@ -1,59 +1,120 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Statistics.css';
+import Modal from './Modal'; // Import the Modal component
+import Portfolio from './Portfolio';
 
-const Statistics = ({ data }) => {
-  if (!data || !data.performance) {
-    return <div>Loading data...</div>;
-  }
+const Statistics = ({ walletData,transactionsData }) => {
+  const [selectedToken, setSelectedToken] = useState(null);
+  const [tokenData, setTokenData] = useState(null);
+  const [isloading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  const { performance, totalSOLChange } = data;
 
-  let bestPlayToken = '';
-  let worstPlayToken = '';
+  const openModal = async (token) => {
+    console.log("Opening modal for token:", token);
+    setIsLoading(true)
+    setSelectedToken(token);
+    await fetchTokenData(token)
+    console.log("Selected token state updated to:", token);
+  };
 
-  // Find the best and worst plays
-  Object.entries(performance).forEach(([token, stats]) => {
-    if (stats.tag === 'Best Play' && !bestPlayToken) {
-      bestPlayToken = token;
-    } else if (stats.tag === 'Worst Play' && !worstPlayToken) {
-      worstPlayToken = token;
+async function fetchTokenData(tokenId) {
+    const url = `https://price.jup.ag/v4/price?ids=${tokenId}&vsToken=So11111111111111111111111111111111111111112`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+                // Check if the data for the token is empty
+                if (!data.data[tokenId] || Object.keys(data.data[tokenId]).length === 0) {
+                  setTokenData( {
+                      mintSymbol: "Rugged Token",
+                      price: "Rugged Token",
+                      birdeyeLink: "Rugged Token"
+                  })
+              } else {
+                const tokenData = data.data[tokenId];
+      
+                setTokenData({
+                    mintSymbol: tokenData.mintSymbol,
+                    price: tokenData.price,
+                    birdeyeLink: `https://birdeye.so/token/${tokenId}`
+                })
+              }
+              console.log(tokenData)
+              setIsLoading(false)
+              setIsError(false)
+    } catch (error) {
+        console.error("Error fetching token data:", error);
+        setIsError(true)
+        throw error;
     }
-  });
+}
 
-  // Sort performances to put best and worst plays at the top
-  const sortedPerformances = [];
-  if (bestPlayToken) sortedPerformances.push([bestPlayToken, performance[bestPlayToken]]);
-  if (worstPlayToken) sortedPerformances.push([worstPlayToken, performance[worstPlayToken]]);
-
-  Object.entries(performance).forEach(([token, stats]) => {
-    if (token !== bestPlayToken && token !== worstPlayToken) {
-      sortedPerformances.push([token, stats]);
-    }
-  });
+  
   return (
-    <div>
-        <div className="total-sol-change">
-        <h2>Total SOL Change: {totalSOLChange.toFixed(3)}</h2>
+    <div className='all-statistics' >
+      <Portfolio walletData={walletData} />
+      <div className="highlights">
+        <div style={{  backgroundColor: "#c2fac28f"}} className='highlights-item'><h2>Total SOL Change <br/> {transactionsData['totalSolChange'].toFixed(4)} SOL</h2></div>
+        <div style={{  backgroundColor: "#ffaff7ca"}} className='highlights-item'><h2>Holding <br/> {transactionsData['holdingsAmount']} SOL</h2></div>
+        <div style={{  backgroundColor: "#d0e186"}} className='highlights-item'><h2>Rugged <br/> {transactionsData['ruggedAmount']} SOL</h2></div>
+        <div style={{  backgroundColor: "#c5d1ff"}} className='highlights-item'><h2>Airdrop <br/> {transactionsData['airdropsAmount']} SOL</h2></div>
       </div>
       <div className="statistics-grid">
-        {sortedPerformances.map(([token, stats]) => (
-          <div 
-            key={token} 
-            className={`statistics-item ${stats.net >= 0 ? 'positive-net' : 'negative-net'} 
-              ${stats.tag === 'Best Play' ? 'best-play' : ''} 
-              ${stats.tag === 'Worst Play' ? 'worst-play' : ''}`}
-          >
-            <div className="item-details">
-              <p className="token-name">{token} {stats.tag ? `(${stats.tag})` : ''}</p>
-              <p>Buys: {stats.buys.toFixed(3)}</p>
-              <p>Sells: {stats.sells.toFixed(3)}</p>
-              <p>Net: {stats.net.toFixed(3)}</p>
+        {Object.entries(transactionsData).map(([token, stats]) => (
+          token !== 'totalSolChange' && (
+            <div 
+              key={token} 
+              className={`statistics-item ${stats.tag === "holding" ? "holding-net" : stats.tag === "Airdrop" ? "airdrop-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}
+              >
+              <div className="item-details">
+                <div className='update' >
+                  <p className="token-name">{token}</p>
+                  <button className='update-button'
+                  onClick={() => openModal(token)}>
+                  <img
+                src={"search.png"}
+                alt="Refresh"
+                style={{width: '20px', height: '20px' }}
+              />
+              </button>
+                </div>
+                <p>Buy: {stats.buy}</p>
+                <p>Sell: {stats.sell}</p>
+                <p>Net: {stats.net}</p>
+              </div>
             </div>
-          </div>
+          )
         ))}
       </div>
+      {selectedToken && !isloading && tokenData && !isError && (
+        <Modal isOpen={!!selectedToken} onClose={() => setSelectedToken(null)}>
+          <button className="close-button" onClick={() => setSelectedToken(null)}>X</button>
+          <h3>Transactions for {tokenData.mintSymbol}</h3>
+          <p>Current price: {tokenData.price}</p>
+          <a href={tokenData.birdeyeLink} >Check {tokenData.mintSymbol} Birdeye</a>
+          <div>
+            {transactionsData[selectedToken].txs.map((tx, index) => (
+              <div key={index} className={`transaction-item transaction-${tx.type}`}>
+                <span className="transaction-detail">Time: </span><span>{tx.blockTime}</span>
+                <span className="transaction-detail">Type: </span><span>{tx.type}</span>
+                <span className="transaction-detail">SOL Change: </span><span>{tx.solChange}</span>
+                <a href={tx.transactionId} target="_blank" rel="noopener noreferrer">View Transaction</a>
+              </div>
+            ))}
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
 
 export default Statistics;
+
+
+/*
+
+*/

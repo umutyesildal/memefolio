@@ -5,39 +5,88 @@
 }
 
 .Shitfolio-logo {
-  height: 40vmin;
-  pointer-events: none;
+  object-fit: contain;
+  max-width: 350px;
+  justify-self: end;
+
 }
 
 .Shitfolio-header {
-  background-color: #282c34;
-  min-height: 80vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: space-around;
+  text-align: start;
+  padding: 12vw;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background: url("../public/aurorabg.png") no-repeat center center;
+  background-size: cover;
+  background-position: center top;
+}
+
+.Shitfolio-text {
+  display: flex;
+  align-items: flex-start;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column;
+  gap: 2vw;
+}
+
+.Shitfolio-text h1 {
+  font-family: "SpaceMonoBold";
+  font-weight: 300;
+  line-height: 125%;
+  color: #fe696f;
+  font-size: 3.5vw;
+  z-index: 1;
+  text-align: left;
+}
+
+.Shitfolio-text p{
+  font-family: "SpaceMono";
+  font-style: normal;
+  font-size: 1.5vw;
+  font-weight: 500;
+  line-height: 125%;
+  z-index: 1;
+  text-align: left;
+  width: 75%;
+  color: #254512;
+}
+
+.Shitfolio-text span{
+  font-family: "SpaceMono";
+  font-style: normal;
+  font-size: 1vw;
+  font-weight: 300;
+  line-height: 125%;
+  z-index: 1;
+  text-align: left;
+  color: #2545126f;
+
 }
 
 .input-group {
   margin-bottom: 20px;
-  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .input-group input {
-  border: 2px solid #61dafb;
+  font-family: "SpaceMono";
+  border: 2px solid #938EFF;
   border-radius: 4px;
   padding: 10px;
   margin-right: 10px; /* Whitespace between text input and button */
   color: #282c34;
   font-size: 1rem;
-  width: 30vw;
-
+  width: 40ch;
 }
 
 .input-group button {
-  background-color: #0098c3;
+  font-family: "SpaceMono";
+  background-color: #938EFF;
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
@@ -45,9 +94,10 @@
   font-size: 1rem;
   font-style: bold;
   cursor: pointer;
+  width: 15ch;
   transition: background-color 0.3s ease;
 }
 
 .input-group button:hover {
-  background-color: #3fbdf8; /* Button hover effect */
+  background-color: #fe696f; /* Button hover effect */
 }

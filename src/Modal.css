@@ -1,0 +1,63 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  width: 50%; /* Width of the modal */
+  height: 50vh; /* Height of the modal */
+  max-height: 50vh; /* Maximum height */
+  overflow-y: auto; /* Make content scrollable */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  position: relative;
+  font-family: "SpaceMono";
+  text-align: start;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.transaction-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: start;
+  border-radius: 4px; /* Added border radius */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; /* Space between elements */
+}
+
+.transaction-detail {
+  font-weight: bold;
+}
+
+.transaction-buy {
+  border-color: #c2fac28f; /* Green border for buy transactions */
+  background-color: #c2fac28f;
+}
+
+.transaction-sell {
+  border-color: #f8b3b37c; /* Red border for sell transactions */
+  background-color: #f8b3b37c;
+}

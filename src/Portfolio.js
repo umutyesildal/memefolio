@@ -1,25 +1,50 @@
 import React from 'react';
 import './Portfolio.css';
 
-const Portfolio = ({ data }) => {
-  if (!data || !data.items) return <div>Loading...</div>; // or handle the absence of data appropriately
+// Import your own copy icon image
+
+const Portfolio = ({ walletData }) => {
+  if (!walletData) return <div>Loading...</div>; // or handle the absence of walletData appropriately
+
+  const handleCopyClick = (mint) => {
+    // Create a temporary textarea element
+    const textarea = document.createElement('textarea');
+
+    // Set the mint as the text content to be copied
+    textarea.value = mint;
+
+    // Append the textarea to the document
+    document.body.appendChild(textarea);
+
+    // Select the text inside the textarea
+    textarea.select();
+
+    // Execute the copy command
+    document.execCommand('copy');
+
+    // Remove the temporary textarea
+    document.body.removeChild(textarea);
+
+    // Show "Copied to clipboard" alert
+    alert('Copied to clipboard');
+  };
 
   return (
     <div className="portfolio">
-      <div className="wallet-info">
-        <h2>{data.wallet}</h2>
-        <h3>${data.totalUsd ? data.totalUsd.toFixed(2) : '0.00'}</h3>
-      </div>
+      <h2>Holdings</h2>
       <div className="portfolio-grid">
-        {data.items.map((item, index) => (
+        {walletData.map((item, index) => (
           <div key={index} className="portfolio-item">
-            <img src={item.logoURI} alt={item.name} className="item-logo" />
             <div className="item-details">
-              <p>{item.name}</p>
-              <p className="bold">{item.symbol}</p>
-              <p>{item.uiAmount}</p>
-              <p className="bold">${item.valueUsd ? item.valueUsd.toFixed(2) : '0.00'}</p>
+              <p style={{ margin: 0, fontWeight: "bold" }}>{item.mint.slice(0, 10)}</p>
+              <p style={{ margin: 0 }}>{parseFloat(item.amount) / Math.pow(10, 9)}</p>
             </div>
+            <img
+                src={"copy.png"}
+                alt="Copy"
+                onClick={() => handleCopyClick(item.mint)}
+                style={{ cursor: 'pointer', width: '30px', height: '30px' }}
+              />
           </div>
         ))}
       </div>

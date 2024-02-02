@@ -4,8 +4,7 @@ import Shitfolio from './Shitfolio';
 import Holders from './Holders'; // Import the new Holders component if you're using it
 
 function App() {
-  const [activeTab, setActiveTab] = useState('tab1');
-
+  const [activeTab,setActiveTab] = useState('tab1');
   const renderTabContent = () => {
     switch (activeTab) {
       case 'tab1':
@@ -19,7 +18,16 @@ function App() {
 
   return (
     <div className="App">
-      <div className="tab-bar">
+      {renderTabContent()}
+    </div>
+  );
+}
+
+export default App;
+
+
+/*
+        <div className="tab-bar">
         <button onClick={() => setActiveTab('tab1')} className={activeTab === 'tab1' ? 'active' : ''}>
           Shitfolio
         </button>
@@ -27,9 +35,4 @@ function App() {
           Holders
         </button>
       </div>
-      {renderTabContent()}
-    </div>
-  );
-}
-
-export default App;
+*/
