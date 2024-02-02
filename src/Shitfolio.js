@@ -165,10 +165,10 @@ async function fetchTokensWithNonZeroBalance() {
 
 
 useEffect(() => {
-  if (transactionsData && walletRef.current) {
+  if (walletData && walletRef.current) {
     walletRef.current.scrollIntoView({ behavior: 'smooth' });
   }
-}, [transactionsData]);
+}, [walletData]);
 
 const fetchData = async () => {
   setIsLoading(true);

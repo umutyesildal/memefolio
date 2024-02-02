@@ -36,26 +36,25 @@ h2 {
   transition: background-color 0.3s;
 }
 
-.item-details {
+.token-details {
   text-align: left;
 }
 
-.item-details .update{
+.token-details .update {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.item-details .update .update-button{
+.token-details .update .update-button {
   border: transparent;
   background-color: #948eff68;
   border-radius: 8px;
   cursor: pointer;
 }
 
-
-.item-details .update .update-button:hover{
-background-color: #fe696e67;
+.token-details .update .update-button:hover {
+  background-color: #fe696e67;
 }
 
 .token-name {
@@ -64,31 +63,29 @@ background-color: #fe696e67;
 }
 
 .holding-net {
-  background-color: #ffaff7ca; /* Light green */
+  background-color: #ffaff7ca;
 }
 
 .airdrop-net {
-  background-color: #c5d1ff; /* Light green */
+  background-color: #c5d1ff;
 }
-/* Background color for positive net performance */
+
 .positive-net {
-  background-color: #c2fac28f; /* Light green */
+  background-color: #c2fac28f;
 }
 
-/* Background color for negative net performance */
 .negative-net {
-  background-color: #f8b3b37c; /* Light red */
+  background-color: #f8b3b37c;
 }
 
-/* Additional styles for best and worst plays */
 .best-play {
-  border-color: #4caf50; /* Green border for best play */
-  color: #4caf50; /* Green text for best play */
+  border-color: #4caf50;
+  color: #4caf50;
 }
 
 .worst-play {
-  border-color: #f44336; /* Red border for worst play */
-  color: #f44336; /* Red text for worst play */
+  border-color: #f44336;
+  color: #f44336;
 }
 
 .transaction-item {
@@ -99,9 +96,83 @@ background-color: #fe696e67;
 }
 
 .transaction-buy {
-  border-color: #4caf50; /* Green border for buy transactions */
+  border-color: #4caf50;
 }
 
 .transaction-sell {
-  border-color: #f44336; /* Red border for sell transactions */
+  border-color: #f44336;
+}
+
+@media screen and (max-width: 950px) {
+  .highlights {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .highlights-item, .statistics-item {
+    padding: 15px;
+  }
+
+  .statistics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  
+  .statistics-item {
+    margin-bottom: 20px;
+  }
+
+  .token-details .update .update-button img {
+    width: 24px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 526px) {
+  .highlights {
+    grid-template-columns: 1fr;
+    padding-top: 10vw;
+    padding-bottom: 10vw;
+  }
+
+  .statistics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .statistics-item, .highlights-item {
+    padding: 12px;
+    text-align: start;
+    font-size: .75rem;
+
+  }
+
+  .token-details, .token-details .update .update-button {
+    width: 100%;
+  }
+
+  .token-details .update .update-button {
+    margin-top: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .token-details {
+    text-align:start;
+    align-items: start;
+  }
+
+
+  .token-details .update {
+    flex-direction: column-reverse;
+  }
+
+  .token-details .update p{
+    font-size: .8rem;
+  }
+
+  .token-details p{
+    font-size: .8rem;
+  }
+
+  .transaction-item {
+    font-size: 0.9rem;
+  }
 }

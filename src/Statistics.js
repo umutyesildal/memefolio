@@ -70,7 +70,7 @@ async function fetchTokenData(tokenId) {
               key={token} 
               className={`statistics-item ${stats.tag === "holding" ? "holding-net" : stats.tag === "Airdrop" ? "airdrop-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}
               >
-              <div className="item-details">
+              <div className="token-details">
                 <div className='update' >
                   <p className="token-name">{token}</p>
                   <button className='update-button'

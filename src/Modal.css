@@ -61,3 +61,14 @@
   border-color: #f8b3b37c; /* Red border for sell transactions */
   background-color: #f8b3b37c;
 }
+
+
+@media screen and (max-width: 526px) {
+
+  .modal {
+    background-color: white;
+    width: 75%; /* Width of the modal */
+    height: 75vh; /* Height of the modal */
+    max-height: 75vh; /* Maximum height */
+  }
+}

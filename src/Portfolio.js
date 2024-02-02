@@ -39,12 +39,6 @@ const Portfolio = ({ walletData }) => {
               <p style={{ margin: 0, fontWeight: "bold" }}>{item.mint.slice(0, 10)}</p>
               <p style={{ margin: 0 }}>{parseFloat(item.amount) / Math.pow(10, 9)}</p>
             </div>
-            <img
-                src={"copy.png"}
-                alt="Copy"
-                onClick={() => handleCopyClick(item.mint)}
-                style={{ cursor: 'pointer', width: '30px', height: '30px' }}
-              />
           </div>
         ))}
       </div>

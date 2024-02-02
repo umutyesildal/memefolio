@@ -37,7 +37,7 @@
   font-weight: 300;
   line-height: 125%;
   color: #fe696f;
-  font-size: 3.5vw;
+  font-size: 5vw;
   z-index: 1;
   text-align: left;
 }
@@ -100,4 +100,163 @@
 
 .input-group button:hover {
   background-color: #fe696f; /* Button hover effect */
+}
+
+
+
+@media screen and (max-width: 950px) {
+
+  .Shitfolio-header {
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    padding: 3vw;
+    display: flex;
+    flex-direction: column-reverse;
+    background: url("../public/aurorabg.png") no-repeat center center;
+    background-size: cover;
+    background-position: center top;
+    height: 100vh;
+  }
+
+  .Shitfolio-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2vw;
+  }
+  .Shitfolio-logo {
+    object-fit: contain;
+    max-width: 150px;
+    justify-self: end;
+  }
+
+  .Shitfolio-text h1 {
+    font-size: 5vw;
+    width: 75%;
+text-align: center;
+  }
+  
+  .Shitfolio-text p{
+    font-size: 3vw;
+    text-align: center;
+
+  }
+  
+  .Shitfolio-text span{
+    font-size: 2vw;
+    text-align: center;
+
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .input-group input {
+    font-family: "SpaceMono";
+    border: 2px solid #938EFF;
+    border-radius: 4px;
+    padding: 10px;
+    margin-right: 10px; /* Whitespace between text input and button */
+    color: #282c34;
+    font-size: 3vw;
+    width: 35ch;
+  }
+  
+  .input-group button {
+    font-family: "SpaceMono";
+    background-color: #938EFF;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: rgb(255, 255, 255);
+    font-size: 3vw;
+    font-style: bold;
+    cursor: pointer;
+    width: 20ch;
+    transition: background-color 0.3s ease;
+  }
+}
+
+@media screen and (max-width: 526px) {
+  .Shitfolio-header {
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    padding: 3vw;
+    display: flex;
+    flex-direction: column-reverse;
+    background: url("../public/aurorabg.png") no-repeat center center;
+    background-size: cover;
+    background-position: center top;
+    height: 100vh;
+  }
+
+  .Shitfolio-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2vw;
+  }
+  .Shitfolio-logo {
+    object-fit: contain;
+    max-width: 150px;
+    justify-self: end;
+  }
+
+  .Shitfolio-text h1 {
+    font-size: 5vw;
+    width: 75%;
+text-align: center;
+  }
+  
+  .Shitfolio-text p{
+    font-size: 3vw;
+    text-align: center;
+
+  }
+  
+  .Shitfolio-text span{
+    font-size: 2vw;
+    text-align: center;
+
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .input-group input {
+    font-family: "SpaceMono";
+    border: 2px solid #938EFF;
+    border-radius: 4px;
+    padding: 10px;
+    margin-right: 10px; /* Whitespace between text input and button */
+    color: #282c34;
+    font-size: 3vw;
+    width: 35ch;
+  }
+  
+  .input-group button {
+    font-family: "SpaceMono";
+    background-color: #938EFF;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: rgb(255, 255, 255);
+    font-size: 3vw;
+    font-style: bold;
+    cursor: pointer;
+    width: 20ch;
+    transition: background-color 0.3s ease;
+  }
 }

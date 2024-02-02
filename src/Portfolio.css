@@ -41,6 +41,12 @@
   justify-content: space-around;
 }
 
+.item-details .copy-item{
+
+  width: 30px;
+  height: 30px;
+}
+
 
 .bold {
   font-weight: bold;
@@ -48,4 +54,51 @@
 
 .copy-button{
 
+}
+
+@media screen and (max-width: 950px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr); /* Adjust grid to 3 columns for tablets */
+    gap: 15px; /* Slightly reduce gap */
+  }
+
+  .portfolio-item {
+    padding: 8px; /* Adjust padding for better spacing */
+  }
+
+  .item-details p {
+    font-size: 0.9rem; /* Adjust font size for readability */
+  }
+  .item-details .copy-item{
+
+    width: 25px;
+    height: 25px;
+  }
+
+}
+
+@media screen and (max-width: 526px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr); /* Adjust grid to 2 columns for small phones */
+    gap: 10px; /* Further reduce gap */
+  }
+
+  .portfolio-item {
+    flex-direction: column; /* Change layout to vertical for tighter spaces */
+    padding: 10px; /* Ensure padding is adequate */
+  }
+
+  .item-details {
+    margin-bottom: 10px; /* Add spacing between text and copy icon */
+  }
+
+  .item-details p {
+    text-align: center; /* Center-align text for a cleaner look on small screens */
+    font-size: 1rem; /* Increase font size for better readability */
+  }
+  .item-details .copy-item{
+
+    width: 20px;
+    height: 20px;
+  }
 }
