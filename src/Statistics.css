@@ -4,10 +4,11 @@
 
 .statistics-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   font-family: "SpaceMono";
 }
+
 
 .highlights {
   display: grid;
@@ -34,16 +35,25 @@ h2 {
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.statistics-item:hover {
+
+  background-color: rgb(255, 255, 255);
 }
 
 .token-details {
   text-align: left;
 }
 
+
+
 .token-details .update {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: start;
+  gap: 20px;
 }
 
 .token-details .update .update-button {
@@ -57,9 +67,15 @@ h2 {
   background-color: #fe696e67;
 }
 
+.token-img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+}
+
 .token-name {
   font-weight: bold;
-  margin-bottom: 5px;
 }
 
 .holding-net {

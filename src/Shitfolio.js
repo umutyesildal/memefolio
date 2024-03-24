@@ -40,38 +40,42 @@ function Shitfolio() {
 
         const data = await response.json();
         const solTokenAddress = "So11111111111111111111111111111111111111112";
+        const usdcAddress = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
         let solDiffs = {};
+        let allTokens = []
         let totalSolChange = 0;
         let airdropsAmount = 0;
         let holdingsAmount = 0;
         let ruggedAmount = 0;
 
+        
         data.data.forEach(tx => {
             const sourceMint = tx.parsedInfo.sourceMint;
             const destinationMint = tx.parsedInfo.destinationMint;
             const sourceAmount = tx.parsedInfo.sourceAmount / Math.pow(10, 9);
             const destinationAmount = tx.parsedInfo.destinationAmount / Math.pow(10, 9);
             const otherMint = sourceMint === solTokenAddress ? destinationMint : sourceMint;
-
             if (!solDiffs[otherMint]) {
                 solDiffs[otherMint] = { buy: 0, sell: 0, net: 0, txs: [], tag: "" };
             }
 
             let txType;
             let solChange;
-
+            allTokens.push(otherMint)
             if (sourceMint === solTokenAddress) {
                 txType = 'buy';
                 solChange = sourceAmount;
                 solDiffs[otherMint].buy += solChange;
                 solDiffs[otherMint].net -= solChange;
                 totalSolChange -= solChange;
+                solDiffs[otherMint].boughtTokenAmount ? solDiffs[otherMint].boughtTokenAmount=  solDiffs[otherMint].boughtTokenAmount + destinationAmount :  solDiffs[otherMint].boughtTokenAmount= destinationAmount
             } else if (destinationMint === solTokenAddress) {
                 txType = 'sell';
                 solChange = destinationAmount;
                 solDiffs[otherMint].sell += solChange;
                 solDiffs[otherMint].net += solChange;
                 totalSolChange += solChange;
+                solDiffs[otherMint].soldTokenAmount ? solDiffs[otherMint].soldTokenAmount=  solDiffs[otherMint].soldTokenAmount + sourceAmount :  solDiffs[otherMint].soldTokenAmount= sourceAmount
             } else {
                 return;
             }
@@ -80,6 +84,7 @@ function Shitfolio() {
                 blockTime: new Date(tx.blockTime * 1000).toLocaleString(),
                 transactionId: "https://solscan.io/tx/" + tx.transactionId,
                 type: txType,
+                tokenChange: txType === 'sell' ? sourceAmount * -1 : destinationAmount,
                 solChange: solChange
             };
 
@@ -99,15 +104,27 @@ function Shitfolio() {
           } else if (details.buy === 0 && details.sell > 0) {
               solDiffs[token].tag = "Airdrop";
               airdropsAmount += details.net;  // Sum up the amount for airdrops
+          } else if(details.boughtTokenAmount > details.soldTokenAmount) {
+            solDiffs[token].tag = "Partially Holding";
           } else {
               solDiffs[token].tag = "sold";
           }
       }
-  
-      solDiffs['totalSolChange'] = totalSolChange;
-      solDiffs['airdropsAmount'] = airdropsAmount;
-      solDiffs['holdingsAmount'] = holdingsAmount;
-      solDiffs['ruggedAmount'] = ruggedAmount;
+      let allTokensUnique = [...new Set(allTokens)];
+      let tokenMetadata = await fetchTokenMetadata(allTokensUnique);
+      tokenMetadata.forEach(element => {
+
+        solDiffs[element.id].token_info = element.token_info
+        solDiffs[element.id].content = element.content
+
+    });
+
+      solDiffs['data'] = {
+        "totalSolChange": totalSolChange,
+        "airdropsAmount": airdropsAmount,
+        "holdingsAmount": holdingsAmount,
+        "ruggedAmount": ruggedAmount,
+      }
         settransactionsData(solDiffs);
     } catch (error) {
         console.error('Error:', error);
@@ -134,6 +151,39 @@ async function rugCheck(tokenId) {
       throw error;
   }
 }
+
+
+async function fetchTokenMetadata(data) {
+
+  const url = `https://mainnet.helius-rpc.com/?api-key=3a2302cb-b52f-4b1d-8029-5a622a2e20cc`;
+  const headers = {
+    "accept": "application/json",
+    "content-type": "application/json",
+};
+
+  const payload = {
+    "jsonrpc": "2.0",
+    "id": "my-id",
+    "method": "getAssetBatch",
+    "params": {
+      "ids": data
+    }
+  }
+;
+let result;
+  await fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(payload)
+  }).then(response => response.json()) // Parse the JSON response
+  .then(data => {
+    // Access the result from the parsed JSON data
+    result = data.result;
+  
+  })
+  return result
+}
+
 
 
 async function fetchTokensWithNonZeroBalance() {

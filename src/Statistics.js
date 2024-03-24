@@ -10,6 +10,8 @@ const Statistics = ({ walletData,transactionsData }) => {
   const [isError, setIsError] = useState(false);
 
 
+   console.log(transactionsData)
+
   const openModal = async (token) => {
     console.log("Opening modal for token:", token);
     setIsLoading(true)
@@ -58,37 +60,33 @@ async function fetchTokenData(tokenId) {
     <div className='all-statistics' >
       <Portfolio walletData={walletData} />
       <div className="highlights">
-        <div style={{  backgroundColor: "#c2fac28f"}} className='highlights-item'><h2>Total SOL Change <br/> {transactionsData['totalSolChange'].toFixed(4)} SOL</h2></div>
-        <div style={{  backgroundColor: "#ffaff7ca"}} className='highlights-item'><h2>Holding <br/> {transactionsData['holdingsAmount']} SOL</h2></div>
-        <div style={{  backgroundColor: "#d0e186"}} className='highlights-item'><h2>Rugged <br/> {transactionsData['ruggedAmount']} SOL</h2></div>
-        <div style={{  backgroundColor: "#c5d1ff"}} className='highlights-item'><h2>Airdrop <br/> {transactionsData['airdropsAmount']} SOL</h2></div>
+        <div style={{  backgroundColor: "#c2fac28f"}} className='highlights-item'><h2>Total SOL Change <br/> {transactionsData['data']['totalSolChange'].toFixed(4)} SOL</h2></div>
+        <div style={{  backgroundColor: "#ffaff7ca"}} className='highlights-item'><h2>Holding <br/> {transactionsData['data']['holdingsAmount']} SOL</h2></div>
+        <div style={{  backgroundColor: "#d0e186"}} className='highlights-item'><h2>Rugged <br/> {transactionsData['data']['ruggedAmount']} SOL</h2></div>
+        <div style={{  backgroundColor: "#c5d1ff"}} className='highlights-item'><h2>Airdrop <br/> {transactionsData['data']['airdropsAmount']} SOL</h2></div>
       </div>
       <div className="statistics-grid">
-        {Object.entries(transactionsData).map(([token, stats]) => (
-          token !== 'totalSolChange' && (
-            <div 
-              key={token} 
-              className={`statistics-item ${stats.tag === "holding" ? "holding-net" : stats.tag === "Airdrop" ? "airdrop-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}
+        {Object.entries(transactionsData).map(([token, stats]) => {
+          return (
+            token !== 'data' && (
+              <div
+              onClick={() => openModal(token)}
+                key={token}
+                className={`statistics-item ${stats.tag === "holding" ? "holding-net" : stats.tag === "Airdrop" ? "airdrop-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}
               >
-              <div className="token-details">
-                <div className='update' >
-                  <p className="token-name">{token}</p>
-                  <button className='update-button'
-                  onClick={() => openModal(token)}>
-                  <img
-                src={"search.png"}
-                alt="Refresh"
-                style={{width: '20px', height: '20px' }}
-              />
-              </button>
+                <div className="token-details">
+                  <div className='update'>
+                    <img className='token-img' alt='token' src={stats.content.links.image} />
+                    <p className="token-name">{stats.content.metadata.symbol}</p>
+                  </div>
+                  <p>Buy: {stats.buy}</p>
+                  <p>Sell: {stats.sell.toFixed(4)}</p>
+                  <p>Net: {stats.net.toFixed(4)}</p>
                 </div>
-                <p>Buy: {stats.buy}</p>
-                <p>Sell: {stats.sell}</p>
-                <p>Net: {stats.net}</p>
               </div>
-            </div>
-          )
-        ))}
+            )
+          );
+        })}
       </div>
       {selectedToken && !isloading && tokenData && !isError && (
         <Modal isOpen={!!selectedToken} onClose={() => setSelectedToken(null)}>
