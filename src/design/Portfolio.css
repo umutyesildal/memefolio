@@ -26,6 +26,12 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 10px;
+  cursor: pointer;
+
+}
+
+.portfolio-item:hover {
+  background-color: #bababa;
 }
 
 .item-logo {
@@ -40,6 +46,9 @@
   text-align: left;
   justify-content: space-around;
 }
+
+
+
 
 .item-details .copy-item{
 

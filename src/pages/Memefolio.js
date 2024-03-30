@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Shitfolio.css';
-import Wallet from './Wallet'; 
-import LoadingModal from './LoadingModal';
+import '../design/Shitfolio.css';
+import UserStatistics from './UserStatistics'; // Import the Statistics component
+import LoadingModal from '../widgets/loadingModal';
 
-function Shitfolio() {
+/// TODO LONG TERM: USDC BUY + DCA 
+
+/// USDC: https://api.coingecko.com/api/v3/coins/solana/market_chart/range?vs_currency=usd&from=1693226387&to=1711636787
+
+/// TODO: How much would it be initial.
+
+function Memefolio() {
   const [transactionsData, settransactionsData] = useState(null);
   const [walletData, setWalletData] = useState(null);
   const [walletAddress, setWalletAddress] = useState('');
@@ -40,7 +46,7 @@ function Shitfolio() {
 
         const data = await response.json();
         const solTokenAddress = "So11111111111111111111111111111111111111112";
-        const usdcAddress = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+        const usdcTokenAddress = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
         let solDiffs = {};
         let allTokens = []
         let totalSolChange = 0;
@@ -203,8 +209,34 @@ async function fetchTokensWithNonZeroBalance() {
   });
       const data = await response.json();
 
-      const tokens = data.filter(token => token.amount !== "0");
-      setWalletData(tokens)
+      let tokens = data.filter(token => token.amount !== "0");
+      tokens = tokens.filter(token => token.amount !== "1");
+
+      let walletData = {}
+      tokens.forEach(element => {
+        
+        walletData[element.mint] = {
+          "token_id": element.mint,
+          "amount": element.amount
+        }
+    });
+      let holdingTokens = tokens.map(item => item["mint"])
+      let tokenMetadata = await fetchTokenMetadata(holdingTokens);
+      tokenMetadata.forEach(element => {
+        if(element.token_info.price_info !== undefined){
+          walletData[element.id].token_id === "So11111111111111111111111111111111111111112" ? walletData[element.id].amount = walletData[element.id].amount / Math.pow(10, 9) : walletData[element.id].amount = walletData[element.id].amount / Math.pow(10, 6)
+          walletData[element.id].symbol = element.content.metadata.symbol
+          walletData[element.id].image = element.content.links.image
+          walletData[element.id].holdingPrice = element.token_info.price_info.price_per_token * walletData[element.id].amount
+          walletData[element.id].token_price = element.token_info.price_info.price_per_token
+          console.log(walletData[element.id])
+          console.log(element.token_info.price_info.price_per_token)
+          console.log(walletData[element.id].amount / Math.pow(10, 6))
+          console.log(walletData[element.id].holdingPrice)
+        }
+
+    });
+    setWalletData(walletData)
   } catch (error) {
       console.error('Error fetching tokens:', error);
       return [];
@@ -222,8 +254,8 @@ useEffect(() => {
 
 const fetchData = async () => {
   setIsLoading(true);
-  await calculateSolDiff();
   await fetchTokensWithNonZeroBalance();
+  await calculateSolDiff();
   setIsLoading(false);
 };
 
@@ -251,7 +283,7 @@ const fetchData = async () => {
       </header>
         <div ref={walletRef}>
           {transactionsData && walletData ? (
-            <Wallet walletData={walletData} transactionsData={transactionsData} />
+            <UserStatistics walletAddress={walletAddress} walletData={walletData} transactionsData={transactionsData} />
           ) : ( null
           )}
         </div>
@@ -259,4 +291,4 @@ const fetchData = async () => {
   );
 }
 
-export default Shitfolio;
+export default Memefolio;

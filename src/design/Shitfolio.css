@@ -19,7 +19,7 @@
   padding: 12vw;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  background: url("../public/aurorabg.png") no-repeat center center;
+  background: url("../../public/aurorabg.png") no-repeat center center;
   background-size: cover;
   background-position: center top;
 }
@@ -113,7 +113,7 @@
     padding: 3vw;
     display: flex;
     flex-direction: column-reverse;
-    background: url("../public/aurorabg.png") no-repeat center center;
+    background: url("../../public/aurorabg.png") no-repeat center center;
     background-size: cover;
     background-position: center top;
     height: 100vh;
@@ -191,7 +191,7 @@ text-align: center;
     padding: 3vw;
     display: flex;
     flex-direction: column-reverse;
-    background: url("../public/aurorabg.png") no-repeat center center;
+    background: url("../../public/aurorabg.png") no-repeat center center;
     background-size: cover;
     background-position: center top;
     height: 100vh;

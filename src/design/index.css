@@ -14,23 +14,23 @@ code {
 
 @font-face {
   font-family: "SpaceMono";
-  src: local("SpaceMono"), url(./fonts/SpaceMono-Regular.ttf) format("truetype");
+  src: local("SpaceMono"), url(../fonts/SpaceMono-Regular.ttf) format("truetype");
 }
 
 @font-face {
   font-family: "SpaceMonoBold";
   src: local("SpaceMonoBold"),
-    url(./fonts/SpaceMono-Bold.ttf) format("truetype");
+    url(../fonts/SpaceMono-Bold.ttf) format("truetype");
 }
 
 @font-face {
   font-family: "SpaceMonoBoldItalic";
   src: local("SpaceMonoBoldItalic"),
-    url(./fonts/SpaceMono-BoldItalic.ttf) format("truetype");
+    url(../fonts/SpaceMono-BoldItalic.ttf) format("truetype");
 }
 
 @font-face {
   font-family: "SpaceMonoItalic";
   src: local("SpaceMonoItalic"),
-    url(./fonts/SpaceMono-Italic.ttf) format("truetype");
+    url(../fonts/SpaceMono-Italic.ttf) format("truetype");
 }

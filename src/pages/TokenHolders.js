@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Holders.css';
+import '../design/Holders.css';
 
-const Holders = () => {
+const TokenHolders = () => {
   const [ownersData, setOwnersData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [tokenAddress, setTokenAddress] = useState('');
@@ -158,4 +158,4 @@ const Holders = () => {
   );
 };
 
-export default Holders;
+export default TokenHolders;
