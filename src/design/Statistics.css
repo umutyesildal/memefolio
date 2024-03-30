@@ -24,7 +24,7 @@
 }
 
 .highlights .highlights-item {
-  border: 1px solid #ddd;
+  border: 3px solid #252b30;
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
@@ -44,7 +44,7 @@ h1
 }
 
 .statistics-item {
-  border: 1px solid #fff;
+  border: 3px solid #252b30;
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
@@ -93,22 +93,20 @@ h1
 
 .holding-net {
   background: rgb(75,75,75);
-  background: linear-gradient(128deg, rgba(0,0,0,1) 35%, rgba(230,191,226,1) 100%);
+  background: linear-gradient(143deg, #14181b 35%, #4c3763);  
 }
 
 .airdrop-net {
   background: rgb(75,75,75);
-  background: linear-gradient(128deg, rgba(0,0,0,1) 35%, rgba(197,209,255,1) 100%);
+  background: linear-gradient(143deg, #14181b 35%, #374e63);  
 }
 
 .positive-net {
   background: rgb(0,0,0);
-  background: linear-gradient(128deg, rgba(0,0,0,1) 35%, rgba(73,147,73,1) 100%);  
+  background: linear-gradient(143deg, #14181b 35%, #376338);  
 }
-
 .negative-net {
-  background: rgb(75,75,75);
-  background: linear-gradient(128deg, rgba(0,0,0,1) 35%, rgba(161,37,37,1) 100%);
+  background: linear-gradient(143deg, #14181b 35%, #633737);  
 }
 
 .best-play {
@@ -160,7 +158,7 @@ h1
 }
 
 .statistics-bar .active {
-  background-color: #fff200;
+  background-color: #fffa65;
   color: black;
   border-color: black;
   opacity: 1
