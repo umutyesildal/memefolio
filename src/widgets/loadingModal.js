@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoadingModal.css'; // Make sure to create this CSS file
+import '../design/LoadingModal.css'; // Make sure to create this CSS file
 
 const LoadingModal = () => {
   return (

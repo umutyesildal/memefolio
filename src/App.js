@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import './App.css';
-import Shitfolio from './Shitfolio';
-import Holders from './Holders'; // Import the new Holders component if you're using it
+import './design/App.css';
+import Memefolio from './pages/Memefolio';
+import TokenHolders from './pages/TokenHolders'; // Import the new Holders component if you're using it
 
 function App() {
   const [activeTab,setActiveTab] = useState('tab1');
   const renderTabContent = () => {
     switch (activeTab) {
       case 'tab1':
-        return <Shitfolio />;
+        return <Memefolio />;
       case 'tab2':
-        return <Holders />; // Assuming you're using the Holders component for tab 2
+        return <TokenHolders />; // Assuming you're using the Holders component for tab 2
       default:
-        return <Shitfolio />;
+        return <Memefolio />;
     }
   };
 
@@ -27,7 +27,8 @@ export default App;
 
 
 /*
-        <div className="tab-bar">
+
+            <div className="tab-bar">
         <button onClick={() => setActiveTab('tab1')} className={activeTab === 'tab1' ? 'active' : ''}>
           Shitfolio
         </button>
@@ -35,4 +36,5 @@ export default App;
           Holders
         </button>
       </div>
+
 */
