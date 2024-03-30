@@ -5,6 +5,7 @@ import UserPortfolio from './UserPortfolio';
 import StatisticsItem from '../widgets/statisticsItem';
 import Highlights from '../widgets/highlights';
 
+/// TODO: Change Transactions page
 
 const UserStatistics = ({walletAddress, walletData,transactionsData }) => {
   const [selectedToken, setSelectedToken] = useState(null);
@@ -76,7 +77,6 @@ const UserStatistics = ({walletAddress, walletData,transactionsData }) => {
             <button className="close-button" onClick={() => setSelectedToken(null)}>X</button>
             <h3>Transactions for {tokenData.mintSymbol}</h3>
             <p>Current price: {tokenData.price}</p>
-            <a href={tokenData.birdeyeLink} target="_blank" >Check {tokenData.mintSymbol} Birdeye</a>
             <div>
               {transactionsData[selectedToken].txs.map((tx, index) => (
                 <div key={index} className={`transaction-item transaction-${tx.type}`}>
@@ -94,12 +94,12 @@ const UserStatistics = ({walletAddress, walletData,transactionsData }) => {
   };
   
   return (
-    <div className="App">
-          <h2>Portfolio of {walletAddress}</h2>
-
-            <div className="tab-bar">
+    <div className='all-statistics' >
+          <h1>{"Wallet Address"}</h1>
+          <h1>{walletAddress}</h1>
+            <div className="statistics-bar">
         <button onClick={() => setActiveTab('tab1')} className={activeTab === 'tab1' ? 'active' : ''}>
-          Plays
+          Transactions
         </button>
         <button onClick={() => setActiveTab('tab2')} className={activeTab === 'tab2' ? 'active' : ''}>
           Holdings

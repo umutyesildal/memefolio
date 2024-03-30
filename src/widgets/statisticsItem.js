@@ -1,7 +1,6 @@
 import React from 'react';
 import '../design/Portfolio.css';
 
-/// TODO: TOKEN IMAGE
 
 // Statistics Item is a single item in Statistics page that shows buy sell and anything.
 const StatisticsItem = ({ token, stats }) => {

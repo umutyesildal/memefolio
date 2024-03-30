@@ -266,20 +266,19 @@ const fetchData = async () => {
       {isLoading && <LoadingModal />}
       <header className="Shitfolio-header">
         <div className='Shitfolio-text' > 
-          <h1>Memecoin Tracker: <b>Check your P&L</b> </h1>
+          <h1>Memefolio</h1>
           <p>Check your memecoin P&L easily with just a click.</p>
           <div className="input-group">
             <input
               type="text"
-              placeholder="Enter your wallet address"
+              placeholder="Wallet Address"
               value={walletAddress}
               onChange={(e) => setWalletAddress(e.target.value)}
             />
-            <button onClick={fetchData} disabled={!walletAddress}>Fetch Data</button>
+            <button onClick={fetchData} disabled={!walletAddress}>CHECK IF YOU'RE REKT</button>
           </div>
           <span>- SOL Change is calculated with buys and sells. <br></br> - Rugged is tokens with no routes. <br></br> - Airdrops are tokens that are not swapped as buys. <br></br> - There might be errors since this is early alpha.</span>
         </div>
-        <img src="/cat-hero2.png" className="Shitfolio-logo" alt="logo" />
       </header>
         <div ref={walletRef}>
           {transactionsData && walletData ? (

@@ -1,5 +1,9 @@
 .all-statistics {
   padding: 2vw;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
 }
 
 .statistics-grid {
@@ -7,6 +11,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   font-family: "SpaceMono";
+  color: white;
 }
 
 
@@ -23,15 +28,23 @@
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
+  color: white;
 }
 
-h2 {
-  font-family: "SpaceMono";
-  font-weight: bold;
+h1
+  {
+    font-family: "SpaceMonoBold";
+    font-weight: 300;
+    line-height: 125%;
+    color: #fffa65;
+    font-size: 2.5vw;
+    z-index: 1;
+    text-align: center;
+  
 }
 
 .statistics-item {
-  border: 1px solid #ddd;
+  border: 1px solid #fff;
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
@@ -39,8 +52,7 @@ h2 {
 }
 
 .statistics-item:hover {
-
-  background-color: rgb(255, 255, 255);
+  background-color: #3d3d3d;
 }
 
 .token-details {
@@ -53,6 +65,7 @@ h2 {
   display: flex;
   flex-direction: row;
   justify-content: start;
+  align-items: center;
   gap: 20px;
 }
 
@@ -68,8 +81,8 @@ h2 {
 }
 
 .token-img{
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 
 }
@@ -79,19 +92,23 @@ h2 {
 }
 
 .holding-net {
-  background-color: #ffaff7ca;
+  background: rgb(75,75,75);
+  background: linear-gradient(128deg, rgba(0,0,0,1) 35%, rgba(230,191,226,1) 100%);
 }
 
 .airdrop-net {
-  background-color: #c5d1ff;
+  background: rgb(75,75,75);
+  background: linear-gradient(128deg, rgba(0,0,0,1) 35%, rgba(197,209,255,1) 100%);
 }
 
 .positive-net {
-  background-color: #c2fac28f;
+  background: rgb(0,0,0);
+  background: linear-gradient(128deg, rgba(0,0,0,1) 35%, rgba(73,147,73,1) 100%);  
 }
 
 .negative-net {
-  background-color: #f8b3b37c;
+  background: rgb(75,75,75);
+  background: linear-gradient(128deg, rgba(0,0,0,1) 35%, rgba(161,37,37,1) 100%);
 }
 
 .best-play {
@@ -118,6 +135,38 @@ h2 {
 .transaction-sell {
   border-color: #f44336;
 }
+
+
+.statistics-bar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+}
+
+.statistics-bar button{
+
+  font-family: "SpaceMono";
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: black;
+  font-size: 1rem;
+  font-style: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  opacity: 0.7
+}
+
+.statistics-bar .active {
+  background-color: #fff200;
+  color: black;
+  border-color: black;
+  opacity: 1
+
+} 
+
 
 @media screen and (max-width: 950px) {
   .highlights {

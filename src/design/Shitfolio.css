@@ -1,7 +1,9 @@
 .Shitfolio {
   text-align: center;
-  background-color: white;
+  background-color: #3d3d3d;
   width: 100%;
+  color: #fffa65;
+  
 }
 
 .Shitfolio-logo {
@@ -15,18 +17,17 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  text-align: start;
-  padding: 12vw;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  background: url("../../public/aurorabg.png") no-repeat center center;
+  text-align: center;
+  padding: 6vw;
+  display: column;
   background-size: cover;
   background-position: center top;
+  height: 100vh;
 }
 
 .Shitfolio-text {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 2vw;
@@ -36,10 +37,10 @@
   font-family: "SpaceMonoBold";
   font-weight: 300;
   line-height: 125%;
-  color: #fe696f;
-  font-size: 5vw;
+  color: #fffa65;
+  font-size: 6vw;
   z-index: 1;
-  text-align: left;
+  text-align: center;
 }
 
 .Shitfolio-text p{
@@ -49,9 +50,9 @@
   font-weight: 500;
   line-height: 125%;
   z-index: 1;
-  text-align: left;
+  text-align: center;
   width: 75%;
-  color: #254512;
+  color: #fffa65;
 }
 
 .Shitfolio-text span{
@@ -61,8 +62,7 @@
   font-weight: 300;
   line-height: 125%;
   z-index: 1;
-  text-align: left;
-  color: #2545126f;
+  text-align: center;
 
 }
 
@@ -75,26 +75,25 @@
 
 .input-group input {
   font-family: "SpaceMono";
-  border: 2px solid #938EFF;
+  border: 2px solid #4b4b4b;
   border-radius: 4px;
   padding: 10px;
-  margin-right: 10px; /* Whitespace between text input and button */
   color: #282c34;
   font-size: 1rem;
   width: 40ch;
+  text-align: center;
 }
 
 .input-group button {
   font-family: "SpaceMono";
-  background-color: #938EFF;
+  background-color: #fffa65;
   border: none;
   border-radius: 4px;
   padding: 10px 20px;
-  color: rgb(255, 255, 255);
+  color: #4b4b4b;
   font-size: 1rem;
   font-style: bold;
   cursor: pointer;
-  width: 15ch;
   transition: background-color 0.3s ease;
 }
 
@@ -113,9 +112,6 @@
     padding: 3vw;
     display: flex;
     flex-direction: column-reverse;
-    background: url("../../public/aurorabg.png") no-repeat center center;
-    background-size: cover;
-    background-position: center top;
     height: 100vh;
   }
 
@@ -148,6 +144,7 @@ text-align: center;
     font-size: 2vw;
     text-align: center;
 
+
   }
   
   .input-group {
@@ -162,7 +159,6 @@ text-align: center;
     border: 2px solid #938EFF;
     border-radius: 4px;
     padding: 10px;
-    margin-right: 10px; /* Whitespace between text input and button */
     color: #282c34;
     font-size: 3vw;
     width: 35ch;
@@ -191,9 +187,6 @@ text-align: center;
     padding: 3vw;
     display: flex;
     flex-direction: column-reverse;
-    background: url("../../public/aurorabg.png") no-repeat center center;
-    background-size: cover;
-    background-position: center top;
     height: 100vh;
   }
 
