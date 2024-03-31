@@ -1,5 +1,9 @@
 .all-statistics {
   padding: 2vw;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
 }
 
 .statistics-grid {
@@ -7,31 +11,40 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   font-family: "SpaceMono";
+  color: white;
 }
 
 
 .highlights {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   padding-top: 5vw;
   padding-bottom: 5vw;
   gap: 20px;
 }
 
 .highlights .highlights-item {
-  border: 1px solid #ddd;
+  border: 3px solid #252b30;
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
+  color: white;
 }
 
-h2 {
-  font-family: "SpaceMono";
-  font-weight: bold;
+h1
+  {
+    font-family: "SpaceMonoBold";
+    font-weight: 300;
+    line-height: 125%;
+    color: #fffa65;
+    font-size: 2.5vw;
+    z-index: 1;
+    text-align: center;
+  
 }
 
 .statistics-item {
-  border: 1px solid #ddd;
+  border: 3px solid #252b30;
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
@@ -39,8 +52,7 @@ h2 {
 }
 
 .statistics-item:hover {
-
-  background-color: rgb(255, 255, 255);
+  background-color: #3d3d3d;
 }
 
 .token-details {
@@ -53,6 +65,7 @@ h2 {
   display: flex;
   flex-direction: row;
   justify-content: start;
+  align-items: center;
   gap: 20px;
 }
 
@@ -68,8 +81,8 @@ h2 {
 }
 
 .token-img{
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 
 }
@@ -79,19 +92,21 @@ h2 {
 }
 
 .holding-net {
-  background-color: #ffaff7ca;
+  background: rgb(75,75,75);
+  background: linear-gradient(143deg, #14181b 35%, #4c3763);  
 }
 
 .airdrop-net {
-  background-color: #c5d1ff;
+  background: rgb(75,75,75);
+  background: linear-gradient(143deg, #14181b 35%, #374e63);  
 }
 
 .positive-net {
-  background-color: #c2fac28f;
+  background: rgb(0,0,0);
+  background: linear-gradient(143deg, #14181b 35%, #376338);  
 }
-
 .negative-net {
-  background-color: #f8b3b37c;
+  background: linear-gradient(143deg, #14181b 35%, #633737);  
 }
 
 .best-play {
@@ -118,6 +133,38 @@ h2 {
 .transaction-sell {
   border-color: #f44336;
 }
+
+
+.statistics-bar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+}
+
+.statistics-bar button{
+
+  font-family: "SpaceMono";
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: black;
+  font-size: 1rem;
+  font-style: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  opacity: 0.7
+}
+
+.statistics-bar .active {
+  background-color: #fffa65;
+  color: black;
+  border-color: black;
+  opacity: 1
+
+} 
+
 
 @media screen and (max-width: 950px) {
   .highlights {

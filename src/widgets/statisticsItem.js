@@ -1,13 +1,12 @@
 import React from 'react';
 import '../design/Portfolio.css';
 
-/// TODO: TOKEN IMAGE
 
 // Statistics Item is a single item in Statistics page that shows buy sell and anything.
 const StatisticsItem = ({ token, stats }) => {
 
   return (
-    token !== 'data' && (
+    (token !== 'data') && (token !== 'bestPlays') && (
         <div
           key={token}
           className={`statistics-item ${stats.tag === "holding" ? "holding-net" : stats.tag === "Airdrop" ? "airdrop-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}>

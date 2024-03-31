@@ -18,6 +18,19 @@ function Memefolio() {
 
 
 
+  function parseDateStringToDate(dateString) {
+    // Split the string into date and time parts
+    const [datePart] = dateString.split(' ');
+
+    // Split the date part into day and month
+    const [day, month] = datePart.split('.');
+
+    // Create a new Date object with a fixed year and extracted day and month
+    const dateTimeObject = new Date(2024, month - 1, day);
+
+    return dateTimeObject;
+}
+
   async function calculateSolDiff() {
     const url = "https://rest-api.hellomoon.io/v0/solana/txns-by-user";
     const headers = {
@@ -125,13 +138,55 @@ function Memefolio() {
 
     });
 
+
+
+
+    let firstTxDate = solDiffs[allTokensUnique[0]].txs[0].blockTime
+    let lastTxDate = solDiffs[allTokensUnique[allTokensUnique.length -1]].txs[0].blockTime
+
+
+    // Filter items based on tags to be excluded
+    const excludedTags = ["airdrop", "rugged", "holding"];
+    const filteredData = Object.fromEntries(
+      Object.entries(solDiffs).filter(([key, value]) => !excludedTags.includes(value.tag))
+  );
+
+    // Sort tokens by net from filtered data
+    const sortedTokens = Object.entries(filteredData).sort((a, b) => a[1].net - b[1].net);
+
+    if (sortedTokens.length > 0) {
+        // Get token with the smallest net
+        const minNetToken = sortedTokens[0];
+        // Get token with the biggest net
+        const maxNetToken = sortedTokens[sortedTokens.length - 1];
+
+        solDiffs['bestPlays'] = {
+          "best": {
+            "tokenId": maxNetToken[0],
+            "name": maxNetToken[1]['token_info']['symbol'],
+            "image": maxNetToken[1]['content']['links']['image'],
+            "net": maxNetToken[1]['net'],
+          },
+          "worst": {
+            "tokenId": minNetToken[0],
+            "name": minNetToken[1]['token_info']['symbol'],
+            "image": minNetToken[1]['content']['links']['image'],
+            "net": minNetToken[1]['net'],
+          }
+        }
+    }
+
+
       solDiffs['data'] = {
         "totalSolChange": totalSolChange,
         "airdropsAmount": airdropsAmount,
         "holdingsAmount": holdingsAmount,
         "ruggedAmount": ruggedAmount,
+        "firstTxDate": firstTxDate,
+        "lastTxDate": lastTxDate
       }
         settransactionsData(solDiffs);
+        console.log(solDiffs)
     } catch (error) {
         console.error('Error:', error);
     }
@@ -229,13 +284,11 @@ async function fetchTokensWithNonZeroBalance() {
           walletData[element.id].image = element.content.links.image
           walletData[element.id].holdingPrice = element.token_info.price_info.price_per_token * walletData[element.id].amount
           walletData[element.id].token_price = element.token_info.price_info.price_per_token
-          console.log(walletData[element.id])
-          console.log(element.token_info.price_info.price_per_token)
-          console.log(walletData[element.id].amount / Math.pow(10, 6))
-          console.log(walletData[element.id].holdingPrice)
         }
 
     });
+
+
     setWalletData(walletData)
   } catch (error) {
       console.error('Error fetching tokens:', error);
@@ -266,20 +319,19 @@ const fetchData = async () => {
       {isLoading && <LoadingModal />}
       <header className="Shitfolio-header">
         <div className='Shitfolio-text' > 
-          <h1>Memecoin Tracker: <b>Check your P&L</b> </h1>
-          <p>Check your memecoin P&L easily with just a click.</p>
+          <h1>memefolio</h1>
+          <p>check your memecoin P&L easily with just a click.</p>
           <div className="input-group">
             <input
               type="text"
-              placeholder="Enter your wallet address"
+              placeholder="Wallet Address"
               value={walletAddress}
               onChange={(e) => setWalletAddress(e.target.value)}
             />
-            <button onClick={fetchData} disabled={!walletAddress}>Fetch Data</button>
+            <button onClick={fetchData} disabled={!walletAddress}>check if you're rekt</button>
           </div>
-          <span>- SOL Change is calculated with buys and sells. <br></br> - Rugged is tokens with no routes. <br></br> - Airdrops are tokens that are not swapped as buys. <br></br> - There might be errors since this is early alpha.</span>
+          <span>- sol change is calculated with buys and sells. <br></br> - especially developed for bonkbot users <br></br> - airdrops are tokens that are not swapped as buys. <br></br> - there might be errors since this is early alpha.</span>
         </div>
-        <img src="/cat-hero2.png" className="Shitfolio-logo" alt="logo" />
       </header>
         <div ref={walletRef}>
           {transactionsData && walletData ? (

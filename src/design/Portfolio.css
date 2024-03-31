@@ -1,7 +1,7 @@
 .portfolio {
   text-align: left; /* Aligning text to the left */
   font-family: "SpaceMono";
-
+  padding: 2vw;
 }
 
 .wallet-info {
@@ -14,24 +14,34 @@
 
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+
+a {
+  cursor: pointer;
+  text-decoration: none !important;
+  color: inherit;
+} 
 
 .portfolio-item {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
-  border: 1px solid #ddd;
+  border: 3px solid #252b30;
   border-radius: 8px;
-  padding: 10px;
-  cursor: pointer;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
 
+  cursor: pointer;
+  background-color: #14181b;
 }
 
 .portfolio-item:hover {
-  background-color: #bababa;
+  background-color: #2a2d2f;
 }
 
 .item-logo {
@@ -43,11 +53,30 @@
 .item-details {
   display: flex;
   flex-direction: column;
+  gap: 20px;
   text-align: left;
   justify-content: space-around;
 }
 
+.item-details .image-header{
 
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+
+}
+
+.item-details .image-header h4 {
+  font-size: 1.5vw;
+}
+
+
+.item-details .item-data-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
 
 
 .item-details .copy-item{
@@ -61,9 +90,6 @@
   font-weight: bold;
 }
 
-.copy-button{
-
-}
 
 @media screen and (max-width: 950px) {
   .portfolio-grid {
