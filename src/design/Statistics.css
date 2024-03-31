@@ -17,7 +17,7 @@
 
 .highlights {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   padding-top: 5vw;
   padding-bottom: 5vw;
   gap: 20px;

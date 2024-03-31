@@ -6,7 +6,7 @@ import '../design/Portfolio.css';
 const StatisticsItem = ({ token, stats }) => {
 
   return (
-    token !== 'data' && (
+    (token !== 'data') && (token !== 'bestPlays') && (
         <div
           key={token}
           className={`statistics-item ${stats.tag === "holding" ? "holding-net" : stats.tag === "Airdrop" ? "airdrop-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}>
