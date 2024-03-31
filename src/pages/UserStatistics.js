@@ -56,7 +56,9 @@ const UserStatistics = ({walletAddress, walletData,transactionsData }) => {
         <div className="statistics-grid">
           {Object.entries(transactionsData).map(([token, stats]) => {
             return ( 
-              <div onClick={() => openModal(token, stats)}>
+              <div
+             //  onClick={() => openModal(token, stats)}
+               >
               <StatisticsItem token={token} stats={stats} />
               </div>
             );
