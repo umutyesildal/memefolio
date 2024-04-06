@@ -1,31 +1,30 @@
-.Shitfolio {
+.Memefolio {
   text-align: center;
   background-color:  #14181b;
   width: 100%;
   color: #fffa65;
-  
+  height: 100vh;
 }
 
-.Shitfolio-logo {
+.Memefolio-logo {
   object-fit: contain;
   max-width: 350px;
   justify-self: end;
-
 }
 
-.Shitfolio-header {
+
+.Memefolio-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   text-align: center;
   padding: 6vw;
   display: column;
   background-size: cover;
   background-position: center top;
-  height: 100vh;
 }
 
-.Shitfolio-text {
+.Memefolio-text {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,7 +32,7 @@
   gap: 2vw;
 }
 
-.Shitfolio-text h1 {
+.Memefolio-text h1 {
   font-family: "SpaceMonoBold";
   font-weight: 300;
   line-height: 125%;
@@ -43,7 +42,7 @@
   text-align: center;
 }
 
-.Shitfolio-text p{
+.Memefolio-text p{
   font-family: "SpaceMono";
   font-style: normal;
   font-size: 1.5vw;
@@ -55,7 +54,7 @@
   color: #fffa65;
 }
 
-.Shitfolio-text span{
+.Memefolio-text span{
   font-family: "SpaceMono";
   font-style: normal;
   font-size: 1vw;
@@ -96,16 +95,18 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
-.input-group button:hover {
-  background-color: #fe696f; /* Button hover effect */
+.input-group button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
+
+
 
 
 
 @media screen and (max-width: 950px) {
 
-  .Shitfolio-header {
+  .Memefolio-header {
     align-items: center;
     justify-content: space-around;
     text-align: center;
@@ -115,32 +116,32 @@
     height: 100vh;
   }
 
-  .Shitfolio-text {
+  .Memefolio-text {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 2vw;
   }
-  .Shitfolio-logo {
+  .Memefolio-logo {
     object-fit: contain;
     max-width: 150px;
     justify-self: end;
   }
 
-  .Shitfolio-text h1 {
+  .Memefolio-text h1 {
     font-size: 5vw;
     width: 75%;
 text-align: center;
   }
   
-  .Shitfolio-text p{
+  .Memefolio-text p{
     font-size: 3vw;
     text-align: center;
 
   }
   
-  .Shitfolio-text span{
+  .Memefolio-text span{
     font-size: 2vw;
     text-align: center;
 
@@ -180,7 +181,7 @@ text-align: center;
 }
 
 @media screen and (max-width: 526px) {
-  .Shitfolio-header {
+  .Memefolio-header {
     align-items: center;
     justify-content: space-around;
     text-align: center;
@@ -190,32 +191,32 @@ text-align: center;
     height: 100vh;
   }
 
-  .Shitfolio-text {
+  .Memefolio-text {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 2vw;
   }
-  .Shitfolio-logo {
+  .Memefolio-logo {
     object-fit: contain;
     max-width: 150px;
     justify-self: end;
   }
 
-  .Shitfolio-text h1 {
+  .Memefolio-text h1 {
     font-size: 5vw;
     width: 75%;
 text-align: center;
   }
   
-  .Shitfolio-text p{
+  .Memefolio-text p{
     font-size: 3vw;
     text-align: center;
 
   }
   
-  .Shitfolio-text span{
+  .Memefolio-text span{
     font-size: 2vw;
     text-align: center;
 

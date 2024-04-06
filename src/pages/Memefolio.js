@@ -1,35 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../design/Shitfolio.css';
+import '../design/Memefolio.css';
 import UserStatistics from './UserStatistics'; // Import the Statistics component
 import LoadingModal from '../widgets/loadingModal';
 
-/// TODO LONG TERM: USDC BUY + DCA 
-
-/// USDC: https://api.coingecko.com/api/v3/coins/solana/market_chart/range?vs_currency=usd&from=1693226387&to=1711636787
-
-/// TODO: How much would it be initial.
+/// TODO: SORT DATE,  BONKBOT DEEPLINK, MAKE ONLY SUITABLE FOR BONKBOT ETC USERS, WIP PREMUM USERS, GÖRSEL OLUŞTURMA
 
 function Memefolio() {
   const [transactionsData, settransactionsData] = useState(null);
+  const [weeklyData, setweeklyData] = useState(null);
+
   const [walletData, setWalletData] = useState(null);
   const [walletAddress, setWalletAddress] = useState('');
+  const [isValidAddress, setisValidAddress] = useState(false);
   const walletRef = useRef(null); // Creating a reference for the wallet section
   const [isLoading, setIsLoading] = useState(false);
-
-
-
-  function parseDateStringToDate(dateString) {
-    // Split the string into date and time parts
-    const [datePart] = dateString.split(' ');
-
-    // Split the date part into day and month
-    const [day, month] = datePart.split('.');
-
-    // Create a new Date object with a fixed year and extracted day and month
-    const dateTimeObject = new Date(2024, month - 1, day);
-
-    return dateTimeObject;
-}
 
   async function calculateSolDiff() {
     const url = "https://rest-api.hellomoon.io/v0/solana/txns-by-user";
@@ -69,13 +53,14 @@ function Memefolio() {
 
         
         data.data.forEach(tx => {
+
             const sourceMint = tx.parsedInfo.sourceMint;
             const destinationMint = tx.parsedInfo.destinationMint;
             const sourceAmount = tx.parsedInfo.sourceAmount / Math.pow(10, 9);
             const destinationAmount = tx.parsedInfo.destinationAmount / Math.pow(10, 9);
             const otherMint = sourceMint === solTokenAddress ? destinationMint : sourceMint;
             if (!solDiffs[otherMint]) {
-                solDiffs[otherMint] = { buy: 0, sell: 0, net: 0, txs: [], tag: "" };
+                solDiffs[otherMint] = {tokenAddress: otherMint, buy: 0, sell: 0, net: 0, txs: [], tag: "" };
             }
 
             let txType;
@@ -138,8 +123,9 @@ function Memefolio() {
 
     });
 
-
-
+      // Group data by week of the year
+      const groupedData = groupDataByWeekAndSort(solDiffs);
+      setweeklyData(groupedData)
 
     let firstTxDate = solDiffs[allTokensUnique[0]].txs[0].blockTime
     let lastTxDate = solDiffs[allTokensUnique[allTokensUnique.length -1]].txs[0].blockTime
@@ -161,20 +147,12 @@ function Memefolio() {
         const maxNetToken = sortedTokens[sortedTokens.length - 1];
 
         solDiffs['bestPlays'] = {
-          "best": {
-            "tokenId": maxNetToken[0],
-            "name": maxNetToken[1]['token_info']['symbol'],
-            "image": maxNetToken[1]['content']['links']['image'],
-            "net": maxNetToken[1]['net'],
-          },
-          "worst": {
-            "tokenId": minNetToken[0],
-            "name": minNetToken[1]['token_info']['symbol'],
-            "image": minNetToken[1]['content']['links']['image'],
-            "net": minNetToken[1]['net'],
-          }
+          "best": maxNetToken,
+          "worst": minNetToken
         }
     }
+
+
 
 
       solDiffs['data'] = {
@@ -186,7 +164,6 @@ function Memefolio() {
         "lastTxDate": lastTxDate
       }
         settransactionsData(solDiffs);
-        console.log(solDiffs)
     } catch (error) {
         console.error('Error:', error);
     }
@@ -212,6 +189,68 @@ async function rugCheck(tokenId) {
       throw error;
   }
 }
+
+// Function to group data by week of the year and sort by latest weeks
+const groupDataByWeekAndSort = (data) => {
+  const grouped = {};
+
+  Object.keys(data).forEach((key) => {
+      const firstTx = data[key].txs[0]; // Get the first transaction in the txs array
+      const blockTime = firstTx.blockTime;
+      const dateParts = blockTime.split(' ')[0].split('.');
+      const formattedDate = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`);
+      const isoWeekNumber = formattedDate ? formattedDate.getWeek() : null;
+
+      if (isoWeekNumber) {
+          if (!grouped[isoWeekNumber]) {
+              grouped[isoWeekNumber] = {
+                  data: [],
+                  startDate: getWeekStartDate(formattedDate),
+                  endDate: getWeekEndDate(formattedDate)
+              };
+          }
+          grouped[isoWeekNumber].data.push(data[key]);
+      }
+  });
+
+  // Sort the grouped data by week number (latest weeks first)
+  const sortedGroups = Object.values(grouped).sort((a, b) => {
+      return new Date(b.startDate) - new Date(a.startDate);
+  });
+
+  return sortedGroups;
+};
+
+// Function to get the start date of the week (Sunday) for a given date
+const getWeekStartDate = (date) => {
+  const dayOfWeek = date.getDay(); // 0 (Sunday) to 6 (Saturday)
+  const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // Adjust to start of the week (Sunday)
+  const weekStart = new Date(date);
+  weekStart.setDate(weekStart.getDate() + diff);
+  return weekStart.toISOString().split('T')[0];
+};
+
+// Function to get the end date of the week (Saturday) for a given date
+const getWeekEndDate = (date) => {
+  const dayOfWeek = date.getDay(); // 0 (Sunday) to 6 (Saturday)
+  const diff = dayOfWeek === 6 ? 0 : 6 - dayOfWeek; // Adjust to end of the week (Saturday)
+  const weekEnd = new Date(date);
+  weekEnd.setDate(weekEnd.getDate() + diff);
+  return weekEnd.toISOString().split('T')[0];
+};
+
+// Extend Date prototype to get ISO week number
+Date.prototype.getWeek = function() {
+  const date = new Date(this.getTime());
+  date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+  const week1 = new Date(date.getFullYear(), 0, 4);
+  return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 -
+      3 + (week1.getDay() + 6) % 7) / 7);
+};
+
+
+
 
 
 async function fetchTokenMetadata(data) {
@@ -296,46 +335,55 @@ async function fetchTokensWithNonZeroBalance() {
   }
 }
 
+function isValidSolanaAddress(walletAddress) {
+  // Regular expression for Solana address
+  const solregex = /(^[1-9A-HJ-NP-Za-km-z]{32,44}$)/g 
+
+  const check = solregex.test(walletAddress)
+  setisValidAddress(check)
+}
+
+
 
 
 
 useEffect(() => {
-  if (walletData && walletRef.current) {
-    walletRef.current.scrollIntoView({ behavior: 'smooth' });
-  }
-}, [walletData]);
+  isValidSolanaAddress(walletAddress)
+}, [walletData,walletAddress]);
+
 
 const fetchData = async () => {
   setIsLoading(true);
   await fetchTokensWithNonZeroBalance();
   await calculateSolDiff();
   setIsLoading(false);
+  walletRef.current.scrollIntoView({ behavior: 'smooth' });
 };
 
 
-
   return (
-    <div className="Shitfolio">
+    <div className="Memefolio">
       {isLoading && <LoadingModal />}
-      <header className="Shitfolio-header">
-        <div className='Shitfolio-text' > 
-          <h1>memefolio</h1>
-          <p>check your memecoin P&L easily with just a click.</p>
-          <div className="input-group">
-            <input
-              type="text"
-              placeholder="Wallet Address"
-              value={walletAddress}
-              onChange={(e) => setWalletAddress(e.target.value)}
-            />
-            <button onClick={fetchData} disabled={!walletAddress}>check if you're rekt</button>
-          </div>
-          <span>- sol change is calculated with buys and sells. <br></br> - especially developed for bonkbot users <br></br> - airdrops are tokens that are not swapped as buys. <br></br> - there might be errors since this is early alpha.</span>
-        </div>
-      </header>
-        <div ref={walletRef}>
+        <header className="Memefolio-header">
+            <div className='Memefolio-text' > 
+              <h1>memefolio</h1>
+              <p>check your memecoin P&L easily with just a click.</p>
+              <div className="input-group">
+                <input
+                  type="text"
+                  placeholder="Wallet Address"
+                  value={walletAddress}
+                  onChange={(e) => setWalletAddress(e.target.value)}
+                />
+                <button onClick={fetchData} disabled={!isValidAddress}>check if you're rekt</button>
+              </div>
+              <span>- sol change is calculated with buys and sells. <br></br> - especially developed for bonkbot users <br></br> - airdrops are tokens that are not swapped as buys. <br></br> - there might be errors since this is early alpha.</span>
+            </div>
+          </header>
+        <div /// TODO: Fix scroll
+         ref={walletRef}> 
           {transactionsData && walletData ? (
-            <UserStatistics walletAddress={walletAddress} walletData={walletData} transactionsData={transactionsData} />
+            <UserStatistics walletAddress={walletAddress} walletData={walletData} transactionsData={transactionsData} weeklyData={weeklyData}/>
           ) : ( null
           )}
         </div>

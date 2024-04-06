@@ -1,0 +1,54 @@
+.weekly-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
+}
+
+h4{
+    font-family: "SpaceMonoBold";
+    font-weight: 300;
+    line-height: 125%;
+    color: #fffa65;
+    font-size: 2vw;
+    z-index: 1;
+    text-align: start;
+}
+
+.sorting-dropdown {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+  
+  .custom-select {
+    font-size: 16px;
+    border: 1px solid #fffa65;
+    border-radius: 5px;
+    padding: 8px;
+    height: 50px;
+    width: 250px;
+    outline: none;
+    /* Update background color and additional styles for dropdown */
+    background-color: #14181b;
+    color: #fffa65;
+    font-family: "SpaceMonoBold";
+    font-weight: 300;
+    line-height: 125%;
+    cursor: pointer;
+  }
+  
+  .custom-select:hover {
+    background-color: #252c32;
+  }
+  
+  .custom-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .weekly-sorting{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }

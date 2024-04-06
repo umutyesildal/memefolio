@@ -3,12 +3,12 @@ import '../design/Portfolio.css';
 
 
 // Statistics Item is a single item in Statistics page that shows buy sell and anything.
-const StatisticsItem = ({ token, stats }) => {
+const StatisticsItem = ({ stats }) => {
 
   return (
-    (token !== 'data') && (token !== 'bestPlays') && (
+
         <div
-          key={token}
+          key={stats.tokenAddress}
           className={`statistics-item ${stats.tag === "holding" ? "holding-net" : stats.tag === "Airdrop" ? "airdrop-net" : (stats.net >= 0 ? 'positive-net' : 'negative-net')}`}>
           <div className="token-details">
             <div className='update'>
@@ -20,7 +20,7 @@ const StatisticsItem = ({ token, stats }) => {
             <p>Net: {stats.net.toFixed(4)}</p>
           </div>
         </div>
-      )
+      
   );
 };
 
