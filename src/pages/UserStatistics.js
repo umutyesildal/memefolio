@@ -8,30 +8,8 @@ import WeeklyStatistics from '../widgets/weeklyStatistics';
 /// TODO: Change Transactions page
 
 const UserStatistics = ({walletAddress, walletData,transactionsData, weeklyData }) => {
-  const [selectedToken, setSelectedToken] = useState(null);
-  const [tokenData, setTokenData] = useState(null);
+
   const [activeTab,setActiveTab] = useState('tab1');
-
-
-  const openModal = async (token, stats) => {
-    setSelectedToken(token);
-    if(stats.token_info.price_info === undefined){
-    setTokenData({
-      mintSymbol: stats.content.metadata.symbol,
-      price: "Unknown",
-      birdeyeLink: `https://birdeye.so/token/${token}`
-  })
-    }
-
-    setTokenData({
-      mintSymbol: stats.content.metadata.symbol,
-      price: stats.token_info.price_info,
-      birdeyeLink: `https://birdeye.so/token/${token}`
-  })
-
-  };
-
-
 
   const renderTabContent = () => {
     switch (activeTab) {

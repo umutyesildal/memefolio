@@ -1,10 +1,34 @@
 import React, { useState } from 'react';
 import StatisticsItem from './statisticsItem';
-import '../design/WeeklyStats.css'; // Import the CSS file with updated styles
+import '../design/WeeklyStats.css';
+import Modal from './modal'
 
 const WeeklyStatistics = ({ weeklyData }) => {
+  const [selectedToken, setSelectedToken] = useState(null);
+  const [tokenData, setTokenData] = useState(null);
+
+
+  const openModal = async (data) => {
+    console.log(data)
+    setSelectedToken(data.tokenAddress);
+    if(data.token_info.price_info === undefined){
+    setTokenData({
+      mintSymbol: data.content.metadata.symbol,
+      price: "Unknown",
+      birdeyeLink: `https://birdeye.so/token/${data.tokenAddress}`,
+      txs: data.txs
+  })
+    }
+    setTokenData({
+      mintSymbol: data.content.metadata.symbol,
+      price: data.token_info.price_info.price_per_token,
+      birdeyeLink: `https://birdeye.so/token/${data.tokenAddress}`,
+      txs: data.txs
+  })
+
+  };
   // State to manage sorting criteria and order
-  const [sortOption, setSortOption] = useState('net_desc'); // Default sorting option
+  const [sortOption, setSortOption] = useState('time_desc'); // Default sorting option
 
   // Function to handle sorting based on the selected option
   const handleSortChange = (event) => {
@@ -52,41 +76,13 @@ const WeeklyStatistics = ({ weeklyData }) => {
       </div>
     </div>
       <div className='weekly-grid'>
-        {/* Map over sortedData to render StatisticsItem components */}
         {sortedData.map((data, index) => (
+          <div onClick={() => openModal(data)}>
           <StatisticsItem key={index} stats={data} />
+          </div>
         ))}
       </div>
-    </div>
-  );
-};
-
-export default WeeklyStatistics;
-
-
-
-
-
-
-
-
-
-/*
-    (weeklyData !== 'data') && (
-        <div>
-            <div className="statistics-grid">
-                {Object.entries(weeklyData.data).map(([data]) => {
-                    return ( 
-                    <div
-                    onClick={() => openModal(data.tokenAdress, data.tokenAdress)}
-                    >
-                    <StatisticsItem token={tokenAddress} stats={stats} />
-                    </div>
-                    );
-                })}
-            </div>
-
-        {selectedToken && tokenData && (
+      {selectedToken && tokenData && (
           <Modal isOpen={!!selectedToken} onClose={() => setSelectedToken(null)}>
           <div className='transaction-header'>
             <button className="close-button" onClick={() => setSelectedToken(null)}>X</button>
@@ -94,7 +90,7 @@ export default WeeklyStatistics;
             <p>current price: {tokenData.price}</p>
             <a href={tokenData.birdeyeLink} target="_blank" >Check {tokenData.mintSymbol} birdeye</a>
             </div>
-              {transactionsData[selectedToken].txs.map((tx, index) => (
+              {tokenData.txs.map((tx, index) => (
                 <a href={tx.transactionId} target="_blank" rel="noopener noreferrer">
                 <div key={index} className={`transaction-item transaction-${tx.type}`}>
                   <span className="transaction-detail">time: </span><span>{tx.blockTime}</span>
@@ -106,8 +102,8 @@ export default WeeklyStatistics;
               ))}
           </Modal>
         )}
-        </div>
-      )
-      
+    </div>
+  );
+};
 
-*/
+export default WeeklyStatistics;

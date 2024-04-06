@@ -46,22 +46,39 @@ h1
 }
 
 .statistics-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
   border: 3px solid #252b30;
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
   cursor: pointer;
+
 }
 
 .statistics-item:hover {
   background-color: #3d3d3d;
 }
 
+.statistics-buttons{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: .75em;
+}
+
+.statistics-image{
+  width: 50px;
+  transition: 0.2s;
+}
+.statistics-image:hover{
+  width: 75px;
+}
+
 .token-details {
   text-align: left;
 }
-
-
 
 .token-details .update {
   display: flex;

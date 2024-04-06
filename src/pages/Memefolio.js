@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../design/Memefolio.css';
 import UserStatistics from './UserStatistics'; // Import the Statistics component
 import LoadingModal from '../widgets/loadingModal';
+import ImageGenerator from '../widgets/saveImage'
 
-/// TODO: SORT DATE,  BONKBOT DEEPLINK, MAKE ONLY SUITABLE FOR BONKBOT ETC USERS, WIP PREMUM USERS, GÖRSEL OLUŞTURMA
+/// TODO: ANA EKRANA HOW TO EKLE, GÖRSEL OLUŞTURMA, DOCUMENTATION, CÜZDANI BAĞLAYIP SADECE BONK VARSA ARAMA YAPABİLME
 
 function Memefolio() {
   const [transactionsData, settransactionsData] = useState(null);
   const [weeklyData, setweeklyData] = useState(null);
-
   const [walletData, setWalletData] = useState(null);
   const [walletAddress, setWalletAddress] = useState('');
   const [isValidAddress, setisValidAddress] = useState(false);
@@ -365,6 +365,7 @@ const fetchData = async () => {
     <div className="Memefolio">
       {isLoading && <LoadingModal />}
         <header className="Memefolio-header">
+        <ImageGenerator text="Hello, World!" />
             <div className='Memefolio-text' > 
               <h1>memefolio</h1>
               <p>check your memecoin P&L easily with just a click.</p>

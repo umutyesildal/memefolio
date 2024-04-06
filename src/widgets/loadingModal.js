@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../design/LoadingModal.css'; // Import the CSS file
 
 const LoadingModal = () => {
-  const [loadingText, setLoadingText] = useState('getting your memes...');
+  const [loadingText, setLoadingText] = useState('getting your memes');
 
   useEffect(() => {
     // Function to update the loading text every 2 seconds

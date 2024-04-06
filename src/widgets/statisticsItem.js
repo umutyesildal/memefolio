@@ -19,6 +19,9 @@ const StatisticsItem = ({ stats }) => {
             <p>Sell: {stats.sell.toFixed(4)}</p>
             <p>Net: {stats.net.toFixed(4)}</p>
           </div>
+          <div className='statistics-buttons' >
+          <a href={"https://t.me/bonkbot_bot?start=ref_yesil_ca_"+stats.tokenAddress} target="_blank" ><img className='statistics-image'  src='/memes/bonkbot.png' ></img></a>
+          </div>
         </div>
       
   );
