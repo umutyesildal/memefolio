@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './design/App.css';
 import Memefolio from './pages/Memefolio';
 import TokenHolders from './pages/TokenHolders';
-import Intro from './widgets/intro'
+import HowToUse from './widgets/howToUse'
 
 function App() {
   const [activeTab,setActiveTab] = useState('tab1');
@@ -19,7 +19,7 @@ function App() {
 
   return (
       <div className="App">
-        <Intro />
+        <HowToUse />
         {renderTabContent()}
       </div>
 
