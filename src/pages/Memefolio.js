@@ -4,7 +4,7 @@ import UserStatistics from './UserStatistics'; // Import the Statistics componen
 import LoadingModal from '../widgets/loadingModal';
 import ImageGenerator from '../widgets/saveImage'
 
-/// TODO: ANA EKRANA HOW TO EKLE, GÖRSEL OLUŞTURMA, DOCUMENTATION, CÜZDANI BAĞLAYIP SADECE BONK VARSA ARAMA YAPABİLME
+/// TODO: ANA EKRANA HOW TO EKLE, DOCUMENTATION, CÜZDANI BAĞLAYIP SADECE BONK VARSA ARAMA YAPABİLME
 
 function Memefolio() {
   const [transactionsData, settransactionsData] = useState(null);

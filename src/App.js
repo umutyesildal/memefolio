@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './design/App.css';
 import Memefolio from './pages/Memefolio';
-import TokenHolders from './pages/TokenHolders'; // Import the new Holders component if you're using it
-import { ParallaxProvider } from 'react-scroll-parallax';
+import TokenHolders from './pages/TokenHolders';
+import Intro from './widgets/intro'
 
 function App() {
   const [activeTab,setActiveTab] = useState('tab1');
@@ -18,11 +18,10 @@ function App() {
   };
 
   return (
-    <ParallaxProvider>
       <div className="App">
+        <Intro />
         {renderTabContent()}
       </div>
-    </ParallaxProvider>
 
   );
 }
