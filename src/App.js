@@ -3,7 +3,6 @@ import './design/App.css';
 import Memefolio from './pages/Memefolio';
 import TokenHolders from './pages/TokenHolders';
 import HowToUse from './widgets/howToUse'
-
 function App() {
   const [activeTab,setActiveTab] = useState('tab1');
   const renderTabContent = () => {
@@ -22,7 +21,6 @@ function App() {
         <HowToUse />
         {renderTabContent()}
       </div>
-
   );
 }
 

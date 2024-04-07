@@ -3,8 +3,10 @@ import '../design/Memefolio.css';
 import UserStatistics from './UserStatistics'; // Import the Statistics component
 import LoadingModal from '../widgets/loadingModal';
 import ImageGenerator from '../widgets/saveImage'
+import * as web3 from '@solana/web3.js';
 
-/// TODO: ANA EKRANA HOW TO EKLE, DOCUMENTATION, CÜZDANI BAĞLAYIP SADECE BONK VARSA ARAMA YAPABİLME
+
+/// TODO: CÜZDANI BAĞLAYIP SADECE BONK VARSA ARAMA YAPABİLME,DOCUMENTATION,
 
 function Memefolio() {
   const [transactionsData, settransactionsData] = useState(null);
@@ -14,6 +16,44 @@ function Memefolio() {
   const [isValidAddress, setisValidAddress] = useState(false);
   const walletRef = useRef(null); // Creating a reference for the wallet section
   const [isLoading, setIsLoading] = useState(false);
+  const [buttonText, setButtonText] = useState("please connect wallet first");
+
+
+
+  const [walletConnected, setWalletConnected] = useState(false);
+  const [balance, setBalance] = useState(null);
+
+  const rpcEndpoint = 'https://mainnet.helius-rpc.com/?api-key=1a8b4527-6ec2-4036-acd8-e747259d7654';
+
+
+  const connectWallet = async () => {
+    if (!window.solana || !window.solana.isPhantom) {
+      alert('Phantom wallet extension not detected');
+      return;
+    }
+
+    try {
+      // Connect to Phantom wallet
+      await window.solana.connect();
+      setWalletConnected(true);
+
+      // Get the user's public key (wallet address)
+      const publicKey = window.solana.publicKey;
+
+      console.log(publicKey)
+
+      // Fetch balance
+      const connection = new web3.Connection(rpcEndpoint);
+      console.log(connection)
+      const tokenBalances = await connection.getParsedTokenAccountsByOwner(publicKey,{
+        mint: new web3.PublicKey("DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263")
+    });
+      setBalance(tokenBalances.value[0].account.data.parsed.info.tokenAmount.uiAmount); // Convert lamports to SOL
+    } catch (error) {
+      console.error('Failed to connect to wallet:', error);
+    }
+  };
+
 
   async function calculateSolDiff() {
     const url = "https://rest-api.hellomoon.io/v0/solana/txns-by-user";
@@ -335,6 +375,13 @@ async function fetchTokensWithNonZeroBalance() {
   }
 }
 
+function buttonChecker(walletAddress) {
+  if(walletConnected){
+    setButtonText("check if you're rekt")
+  }
+  isValidSolanaAddress(walletAddress)
+}
+
 function isValidSolanaAddress(walletAddress) {
   // Regular expression for Solana address
   const solregex = /(^[1-9A-HJ-NP-Za-km-z]{32,44}$)/g 
@@ -348,8 +395,8 @@ function isValidSolanaAddress(walletAddress) {
 
 
 useEffect(() => {
-  isValidSolanaAddress(walletAddress)
-}, [walletData,walletAddress]);
+  buttonChecker(walletAddress)
+}, [walletConnected,walletData,walletAddress]);
 
 
 const fetchData = async () => {
@@ -366,6 +413,14 @@ const fetchData = async () => {
       {isLoading && <LoadingModal />}
         <header className="Memefolio-header">
         <ImageGenerator text="Hello, World!" />
+        {!walletConnected ? (
+          <button onClick={connectWallet}>Connect to Wallet</button>
+        ) : (
+          <div>
+            <p>Wallet Connected!</p>
+            <p>Balance: {balance ? `${balance} SOL` : 'Loading...'}</p>
+          </div>
+        )}
             <div className='Memefolio-text' > 
               <h1>memefolio</h1>
               <p>check your memecoin P&L easily with just a click.</p>
@@ -374,14 +429,14 @@ const fetchData = async () => {
                   type="text"
                   placeholder="Wallet Address"
                   value={walletAddress}
-                  onChange={(e) => setWalletAddress(e.target.value)}
+                  onChange={(e) => buttonChecker(e.target.value)}
                 />
-                <button onClick={fetchData} disabled={!isValidAddress}>check if you're rekt</button>
+                <button onClick={fetchData} disabled={!isValidAddress}>{buttonText}</button>
               </div>
               <span>- sol change is calculated with buys and sells. <br></br> - especially developed for bonkbot users <br></br> - airdrops are tokens that are not swapped as buys. <br></br> - there might be errors since this is early alpha.</span>
             </div>
           </header>
-        <div /// TODO: Fix scroll
+        <div
          ref={walletRef}> 
           {transactionsData && walletData ? (
             <UserStatistics walletAddress={walletAddress} walletData={walletData} transactionsData={transactionsData} weeklyData={weeklyData}/>
