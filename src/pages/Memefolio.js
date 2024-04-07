@@ -5,7 +5,7 @@ import LoadingModal from '../widgets/loadingModal';
 import * as web3 from '@solana/web3.js';
 
 
-/// TODO: BAZI WALLETLARI KULLANDIRTMAMA,SCROLL KISMI,DOCUMENTATION,
+/// TODO: BAZI WALLETLARI KULLANDIRTMAMA,SCROLL KISMI, GENEL BİR GÖRSEL DÜZENLEME ,DOCUMENTATION,
 
 function Memefolio() {
   const [transactionsData, settransactionsData] = useState(null);
@@ -13,7 +13,7 @@ function Memefolio() {
   const [walletData, setWalletData] = useState(null);
   const [walletAddress, setWalletAddress] = useState('');
   const [isValidAddress, setisValidAddress] = useState(false);
-  const walletRef = useRef(null); // Creating a reference for the wallet section
+  const walletRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [buttonText, setButtonText] = useState("please connect wallet");
   const [buttonLogic, setButtonLogic] = useState(false);
@@ -21,7 +21,6 @@ function Memefolio() {
   const [balance, setBalance] = useState(null);
 
   const rpcEndpoint = 'https://mainnet.helius-rpc.com/?api-key=1a8b4527-6ec2-4036-acd8-e747259d7654';
-
 
   const connectWallet = async () => {
     if (!window.solana || !window.solana.isPhantom) {
@@ -427,7 +426,7 @@ const fetchData = async () => {
   await fetchTokensWithNonZeroBalance();
   await calculateSolDiff();
   setIsLoading(false);
-  walletRef.current.scrollIntoView({ behavior: 'smooth' });
+  walletRef.current.scrollIntoView({ behavior: 'smooth', block: "start" });
 };
 
 
@@ -441,7 +440,7 @@ const fetchData = async () => {
           ) : (
             <div className='wallet-connection-success' >
               <p>Holdings:</p>
-              <p>`${balance} BONK!`</p>
+              <p>${balance} BONK!</p>
             </div>
           )}
         </div>
@@ -457,7 +456,7 @@ const fetchData = async () => {
                 />
                 <button onClick={fetchData} disabled={!buttonLogic}>{buttonText}</button>
               </div>
-              <span>- sol change is calculated with buys and sells. <br></br> - airdrops are tokens that are not swapped as buys. <br></br> - there might be errors since this is early alpha. <br></br> - Prices can differ because of high volatility, estimated value might not be true. <br></br> - especially developed for bonkbot users </span>
+              <span>- sol change is calculated with buys and sells. <br></br> - airdrops are tokens that are sent from different wallets. <br></br> - especially developed for bonkbot users <br></br> - jupiter-raydium users may not get correct results <br></br> - Prices can differ because of high volatility, estimated value might be wrong <br></br> - there might be errors since this is early alpha.  </span>
             </div>
           </header>
         <div

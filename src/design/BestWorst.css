@@ -4,99 +4,53 @@
     gap: 2vw;
 }
 
-h3{
-    font-family: "SpaceMonoBold";
+.best-worst .best-worst-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
+    color: white;
+    font-family: "SpaceMono";
     font-weight: 300;
     line-height: 125%;
-    color: #fffa65;
-    font-size: 2vw;
-    z-index: 1;
-    text-align: start;
 }
 
-.bw-grid{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2vw;
-}
-
-.bw-token-details{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 2vw;
-
-}
-
-.bw-token-img{
-    width: 100px;
-    height:100px;
-    border-radius: 50%;
-  
-  }
-
-.bw-token-statistics{
-    display: flex;    
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.bw-token-statistics-item{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    border: 1px solid white;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s;
+.best-worst h3{
     font-family: "SpaceMonoBold";
     font-weight: 300;
     line-height: 125%;
     color: #fffa65;
     font-size: 1.5vw;
-
-}
-
-  .token-header {
-    font-family: "SpaceMonoBold";
-    font-weight: 300;
-    line-height: 125%;
-    color: #fffa65;
-    font-size: 2vw;
     z-index: 1;
-    text-align: start;  
+    text-align: start;
 }
 
-  .token-name {
-    font-weight: bold;
+
+@media screen and (min-width: 2000px) {
+
+    .best-worst h3{
+        font-family: "SpaceMonoBold";
+        font-weight: 300;
+        line-height: 125%;
+        color: #fffa65;
+        font-size: 1.5vw;
+        z-index: 1;
+        text-align: start;
+    }
+
+}
+
+  @media screen and (max-width: 950px) {
+    .best-worst .best-worst-grid{
+        grid-template-columns: repeat(2, 1fr);
+
+    }
   }
-
-
-.best-item{
-    display: flex;
-    flex-direction: column;
-    gap: 1vw;
-    align-items: start;
-    border: 3px solid #252b30;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-    cursor: pointer;
-    background: linear-gradient(143deg, #14181b 35%, #376338);  
-
-}
-.worst-item{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 1vw;
-    border: 3px solid #252b30;
-    padding: 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-    cursor: pointer;
-    background: linear-gradient(143deg, #14181b 35%, #633737);  
-
-}
+  
+  @media screen and (max-width: 526px) {
+    .best-worst .best-worst-grid{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .best-worst h3{
+        font-size: 4vw;
+    }
+  }

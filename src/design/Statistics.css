@@ -4,8 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 2vw;
-  background-color:  #14181b;
-
+  background-color: #14181b;
 }
 
 .statistics-grid {
@@ -15,7 +14,6 @@
   font-family: "SpaceMono";
   color: white;
 }
-
 
 .highlights {
   display: grid;
@@ -33,16 +31,24 @@
   color: white;
 }
 
-h1
-  {
-    font-family: "SpaceMonoBold";
-    font-weight: 300;
-    line-height: 125%;
-    color: #fffa65;
-    font-size: 2.5vw;
-    z-index: 1;
-    text-align: center;
-  
+.all-statistics h1 {
+  font-family: "SpaceMonoBold";
+  font-weight: 300;
+  line-height: 125%;
+  color: #fffa65;
+  font-size: 2vw;
+  z-index: 1;
+  text-align: center;
+}
+
+.all-statistics h2 {
+  font-family: "SpaceMonoBold";
+  font-weight: 300;
+  line-height: 125%;
+  color: #fffa65;
+  font-size: 1vw;
+  z-index: 1;
+  text-align: center;
 }
 
 .statistics-item {
@@ -54,42 +60,33 @@ h1
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
-
 }
 
-.statistics-item:hover {
-  background-color: #3d3d3d;
-}
-
-.statistics-buttons{
+.statistics-buttons {
   display: flex;
   flex-direction: column;
-  margin-bottom: .75em;
+  margin-bottom: 0.75em;
   gap: 1vw;
-
 }
 
-.statistics-image-button{
-display: flex;
-flex-direction: row;
-justify-content: space-around;
-align-items: center;
+.statistics-image-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.statistics-image{
+.statistics-image {
   width: 40px;
   transition: 0.2s;
 }
-.statistics-image:hover{
+.statistics-image:hover {
   transform: scale(1.5);
 }
 
 .token-details {
   text-align: left;
-
 }
-
-
 
 .token-details .update {
   display: flex;
@@ -98,10 +95,9 @@ align-items: center;
   align-items: center;
   gap: 20px;
   cursor: pointer;
-
 }
 
-.token-details .update:hover{
+.token-details .update:hover {
   color: #fffa65;
 }
 
@@ -116,11 +112,10 @@ align-items: center;
   background-color: #fe696e67;
 }
 
-.token-img{
+.token-img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-
 }
 
 .token-name {
@@ -128,21 +123,21 @@ align-items: center;
 }
 
 .holding-net {
-  background: rgb(75,75,75);
-  background: linear-gradient(143deg, #14181b 35%, #4c3763);  
+  background: rgb(75, 75, 75);
+  background: linear-gradient(143deg, #14181b 35%, #4c3763);
 }
 
 .airdrop-net {
-  background: rgb(75,75,75);
-  background: linear-gradient(143deg, #14181b 35%, #374e63);  
+  background: rgb(75, 75, 75);
+  background: linear-gradient(143deg, #14181b 35%, #374e63);
 }
 
 .positive-net {
-  background: rgb(0,0,0);
-  background: linear-gradient(143deg, #14181b 35%, #376338);  
+  background: rgb(0, 0, 0);
+  background: linear-gradient(143deg, #14181b 35%, #376338);
 }
 .negative-net {
-  background: linear-gradient(143deg, #14181b 35%, #633737);  
+  background: linear-gradient(143deg, #14181b 35%, #633737);
 }
 
 .best-play {
@@ -170,8 +165,7 @@ align-items: center;
   border-color: #f44336;
 }
 
-
-.statistics-bar{
+.statistics-bar {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -179,8 +173,7 @@ align-items: center;
   gap: 1vw;
 }
 
-.statistics-bar button{
-
+.statistics-bar button {
   font-family: "SpaceMono";
   border: none;
   border-radius: 4px;
@@ -190,31 +183,62 @@ align-items: center;
   font-style: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  opacity: 0.7
+  opacity: 0.7;
 }
 
 .statistics-bar .active {
   background-color: #fffa65;
   color: black;
   border-color: black;
-  opacity: 1
+  opacity: 1;
+}
+@media screen and (min-width: 2000px) {
+  .token-img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+  }
 
-} 
+  .token-details .update p {
+    font-size: 0.8vw;
+  }
+  .token-details p {
+    font-size: 0.8vw;
+  }
 
+  .statistics-image {
+    width: 60px;
+    transition: 0.2s;
+  }
+  .statistics-image:hover {
+    transform: scale(1.5);
+  }
+
+  .all-statistics h1 {
+    font-family: "SpaceMonoBold";
+    font-weight: 300;
+    line-height: 125%;
+    color: #fffa65;
+    font-size: 1.5vw;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .all-statistics h2 {
+    font-size: 1vw;
+  }
+}
 
 @media screen and (max-width: 950px) {
   .highlights {
     grid-template-columns: repeat(2, 1fr);
   }
-  
-  .highlights-item, .statistics-item {
+
+  .highlights-item,
+  .statistics-item {
     padding: 15px;
   }
 
-  .statistics-grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  }
-  
   .statistics-item {
     margin-bottom: 20px;
   }
@@ -222,6 +246,28 @@ align-items: center;
   .token-details .update .update-button img {
     width: 24px;
     height: auto;
+  }
+
+  .all-statistics h1 {
+    font-family: "SpaceMonoBold";
+    font-weight: 300;
+    line-height: 125%;
+    color: #fffa65;
+    font-size: 2.5vw;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .statistics-image {
+    width: 40px;
+    transition: 0.2s;
+  }
+  .statistics-image:hover {
+    transform: scale(1.5);
+  }
+
+  .all-statistics h2 {
+    font-size: 1.75vw;
   }
 }
 
@@ -232,18 +278,15 @@ align-items: center;
     padding-bottom: 10vw;
   }
 
-  .statistics-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .statistics-item, .highlights-item {
+  .statistics-item,
+  .highlights-item {
     padding: 12px;
     text-align: start;
-    font-size: .75rem;
-
+    font-size: 0.75rem;
   }
 
-  .token-details, .token-details .update .update-button {
+  .token-details,
+  .token-details .update .update-button {
     width: 100%;
   }
 
@@ -254,24 +297,34 @@ align-items: center;
   }
 
   .token-details {
-    text-align:start;
+    text-align: start;
     align-items: start;
   }
 
-
-  .token-details .update {
-    flex-direction: column-reverse;
+  .token-details .update p {
+    font-size: 0.8rem;
   }
 
-  .token-details .update p{
-    font-size: .8rem;
-  }
-
-  .token-details p{
-    font-size: .8rem;
+  .token-details p {
+    font-size: 0.8rem;
   }
 
   .transaction-item {
     font-size: 0.9rem;
+  }
+
+  .all-statistics h1 {
+    font-size: 6vw;
+  }
+  .all-statistics h2 {
+    font-size: 3vw;
+  }
+
+  .statistics-image {
+    width: 40px;
+    transition: 0.2s;
+  }
+  .statistics-image:hover {
+    transform: scale(1.5);
   }
 }

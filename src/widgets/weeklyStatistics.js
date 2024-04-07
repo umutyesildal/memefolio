@@ -38,7 +38,7 @@ const WeeklyStatistics = ({ weeklyData }) => {
   return (
     <div className='weekly-statistics'>
     <div className='weekly-sorting' >
-    <h4>Between {weeklyData.startDate} - {weeklyData.endDate}</h4>
+      <h4>Between {weeklyData.startDate} - {weeklyData.endDate}</h4>
       <div className='sorting-dropdown'>
         {/* Styled dropdown for sorting */}
         <select

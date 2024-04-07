@@ -39,7 +39,7 @@ const UserStatistics = ({walletAddress, walletData,transactionsData, weeklyData 
   };
   
   return (
-    <div className='all-statistics' >
+    <div id="statistics" className='all-statistics' >
       <div className="statistics-bar">
         <button onClick={() => setActiveTab('tab1')} className={activeTab === 'tab1' ? 'active' : ''}>
           transactions
@@ -48,7 +48,8 @@ const UserStatistics = ({walletAddress, walletData,transactionsData, weeklyData 
           holdings
         </button>
       </div>
-      <h1 style={{marginBottom: 0}} >{"between " + transactionsData['data'].lastTxDate.substring(0,5)+  " - " + transactionsData['data'].firstTxDate.substring(0,5)}</h1> <h2 style={{margin: 0}} >{walletAddress}</h2> 
+      <h1 >{"between " + transactionsData['data'].lastTxDate.substring(0,5)+  " - " + transactionsData['data'].firstTxDate.substring(0,5)}</h1> 
+      <h2  >{walletAddress}</h2> 
       {renderTabContent()}
     </div>
   );

@@ -20,8 +20,8 @@ const PortfolioItem = ({ index, item }) => {
 
       </div>
       <div className='portfolio-button-group' >
-        <a href={"https://t.me/bonkbot_bot?start=ref_yesil_ca_"+item.token_id} target="_blank" > <button className='bonkbot-button' >Trade now  <img className='bonkbot-image'  src='/memes/bonkbot.png' ></img></button> </a>
-        <a href={"https://birdeye.so/token/"+item.token_id} target="_blank" > <button className='bonkbot-button' >Check chart <img className='bonkbot-image'  src='/memes/birdeye.png' ></img></button> </a>
+        <a href={"https://birdeye.so/token/"+item.token_id} target="_blank" ><img className='bonkbot-image'  src='/memes/birdeye.png' ></img></a>
+        <a href={"https://t.me/bonkbot_bot?start=ref_yesil_ca_"+item.token_id} target="_blank" ><img className='bonkbot-image'  src='/memes/bonkbot.png' ></img> </a>
       </div>
     </div>
   </div>

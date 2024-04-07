@@ -18,7 +18,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 6vw;
+  padding-top: 6vw;
   display: column;
   background-size: cover;
   background-position: center top;
@@ -133,6 +133,12 @@
   transition: background-color 0.3s ease;
 }
 
+@media screen and (min-width: 2000px) {
+  .Memefolio {
+  min-height: 125vh;
+  }
+}
+
 
 
 @media screen and (max-width: 950px) {
@@ -144,7 +150,7 @@
     padding: 3vw;
     display: flex;
     flex-direction: column-reverse;
-    height: 100vh;
+    height: 80vh;
   }
 
   .Memefolio-text {
@@ -161,9 +167,9 @@
   }
 
   .Memefolio-text h1 {
-    font-size: 5vw;
+    font-size: 8vw;
     width: 75%;
-text-align: center;
+    text-align: center;
   }
   
   .Memefolio-text p{
@@ -188,25 +194,51 @@ text-align: center;
 
   .input-group input {
     font-family: "SpaceMono";
-    border: 2px solid #938EFF;
     border-radius: 4px;
     padding: 10px;
-    color: #282c34;
-    font-size: 3vw;
-    width: 35ch;
+    font-size: 2vw;
   }
   
   .input-group button {
     font-family: "SpaceMono";
-    background-color: #938EFF;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
-    color: rgb(255, 255, 255);
-    font-size: 3vw;
+    font-size: 2vw;
     font-style: bold;
     cursor: pointer;
-    width: 20ch;
+    transition: background-color 0.3s ease;
+  }
+
+  .wallet-connection{
+    position: absolute;
+    top: 10px; /* Adjust top positioning as needed */
+    right: 10px;
+  }
+  
+  .wallet-connection-button{
+    font-family: "SpaceMono";
+    background-color: #fffa65;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: #4b4b4b;
+    font-size: 2vw;
+    font-style: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .wallet-connection-success{
+    font-family: "SpaceMono";
+    background-color: #fffa65;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: #4b4b4b;
+    font-size: 1rem;
+    font-style: bold;
+    cursor: pointer;
     transition: background-color 0.3s ease;
   }
 }
@@ -216,7 +248,7 @@ text-align: center;
     align-items: center;
     justify-content: space-around;
     text-align: center;
-    padding: 3vw;
+    padding: 0vw;
     display: flex;
     flex-direction: column-reverse;
     height: 100vh;
@@ -236,19 +268,19 @@ text-align: center;
   }
 
   .Memefolio-text h1 {
-    font-size: 5vw;
+    font-size: 10vw;
     width: 75%;
-text-align: center;
+    text-align: center;
   }
   
   .Memefolio-text p{
-    font-size: 3vw;
+    font-size: 5vw;
     text-align: center;
 
   }
   
   .Memefolio-text span{
-    font-size: 2vw;
+    font-size: 3.2vw;
     text-align: center;
 
   }
@@ -262,26 +294,51 @@ text-align: center;
 
   .input-group input {
     font-family: "SpaceMono";
-    border: 2px solid #938EFF;
     border-radius: 4px;
     padding: 10px;
     margin-right: 10px; /* Whitespace between text input and button */
-    color: #282c34;
     font-size: 3vw;
-    width: 35ch;
   }
   
   .input-group button {
     font-family: "SpaceMono";
-    background-color: #938EFF;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
-    color: rgb(255, 255, 255);
     font-size: 3vw;
     font-style: bold;
     cursor: pointer;
-    width: 20ch;
+    transition: background-color 0.3s ease;
+  }
+
+  .wallet-connection{
+    position: absolute;
+    top: 10px; /* Adjust top positioning as needed */
+    right: 10px;
+  }
+  
+  .wallet-connection-button{
+    font-family: "SpaceMono";
+    background-color: #fffa65;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: #4b4b4b;
+    font-size: 3vw;
+    font-style: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .wallet-connection-success{
+    font-family: "SpaceMono";
+    background-color: #fffa65;
+    border: none;
+    border-radius: 4px;
+    color: #4b4b4b;
+    font-size: 3vw;
+    font-style: bold;
+    cursor: pointer;
     transition: background-color 0.3s ease;
   }
 }

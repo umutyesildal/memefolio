@@ -23,7 +23,19 @@
   font-weight: 300;
   line-height: 125%;
   color: #fffa65;
-  font-size: 4vw;
+  font-size: 3vw;
   z-index: 1;
   text-align: center;
+}
+
+@media screen and (max-width: 950px) {
+  .loading-text {
+    font-size: 4.5vw;
+  }
+}
+
+@media screen and (max-width: 526px) {
+  .loading-text {
+    font-size: 5vw;
+  }
 }

@@ -54,9 +54,11 @@ a {
 .item-details {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.2vw;
   text-align: left;
   justify-content: space-around;
+  width: 100%;
+
 }
 
 .item-details .image-header{
@@ -79,12 +81,16 @@ a {
   grid-template-columns: repeat(2, 1fr);
   row-gap: 1vw;;
 }
+.item-details .item-data-grid p{
+
+}
 
 .portfolio-button-group{
   display: flex;
   flex-direction: row;
+  justify-content: end;
+  align-items: center;
   gap: 1vw;
-
 }
 
 .bonkbot-button{
@@ -113,9 +119,12 @@ a {
 
 .bonkbot-image{
   width: 50px;
+  transition: 0.2s;
 }
 
-
+.bonkbot-image:hover {
+  transform: scale(1.5);
+}
 
 .item-details .copy-item{
 
@@ -127,7 +136,26 @@ a {
 .bold {
   font-weight: bold;
 }
-
+@media screen and (min-width: 2000px) {
+  .item-details .image-header h4 {
+    font-size: 1.25vw;
+  }
+  .item-details .item-data-grid p{
+    font-size: .8vw;
+  }
+  .bonkbot-button{
+    font-size: .75vw;;
+  }
+  
+  .bonkbot-button:hover{
+    background-color: #f9f8cb;
+    border: 1px solid #f9f8cb;
+  
+  }
+  .bonkbot-image{
+    width: 75px;
+  }
+}
 
 @media screen and (max-width: 950px) {
   .portfolio-grid {
@@ -147,7 +175,23 @@ a {
     width: 25px;
     height: 25px;
   }
-
+  .item-details .image-header h4 {
+    font-size: 2vw;
+  }
+  .item-details .item-data-grid p{
+    font-size: 1.75vw;
+  }
+  .bonkbot-button{
+    font-size: 1.5vw;;
+  }
+  .bonkbot-button:hover{
+    background-color: #f9f8cb;
+    border: 1px solid #f9f8cb;
+  
+  }
+  .bonkbot-image{
+    width: 40px;
+  }
 }
 
 @media screen and (max-width: 526px) {
@@ -157,21 +201,40 @@ a {
   }
 
   .portfolio-item {
-    flex-direction: column; /* Change layout to vertical for tighter spaces */
-    padding: 10px; /* Ensure padding is adequate */
+    padding: 8px; /* Adjust padding for better spacing */
   }
 
-  .item-details {
-    margin-bottom: 10px; /* Add spacing between text and copy icon */
+  .item-details{
+    gap: 4vw;
   }
 
   .item-details p {
-    text-align: center; /* Center-align text for a cleaner look on small screens */
-    font-size: 1rem; /* Increase font size for better readability */
+    font-size: 2rem; /* Adjust font size for readability */
   }
   .item-details .copy-item{
 
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
+  }
+  .item-details .image-header h4 {
+    font-size: 4vw;
+  }
+  .item-details .item-data-grid p{
+    font-size: 3vw;
+  }
+  .portfolio-button-group{
+    justify-content: start;
+  }
+
+  .bonkbot-button{
+    font-size: 3vw;
+  }
+  .bonkbot-button:hover{
+    background-color: #f9f8cb;
+    border: 1px solid #f9f8cb;
+  
+  }
+  .bonkbot-image{
+    width: 40px;
   }
 }

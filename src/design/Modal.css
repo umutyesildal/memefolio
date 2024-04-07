@@ -79,11 +79,29 @@
   background-color: #633737;
 }
 
+@media screen and (min-width: 2000px) {
+  .transaction-item span{
+    font-size: .75vw;
+  }
+  .transaction-header h3{
+    font-size: 1.2vw;
+
+  }
+}
+
+@media screen and (max-width: 950px) {
+    .transaction-item span{
+      font-size: 2vw;
+    }
+  }
+
 @media screen and (max-width: 526px) {
   .modal {
-    background-color: white;
     width: 75%; /* Width of the modal */
     height: 75vh; /* Height of the modal */
     max-height: 75vh; /* Maximum height */
+  }
+  .transaction-item span{
+    font-size: 2.5vw;
   }
 }
