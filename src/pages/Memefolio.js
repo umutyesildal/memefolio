@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../design/Memefolio.css';
 import UserStatistics from './UserStatistics'; // Import the Statistics component
 import LoadingModal from '../widgets/loadingModal';
-import ImageGenerator from '../widgets/saveImage'
 import * as web3 from '@solana/web3.js';
 
 
-/// TODO: CÜZDANI BAĞLAYIP SADECE BONK VARSA ARAMA YAPABİLME,DOCUMENTATION,
+/// TODO: BAZI WALLETLARI KULLANDIRTMAMA,SCROLL KISMI,DOCUMENTATION,
 
 function Memefolio() {
   const [transactionsData, settransactionsData] = useState(null);
@@ -16,10 +15,8 @@ function Memefolio() {
   const [isValidAddress, setisValidAddress] = useState(false);
   const walletRef = useRef(null); // Creating a reference for the wallet section
   const [isLoading, setIsLoading] = useState(false);
-  const [buttonText, setButtonText] = useState("please connect wallet first");
-
-
-
+  const [buttonText, setButtonText] = useState("please connect wallet");
+  const [buttonLogic, setButtonLogic] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
   const [balance, setBalance] = useState(null);
 
@@ -45,12 +42,21 @@ function Memefolio() {
       // Fetch balance
       const connection = new web3.Connection(rpcEndpoint);
       console.log(connection)
-      const tokenBalances = await connection.getParsedTokenAccountsByOwner(publicKey,{
-        mint: new web3.PublicKey("DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263")
-    });
-      setBalance(tokenBalances.value[0].account.data.parsed.info.tokenAmount.uiAmount); // Convert lamports to SOL
+
+      try {
+        const tokenBalances = await connection.getParsedTokenAccountsByOwner(publicKey,{
+          mint: new web3.PublicKey("DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263")
+      });
+        setBalance((tokenBalances.value[0].account.data.parsed.info.tokenAmount.uiAmount).toFixed(2));
+
+      } catch (error) {
+        setBalance(0);
+        
+      }
+      setWalletAddress(publicKey.toString())
     } catch (error) {
       console.error('Failed to connect to wallet:', error);
+
     }
   };
 
@@ -375,28 +381,45 @@ async function fetchTokensWithNonZeroBalance() {
   }
 }
 
-function buttonChecker(walletAddress) {
-  if(walletConnected){
+function buttonChecker() {
+
+  if(isValidAddress && walletConnected && balance > 10000){
     setButtonText("check if you're rekt")
+    setButtonLogic(true)
+  } else if(walletConnected && balance < 10000){
+    setButtonText("you need at least 10$ bonk to search")
+    setButtonLogic(false)
+  } else if(!walletConnected){
+    setButtonText("please connect wallet")
+    setButtonLogic(false)
+  } else if(!isValidAddress){
+    setButtonText("enter a valid address")
+    setButtonLogic(false)
   }
-  isValidSolanaAddress(walletAddress)
+  console.log("Button Logic " + buttonLogic)
+  console.log("isValidAddress " + isValidAddress)
+  console.log("walletConnected " + walletConnected)
+  console.log("balance " + balance)
 }
 
-function isValidSolanaAddress(walletAddress) {
+function isValidSolanaAddress() {
   // Regular expression for Solana address
   const solregex = /(^[1-9A-HJ-NP-Za-km-z]{32,44}$)/g 
-
   const check = solregex.test(walletAddress)
+  console.log("Checked for " + walletAddress + " Result is " + check)
   setisValidAddress(check)
 }
 
 
-
-
+useEffect(() => {
+  isValidSolanaAddress();
+  buttonChecker();
+}, [walletConnected, walletData, walletAddress, balance, buttonLogic]);
 
 useEffect(() => {
-  buttonChecker(walletAddress)
-}, [walletConnected,walletData,walletAddress]);
+  buttonChecker(); // Check button logic immediately after isValidAddress changes
+}, [isValidAddress]); // Only trigger effect when isValidAddress changes
+
 
 
 const fetchData = async () => {
@@ -412,15 +435,16 @@ const fetchData = async () => {
     <div className="Memefolio">
       {isLoading && <LoadingModal />}
         <header className="Memefolio-header">
-        <ImageGenerator text="Hello, World!" />
-        {!walletConnected ? (
-          <button onClick={connectWallet}>Connect to Wallet</button>
-        ) : (
-          <div>
-            <p>Wallet Connected!</p>
-            <p>Balance: {balance ? `${balance} SOL` : 'Loading...'}</p>
-          </div>
-        )}
+        <div className='wallet-connection' >
+          {!walletConnected ? (
+            <button className='wallet-connection-button' onClick={connectWallet}>Connect to Wallet</button>
+          ) : (
+            <div className='wallet-connection-success' >
+              <p>Holdings:</p>
+              <p>`${balance} BONK!`</p>
+            </div>
+          )}
+        </div>
             <div className='Memefolio-text' > 
               <h1>memefolio</h1>
               <p>check your memecoin P&L easily with just a click.</p>
@@ -429,11 +453,11 @@ const fetchData = async () => {
                   type="text"
                   placeholder="Wallet Address"
                   value={walletAddress}
-                  onChange={(e) => buttonChecker(e.target.value)}
+                  onChange={(e) => setWalletAddress(e.target.value)}
                 />
-                <button onClick={fetchData} disabled={!isValidAddress}>{buttonText}</button>
+                <button onClick={fetchData} disabled={!buttonLogic}>{buttonText}</button>
               </div>
-              <span>- sol change is calculated with buys and sells. <br></br> - especially developed for bonkbot users <br></br> - airdrops are tokens that are not swapped as buys. <br></br> - there might be errors since this is early alpha.</span>
+              <span>- sol change is calculated with buys and sells. <br></br> - airdrops are tokens that are not swapped as buys. <br></br> - there might be errors since this is early alpha. <br></br> - Prices can differ because of high volatility, estimated value might not be true. <br></br> - especially developed for bonkbot users </span>
             </div>
           </header>
         <div

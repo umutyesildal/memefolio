@@ -54,7 +54,6 @@ h1
   padding: 10px;
   border-radius: 8px;
   transition: background-color 0.3s;
-  cursor: pointer;
 
 }
 
@@ -64,21 +63,33 @@ h1
 
 .statistics-buttons{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-bottom: .75em;
+  gap: 1vw;
+
+}
+
+.statistics-image-button{
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+align-items: center;
 }
 
 .statistics-image{
-  width: 50px;
+  width: 40px;
   transition: 0.2s;
 }
 .statistics-image:hover{
-  width: 75px;
+  transform: scale(1.5);
 }
 
 .token-details {
   text-align: left;
+
 }
+
+
 
 .token-details .update {
   display: flex;
@@ -86,6 +97,12 @@ h1
   justify-content: start;
   align-items: center;
   gap: 20px;
+  cursor: pointer;
+
+}
+
+.token-details .update:hover{
+  color: #fffa65;
 }
 
 .token-details .update .update-button {

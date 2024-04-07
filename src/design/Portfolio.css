@@ -6,6 +6,10 @@
 
 }
 
+.portfolio span{
+  font-size: 1vw;
+}
+
 .wallet-info {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -37,14 +41,9 @@ a {
   padding-bottom: 20px;
   padding-right: 10px;
   padding-left: 10px;
-
-  cursor: pointer;
   background-color: #14181b;
 }
 
-.portfolio-item:hover {
-  background-color: #2a2d2f;
-}
 
 .item-logo {
   height: 100px;
@@ -78,7 +77,44 @@ a {
 .item-details .item-data-grid{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  row-gap: 1vw;;
 }
+
+.portfolio-button-group{
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+
+}
+
+.bonkbot-button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #fffa65;
+  border-radius: 8px;
+  background-color: #fffa65;
+  font-family: "SpaceMonoBold";
+  font-weight: 300;
+  line-height: 125%;
+  color: #14181b;
+  z-index: 1;
+  text-align: center;
+  height: 100%;
+  cursor: pointer;
+}
+
+.bonkbot-button:hover{
+  background-color: #f9f8cb;
+  border: 1px solid #f9f8cb;
+
+}
+
+.bonkbot-image{
+  width: 50px;
+}
+
 
 
 .item-details .copy-item{
