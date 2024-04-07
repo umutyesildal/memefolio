@@ -1,0 +1,38 @@
+
+.image-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.image-modal .socials{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.save-image{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fffa65;
+    border-radius: 8px;
+    background-color: #fffa65;
+    font-family: "SpaceMonoBold";
+    font-weight: 300;
+    line-height: 125%;
+    color: #14181b;
+    z-index: 1;
+    text-align: center;
+    height: 100%;
+    cursor: pointer;
+}
+
+.save-image:hover{
+    background-color: #f9f8cb;
+    border: 1px solid #f9f8cb;
+  
+  }

@@ -1,0 +1,56 @@
+.best-worst{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+.best-worst .best-worst-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2vw;
+    color: white;
+    font-family: "SpaceMono";
+    font-weight: 300;
+    line-height: 125%;
+}
+
+.best-worst h3{
+    font-family: "SpaceMonoBold";
+    font-weight: 300;
+    line-height: 125%;
+    color: #fffa65;
+    font-size: 1.5vw;
+    z-index: 1;
+    text-align: start;
+}
+
+
+@media screen and (min-width: 2000px) {
+
+    .best-worst h3{
+        font-family: "SpaceMonoBold";
+        font-weight: 300;
+        line-height: 125%;
+        color: #fffa65;
+        font-size: 1.5vw;
+        z-index: 1;
+        text-align: start;
+    }
+
+}
+
+  @media screen and (max-width: 950px) {
+    .best-worst .best-worst-grid{
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+  }
+  
+  @media screen and (max-width: 526px) {
+    .best-worst .best-worst-grid{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .best-worst h3{
+        font-size: 4vw;
+    }
+  }

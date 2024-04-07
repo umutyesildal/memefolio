@@ -8,7 +8,6 @@ const TokenHolders = () => {
   const [isPressed, setIsPressed] = useState(false);
   const solregex = /(^[1-9A-HJ-NP-Za-km-z]{32,44}$)/g 
   const isValidAddress = tokenAddress.match(solregex)
-  console.log(isValidAddress)
   // Function to fetch data and extract owners
   const fetchDataAndExtractOwners = async () => {
     setIsLoading(true);
@@ -67,9 +66,7 @@ const TokenHolders = () => {
   try {
     const totalSupplyResponse = await postRequest(dataTokenSupply);
     const totalSupply = totalSupplyResponse.result.value.uiAmount;
-    console.log(totalSupply)
     const programAccountsResponse = await postRequest(dataProgramAccounts);
-    console.log(programAccountsResponse)
     const accounts = programAccountsResponse.result;
     const processedData = accounts.reduce((acc, item) => {
       const info = item.account.data.parsed.info;
@@ -82,7 +79,6 @@ const TokenHolders = () => {
     }, []);
 
     processedData.sort((a, b) => parseFloat(b.percentage) - parseFloat(a.percentage));
-    console.log(processedData)
     setOwnersData(processedData); // Update the state with the processed data
   } catch (error) {
     console.error('Error fetching and processing data: ', error);

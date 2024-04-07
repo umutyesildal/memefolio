@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './design/App.css';
 import Memefolio from './pages/Memefolio';
-import TokenHolders from './pages/TokenHolders'; // Import the new Holders component if you're using it
-
+import TokenHolders from './pages/TokenHolders';
+import HowToUse from './widgets/howToUse'
 function App() {
   const [activeTab,setActiveTab] = useState('tab1');
   const renderTabContent = () => {
@@ -17,9 +17,10 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {renderTabContent()}
-    </div>
+      <div className="App">
+        <HowToUse />
+        {renderTabContent()}
+      </div>
   );
 }
 
