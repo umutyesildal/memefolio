@@ -14,8 +14,8 @@
 .modal {
   background-color: #14181b;
   width: 50%; /* Width of the modal */
-  height: 50vh; /* Height of the modal */
-  max-height: 50vh; /* Maximum height */
+  height: 75vh; /* Height of the modal */
+  max-height: 75vh; /* Maximum height */
   overflow-y: auto; /* Make content scrollable */
   padding: 20px;
   border-radius: 8px;
@@ -87,6 +87,7 @@
     font-size: 1.2vw;
 
   }
+  
 }
 
 @media screen and (max-width: 950px) {
