@@ -382,17 +382,11 @@ async function fetchTokensWithNonZeroBalance() {
 
 function buttonChecker() {
 
-  if(isValidAddress && walletConnected && balance > 10000){
+  if(isValidAddress){
     setButtonText("check if you're rekt")
     setButtonLogic(true)
-  } else if(walletConnected && balance < 10000){
-    setButtonText("you need at least 10$ bonk to search")
-    setButtonLogic(false)
-  } else if(!walletConnected){
-    setButtonText("please connect wallet")
-    setButtonLogic(false)
-  } else if(!isValidAddress){
-    setButtonText("enter a valid address")
+  } else {
+    setButtonText("please a valid address")
     setButtonLogic(false)
   }
   console.log("Button Logic " + buttonLogic)
@@ -434,16 +428,6 @@ const fetchData = async () => {
     <div className="Memefolio">
       {isLoading && <LoadingModal />}
         <header className="Memefolio-header">
-        <div className='wallet-connection' >
-          {!walletConnected ? (
-            <button className='wallet-connection-button' onClick={connectWallet}>Connect to Wallet</button>
-          ) : (
-            <div className='wallet-connection-success' >
-              <p>Holdings:</p>
-              <p>${balance} BONK!</p>
-            </div>
-          )}
-        </div>
             <div className='Memefolio-text' > 
               <h1>memefolio</h1>
               <p>check your memecoin P&L easily with just a click.</p>
