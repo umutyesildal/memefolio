@@ -9,6 +9,8 @@ import WeeklyStatistics from '../widgets/weeklyStatistics';
 
 const UserStatistics = ({walletAddress, walletData,transactionsData, weeklyData }) => {
 
+  console.log(transactionsData)
+
   const [activeTab,setActiveTab] = useState('tab1');
 
   const renderTabContent = () => {

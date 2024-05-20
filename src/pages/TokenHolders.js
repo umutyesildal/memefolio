@@ -12,7 +12,7 @@ const TokenHolders = () => {
   const fetchDataAndExtractOwners = async () => {
     setIsLoading(true);
 
-    const url = "https://jittery-charmian-fast-mainnet.helius-rpc.com/"; // Replace with your API URL
+    const url = "https://mainnet.helius-rpc.com/?api-key=a3bce2eb-1efb-42fd-a8cc-047d8969b188"; // Replace with your API URL
     const headers = {
       "Content-Type": "application/json"
     };

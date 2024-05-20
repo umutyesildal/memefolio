@@ -18,6 +18,14 @@ function App() {
 
   return (
       <div className="App">
+        <div className="tab-bar">
+          <button onClick={() => setActiveTab('tab1')} className={activeTab === 'tab1' ? 'active' : ''}>
+            Shitfolio
+          </button>
+          <button onClick={() => setActiveTab('tab2')} className={activeTab === 'tab2' ? 'active' : ''}>
+            Holders
+          </button>
+      </div>
         <HowToUse />
         {renderTabContent()}
       </div>
@@ -29,13 +37,6 @@ export default App;
 
 /*
 
-            <div className="tab-bar">
-        <button onClick={() => setActiveTab('tab1')} className={activeTab === 'tab1' ? 'active' : ''}>
-          Shitfolio
-        </button>
-        <button onClick={() => setActiveTab('tab2')} className={activeTab === 'tab2' ? 'active' : ''}>
-          Holders
-        </button>
-      </div>
+
 
 */

@@ -16,48 +16,9 @@ function Memefolio() {
   const walletRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [buttonText, setButtonText] = useState("please connect wallet");
-  const [buttonLogic, setButtonLogic] = useState(false);
-  const [walletConnected, setWalletConnected] = useState(false);
-  const [balance, setBalance] = useState(null);
+  const [buttonLogic, setButtonLogic] = useState(true);
 
-  const rpcEndpoint = 'https://mainnet.helius-rpc.com/?api-key=1a8b4527-6ec2-4036-acd8-e747259d7654';
 
-  const connectWallet = async () => {
-    if (!window.solana || !window.solana.isPhantom) {
-      alert('Phantom wallet extension not detected');
-      return;
-    }
-
-    try {
-      // Connect to Phantom wallet
-      await window.solana.connect();
-      setWalletConnected(true);
-
-      // Get the user's public key (wallet address)
-      const publicKey = window.solana.publicKey;
-
-      console.log(publicKey)
-
-      // Fetch balance
-      const connection = new web3.Connection(rpcEndpoint);
-      console.log(connection)
-
-      try {
-        const tokenBalances = await connection.getParsedTokenAccountsByOwner(publicKey,{
-          mint: new web3.PublicKey("DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263")
-      });
-        setBalance((tokenBalances.value[0].account.data.parsed.info.tokenAmount.uiAmount).toFixed(2));
-
-      } catch (error) {
-        setBalance(0);
-        
-      }
-      setWalletAddress(publicKey.toString())
-    } catch (error) {
-      console.error('Failed to connect to wallet:', error);
-
-    }
-  };
 
 
   async function calculateSolDiff() {
@@ -196,10 +157,6 @@ function Memefolio() {
           "worst": minNetToken
         }
     }
-
-
-
-
       solDiffs['data'] = {
         "totalSolChange": totalSolChange,
         "airdropsAmount": airdropsAmount,
@@ -382,23 +339,13 @@ async function fetchTokensWithNonZeroBalance() {
 
 function buttonChecker() {
 
-  if(isValidAddress && walletConnected && balance > 10000){
-    setButtonText("check if you're rekt")
+  if(isValidAddress){
     setButtonLogic(true)
-  } else if(walletConnected && balance < 10000){
-    setButtonText("you need at least 10$ bonk to search")
-    setButtonLogic(false)
-  } else if(!walletConnected){
-    setButtonText("please connect wallet")
-    setButtonLogic(false)
-  } else if(!isValidAddress){
-    setButtonText("enter a valid address")
-    setButtonLogic(false)
   }
+
   console.log("Button Logic " + buttonLogic)
   console.log("isValidAddress " + isValidAddress)
-  console.log("walletConnected " + walletConnected)
-  console.log("balance " + balance)
+
 }
 
 function isValidSolanaAddress() {
@@ -413,7 +360,7 @@ function isValidSolanaAddress() {
 useEffect(() => {
   isValidSolanaAddress();
   buttonChecker();
-}, [walletConnected, walletData, walletAddress, balance, buttonLogic]);
+}, [ walletData, walletAddress, buttonLogic]);
 
 useEffect(() => {
   buttonChecker(); // Check button logic immediately after isValidAddress changes
@@ -434,16 +381,6 @@ const fetchData = async () => {
     <div className="Memefolio">
       {isLoading && <LoadingModal />}
         <header className="Memefolio-header">
-        <div className='wallet-connection' >
-          {!walletConnected ? (
-            <button className='wallet-connection-button' onClick={connectWallet}>Connect to Wallet</button>
-          ) : (
-            <div className='wallet-connection-success' >
-              <p>Holdings:</p>
-              <p>${balance} BONK!</p>
-            </div>
-          )}
-        </div>
             <div className='Memefolio-text' > 
               <h1>memefolio</h1>
               <p>check your memecoin P&L easily with just a click.</p>
