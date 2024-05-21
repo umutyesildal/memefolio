@@ -16,7 +16,7 @@ const UserStatistics = ({walletAddress,transactionsData,generalData }) => {
       case 'tab1':
         return      <div className='all-statistics' >      
         <Highlights generalData={generalData}/>
-        <BestAndWorstPlays best={transactionsData['bestPlays']['best']} worst={transactionsData['bestPlays']['worst']} />
+        <BestAndWorstPlays best={generalData.bestAndWorst.best} worst={generalData.bestAndWorst.worst} />
         <div className="statistics-grid">
         {transactionsData.map((week, index) => (
           <WeeklyStatistics weeklyData={week} index={index}/>
@@ -30,7 +30,7 @@ const UserStatistics = ({walletAddress,transactionsData,generalData }) => {
       default:
         return     <div className='all-statistics' >      
         <Highlights transactionsData={generalData }/>
-        <BestAndWorstPlays best={generalData.bestPlays} worst={generalData.worstPlays} />
+        <BestAndWorstPlays best={generalData.bestAndWorst.best} worst={generalData.bestAndWorst.worst} />
         <div className="statistics-grid">
         {transactionsData.map((week, index) => (
           <WeeklyStatistics weeklyData={week} index={index}/>

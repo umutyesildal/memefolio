@@ -16,14 +16,13 @@ function Memefolio() {
   const [generalData, setGeneralData] = useState(null);
 
 
+  async function fetchWalletData() {
 
-  async function fetchWalletData(walletAddress) {
-
-  const url = `http://localhost:3000`;
+  const url = `http://localhost:3000/search_wallet`;
 
   let result;
   await fetch(url, {
-        method: 'GET',
+        method: 'POST',
     }).then(response => response.json()) // Parse the JSON response
     .then(data => {
       result = data;
@@ -35,11 +34,13 @@ function Memefolio() {
   }
 
 
-
 function buttonChecker() {
 
   if(isValidAddress){
     setButtonLogic(true)
+  } else {
+    setButtonLogic(false)
+
   }
 
   console.log("Button Logic " + buttonLogic)
