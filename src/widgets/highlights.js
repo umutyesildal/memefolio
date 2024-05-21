@@ -1,14 +1,15 @@
 import React from 'react';
 import '../design/Statistics.css';
 
-const Highlights = ({transactionsData}) => {
+const Highlights = ({generalData}) => {
+
 
   return (
     <div className="highlights">
-        <HighlightsItem title={"total sol change"} data={transactionsData['data']['totalSolChange'].toFixed(4)} type={"total"}  />
-        <HighlightsItem title={"holding"} data={transactionsData['data']['holdingsAmount'].toFixed(4) * -1} type={"holding"}  />
-        <HighlightsItem title={"rugged"} data={transactionsData['data']['ruggedAmount'].toFixed(4)} type={"rugged"}  />
-        <HighlightsItem title={"airdrop"} data={transactionsData['data']['airdropsAmount'].toFixed(4)} type={"airdrop"}  />
+        <HighlightsItem title={"total sol change"} data={generalData.totalSolChange.toFixed(4)} type={"total"}  />
+        <HighlightsItem title={"holding"} data={generalData.holdingsAmount.toFixed(4) * -1} type={"holding"}  />
+        <HighlightsItem title={"rugged"} data={generalData.ruggedAmount.toFixed(4)} type={"rugged"}  />
+        <HighlightsItem title={"airdrop"} data={generalData.airdropsAmount.toFixed(4)} type={"airdrop"}  />
   </div>
   );
 };

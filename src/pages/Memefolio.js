@@ -2,25 +2,112 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../design/Memefolio.css';
 import UserStatistics from './UserStatistics'; // Import the Statistics component
 import LoadingModal from '../widgets/loadingModal';
-import * as web3 from '@solana/web3.js';
 
 
 /// TODO: BAZI WALLETLARI KULLANDIRTMAMA,SCROLL KISMI, GENEL BİR GÖRSEL DÜZENLEME ,DOCUMENTATION,
 
 function Memefolio() {
-  const [transactionsData, settransactionsData] = useState(null);
-  const [weeklyData, setweeklyData] = useState(null);
-  const [walletData, setWalletData] = useState(null);
   const [walletAddress, setWalletAddress] = useState('');
   const [isValidAddress, setisValidAddress] = useState(false);
-  const walletRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [buttonText, setButtonText] = useState("please connect wallet");
   const [buttonLogic, setButtonLogic] = useState(true);
+  const [transactionsData, setTransactionsData] = useState(null);
+  const [generalData, setGeneralData] = useState(null);
 
 
 
+  async function fetchWalletData(walletAddress) {
 
+  const url = `http://localhost:3000`;
+
+  let result;
+  await fetch(url, {
+        method: 'GET',
+    }).then(response => response.json()) // Parse the JSON response
+    .then(data => {
+      result = data;
+      setTransactionsData(result.grouped_data)
+      setGeneralData(result.general_data)
+      setIsLoading(false)
+    })
+    return 
+  }
+
+
+
+function buttonChecker() {
+
+  if(isValidAddress){
+    setButtonLogic(true)
+  }
+
+  console.log("Button Logic " + buttonLogic)
+  console.log("isValidAddress " + isValidAddress)
+
+}
+
+function isValidSolanaAddress() {
+  // Regular expression for Solana address
+  const solregex = /(^[1-9A-HJ-NP-Za-km-z]{32,44}$)/g 
+  const check = solregex.test(walletAddress)
+  console.log("Checked for " + walletAddress + " Result is " + check)
+  setisValidAddress(check)
+}
+
+
+useEffect(() => {
+  isValidSolanaAddress();
+  buttonChecker();
+}, [ transactionsData, walletAddress, buttonLogic]);
+
+useEffect(() => {
+  buttonChecker(); // Check button logic immediately after isValidAddress changes
+}, [isValidAddress]); // Only trigger effect when isValidAddress changes
+
+
+
+const fetchData = async () => {
+  setIsLoading(true);
+  await fetchWalletData();
+  setIsLoading(false);
+};
+
+
+  return (
+    <div className="Memefolio">
+      {isLoading && <LoadingModal />}
+        <header className="Memefolio-header">
+            <div className='Memefolio-text' > 
+              <h1>memefolio</h1>
+              <p>check your memecoin P&L easily with just a click.</p>
+              <div className="input-group">
+                <input
+                  type="text"
+                  placeholder="Wallet Address"
+                  value={walletAddress}
+                  onChange={(e) => setWalletAddress(e.target.value)}
+                />
+                <button onClick={fetchData} disabled={!buttonLogic}>{buttonText}</button>
+              </div>
+              <span>- sol change is calculated with buys and sells. <br></br> - airdrops are tokens that are sent from different wallets. <br></br> - especially developed for bonkbot users <br></br> - jupiter-raydium users may not get correct results <br></br> - Prices can differ because of high volatility, estimated value might be wrong <br></br> - there might be errors since this is early alpha.  </span>
+            </div>
+          </header>
+        <div> 
+          {transactionsData ? (
+            <UserStatistics walletAddress={walletAddress} transactionsData={transactionsData} generalData={generalData} />
+          ) : ( null
+          )}
+        </div>
+    </div>
+  );
+}
+
+
+export default Memefolio;
+
+
+/*
   async function calculateSolDiff() {
     const url = "https://rest-api.hellomoon.io/v0/solana/txns-by-user";
     const headers = {
@@ -335,76 +422,4 @@ async function fetchTokensWithNonZeroBalance() {
       console.error('Error fetching tokens:', error);
       return [];
   }
-}
-
-function buttonChecker() {
-
-  if(isValidAddress){
-    setButtonLogic(true)
-  }
-
-  console.log("Button Logic " + buttonLogic)
-  console.log("isValidAddress " + isValidAddress)
-
-}
-
-function isValidSolanaAddress() {
-  // Regular expression for Solana address
-  const solregex = /(^[1-9A-HJ-NP-Za-km-z]{32,44}$)/g 
-  const check = solregex.test(walletAddress)
-  console.log("Checked for " + walletAddress + " Result is " + check)
-  setisValidAddress(check)
-}
-
-
-useEffect(() => {
-  isValidSolanaAddress();
-  buttonChecker();
-}, [ walletData, walletAddress, buttonLogic]);
-
-useEffect(() => {
-  buttonChecker(); // Check button logic immediately after isValidAddress changes
-}, [isValidAddress]); // Only trigger effect when isValidAddress changes
-
-
-
-const fetchData = async () => {
-  setIsLoading(true);
-  await fetchTokensWithNonZeroBalance();
-  await calculateSolDiff();
-  setIsLoading(false);
-  walletRef.current.scrollIntoView({ behavior: 'smooth', block: "start" });
-};
-
-
-  return (
-    <div className="Memefolio">
-      {isLoading && <LoadingModal />}
-        <header className="Memefolio-header">
-            <div className='Memefolio-text' > 
-              <h1>memefolio</h1>
-              <p>check your memecoin P&L easily with just a click.</p>
-              <div className="input-group">
-                <input
-                  type="text"
-                  placeholder="Wallet Address"
-                  value={walletAddress}
-                  onChange={(e) => setWalletAddress(e.target.value)}
-                />
-                <button onClick={fetchData} disabled={!buttonLogic}>{buttonText}</button>
-              </div>
-              <span>- sol change is calculated with buys and sells. <br></br> - airdrops are tokens that are sent from different wallets. <br></br> - especially developed for bonkbot users <br></br> - jupiter-raydium users may not get correct results <br></br> - Prices can differ because of high volatility, estimated value might be wrong <br></br> - there might be errors since this is early alpha.  </span>
-            </div>
-          </header>
-        <div
-         ref={walletRef}> 
-          {transactionsData && walletData ? (
-            <UserStatistics walletAddress={walletAddress} walletData={walletData} transactionsData={transactionsData} weeklyData={weeklyData}/>
-          ) : ( null
-          )}
-        </div>
-    </div>
-  );
-}
-
-export default Memefolio;
+*/

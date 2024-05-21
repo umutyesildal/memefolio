@@ -7,9 +7,7 @@ import WeeklyStatistics from '../widgets/weeklyStatistics';
 
 /// TODO: Change Transactions page
 
-const UserStatistics = ({walletAddress, walletData,transactionsData, weeklyData }) => {
-
-  console.log(transactionsData)
+const UserStatistics = ({walletAddress,transactionsData,generalData }) => {
 
   const [activeTab,setActiveTab] = useState('tab1');
 
@@ -17,22 +15,24 @@ const UserStatistics = ({walletAddress, walletData,transactionsData, weeklyData 
     switch (activeTab) {
       case 'tab1':
         return      <div className='all-statistics' >      
-        <Highlights transactionsData={transactionsData }/>
+        <Highlights generalData={generalData}/>
         <BestAndWorstPlays best={transactionsData['bestPlays']['best']} worst={transactionsData['bestPlays']['worst']} />
         <div className="statistics-grid">
-        {weeklyData.map((week, index) => (
+        {transactionsData.map((week, index) => (
           <WeeklyStatistics weeklyData={week} index={index}/>
         ))}
         </div>
       </div>;
       case 'tab2':
-        return<UserPortfolio walletAddress={walletAddress}  walletData={walletData} /> // Assuming you're using the Holders component for tab 2
+        return<UserPortfolio walletAddress={walletAddress}  
+      //  walletData={walletData}
+         /> 
       default:
         return     <div className='all-statistics' >      
-        <Highlights transactionsData={transactionsData }/>
-        <BestAndWorstPlays best={transactionsData['bestPlays']['best']} worst={transactionsData['bestPlays']['worst']} />
+        <Highlights transactionsData={generalData }/>
+        <BestAndWorstPlays best={generalData.bestPlays} worst={generalData.worstPlays} />
         <div className="statistics-grid">
-        {weeklyData.map((week, index) => (
+        {transactionsData.map((week, index) => (
           <WeeklyStatistics weeklyData={week} index={index}/>
         ))}
         </div>
@@ -50,7 +50,7 @@ const UserStatistics = ({walletAddress, walletData,transactionsData, weeklyData 
           holdings
         </button>
       </div>
-      <h1 >{"between " + transactionsData['data'].lastTxDate.substring(0,5)+  " - " + transactionsData['data'].firstTxDate.substring(0,5)}</h1> 
+      <h1 >{"between " + generalData.lastTxDate.substring(0,10)+  " - " + generalData.firstTxDate.substring(0,10)}</h1> 
       <h2  >{walletAddress}</h2> 
       {renderTabContent()}
     </div>
