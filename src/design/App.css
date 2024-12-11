@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #14181b;
+  height: 100vh;
 }
 
 nav {
@@ -14,13 +16,11 @@ nav {
   background-color: transparent;
   padding-top: 1vw;
   padding-bottom: 1vw;
-
 }
 
-nav img{
-width: 50px;
-margin-left: 20px;
-
+nav img {
+  width: 50px;
+  margin-left: 20px;
 }
 
 .tab-bar {
@@ -49,4 +49,59 @@ margin-left: 20px;
   background-color: #0098c3;
   color: #ffffff;
   border-color: #007bff;
+}
+
+.starter-input-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw;
+}
+
+.starter-input-group button {
+  font-family: "SpaceMono";
+  background-color: #fffa65;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: #4b4b4b;
+  font-size: 1rem;
+  font-style: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 25%;
+}
+.input-group button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.starter {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2vw;
+}
+
+.starter h1 {
+  font-family: "SpaceMonoBold";
+  font-weight: 300;
+  line-height: 125%;
+  color: #fffa65;
+  font-size: 6vw;
+  z-index: 1;
+  text-align: center;
+}
+
+.starter p {
+  font-family: "SpaceMono";
+  font-style: normal;
+  font-size: 1.5vw;
+  font-weight: 500;
+  line-height: 125%;
+  z-index: 1;
+  text-align: center;
+  color: #fffa65;
 }

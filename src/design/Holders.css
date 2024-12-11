@@ -1,47 +1,75 @@
 .holders{
+  background-color:  #14181b;
+  min-height: 100vh;
+  flex-direction: column;
+  display: flex;
   text-align: center;
-}
-
-
-.holders-logo {
-  height: 40vmin;
-  pointer-events: none;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
 }
 
 .holders .owners-table {
   width: 100%;
-  border-collapse: collapse;
   margin-top: 20px;
-  background-color: white;
-
+  height: 50vh;
+  margin-bottom: 20px;
+  color: #fffa65;
+  padding: 2vw;
+  boder-radius: 10px;
+  font-family: "SpaceMono";
 }
 
-.holders .owners-table th, .owners-table td {
-  border: 1px solid #ddd;
+.holders .owners-table th, .holders .owners-table td {
+  border: 1px solid #fffa65;
   padding: 8px;
   text-align: left;
+  border-radius: 10px;
+gap: 1vw;
 }
 
 .holders .owners-table th {
-  background-color: white;
+  background-color: black;
+  color: #fffa65;
+  padding: 12px; /* Increased padding for a better look */
+  border-radius: 8px; /* Rounded corners for header cells */
 }
-
 
 .holders .owners-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: #333; /* Darker shade for hover effect on rows */
+  color: #fff; /* Optional: change text color on hover for contrast */
+  border-radius: 8px; /* Optional: rounded corners for hovered rows */
 }
+
+/* Ensure that cells within hovered rows maintain consistent styling */
+.holders .owners-table tr:hover th, .holders .owners-table tr:hover td {
+  border: 1px solid #bbb; /* Optional: lighter border for hovered rows */
+}
+
 
 /* Add more styles as needed */
 
 
   .holders h1 {
-    color: white;
-
+    font-family: "SpaceMonoBold";
+    font-weight: 300;
+    line-height: 125%;
+    color: #fffa65;
+    font-size: 6vw;
+    z-index: 1;
+    text-align: center;
   }
 
   .holders p {
-    color: white;
-
+    font-family: "SpaceMono";
+    font-style: normal;
+    font-size: 1.5vw;
+    font-weight: 500;
+    line-height: 125%;
+    z-index: 1;
+    text-align: center;
+    width: 75%;
+    color: #fffa65;
   }
   
   .holders .owner-item {
@@ -53,9 +81,30 @@
   }
 
   .holders .owners-list .owners-button{
-    padding: 2vh;
+    flex-direction: row;
+    gap: 2vw;
+  }
 
+  .holders .owners-list p {
+    width: 100%;
+  }
 
+  .holders .owners-list .holders-token-img{
+    width: 100px;
+    height: 100px;
+  }
+
+  .holders .owners-list .owners-button button{
+    background-color: #fffa65;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: #4b4b4b;
+    font-size: 1rem;
+    font-style: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right:1vw;
   }
 
   .holders .owner-item span {
@@ -63,12 +112,12 @@
   }
   
   .holders button {
-    margin-left: 2vh;
-    background-color: #0098c3;
+    font-family: "SpaceMono";
+    background-color: #fffa65;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
-    color: rgb(255, 255, 255);
+    color: #4b4b4b;
     font-size: 1rem;
     font-style: bold;
     cursor: pointer;
@@ -81,7 +130,7 @@
   }
   
   .holders button:hover {
-    background-color: #3fbdf8; /* Button hover effect */
+    background-color: #fffa65; /* Button hover effect */
   }
 
   .holders .input{
